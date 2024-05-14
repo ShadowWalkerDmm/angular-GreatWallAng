@@ -1,0 +1,75 @@
+<!-- entete -->
+<div class="d-flex align-items-center justify-content-between">
+  <div class="fs-1">Les Users  - {{les_users.length}}</div>
+  <div class="d-flex">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_add_user">Ajouter User</button>
+  </div>
+</div>
+<!-- list -->
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+<th scope="col">firstName</th>
+<th scope="col">lastName</th>
+<th scope="col">email</th>
+<th scope="col">password</th>
+<th scope="col">phone</th>
+<th scope="col">relationship</th><th scope="col">actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let one_user of les_users">
+        <td>{{one_user.id}}</td>
+<td>{{one_user.firstName}}</td>
+<td>{{one_user.lastName}}</td>
+<td>{{one_user.email}}</td>
+<td>{{one_user.password}}</td>
+<td>{{one_user.phone}}</td>
+<td>{{one_user.relationship}}</td><td>
+  <div class="dropdown">
+    <button [disabled]="loading_delete_user" type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">{{loading_delete_user?"en cours ...":"actions"}}</button>
+    <div class="dropdown-menu">
+      <a (click)="on_click_edit(one_user)" class="dropdown-item" data-bs-toggle="modal"
+        data-bs-target="#modal_edit_user">
+        <i class="bx bx-edit-alt me-1"></i>
+        Modifier
+      </a>
+      <a class="dropdown-item" href="javascript:void(0);" (click)=delete_user({id_user:one_user.id_user})><i class="bx bx-trash me-1"></i>Supprimer</a>
+    </div>
+  </div>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- ajout -->
+<div class="modal fade" id="modal_add_user" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+          <div class="modal-header " data-bs-theme="dark">
+              <h1 class="modal-title fs-5">Ajouter User</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <app-add-user (cb_add_user)="after_add($event)"></app-add-user>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- modification -->
+<div class="modal fade" id="modal_edit_user" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header" data-bs-theme="dark">
+        <h1 class="modal-title fs-5">Modifier User</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="on_close_modal_edit()"></button>
+      </div>
+      <div class="modal-body">
+        <app-edit-user *ngIf="user_to_edit" (cb_edit_user)="after_edit($event)" [user_to_edit]="user_to_edit"></app-edit-user>
+      </div>
+    </div>
+  </div>
+</div>
+  

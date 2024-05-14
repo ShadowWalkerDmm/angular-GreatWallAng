@@ -1,0 +1,27 @@
+
+<form  [formGroup]="reactiveForm_edit_motionsensors " (ngSubmit)="onSubmit_edit_motionsensors ()" #form_edit_motionsensors ="ngForm" class="row">
+  
+<!-- state field avec un control de validite -->
+          <div class="form-group col-sm-6">
+          <label >state</label>
+          <input class="form-control" type="text"  formControlName="state"  placeholder="state"  [ngClass]="{ 'is-invalid': submitted && f.state.errors }"/>
+          <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+          <div *ngIf="f.state.errors.required"> state est obligatoire </div>
+          </div>
+          </div>  
+<!-- dateTime field avec un control de validite -->
+          <div class="form-group col-sm-6">
+          <label >dateTime</label>
+          <input class="form-control" type="text"  formControlName="dateTime"  placeholder="dateTime"  [ngClass]="{ 'is-invalid': submitted && f.dateTime.errors }"/>
+          <div *ngIf="submitted && f.dateTime.errors" class="invalid-feedback">
+          <div *ngIf="f.dateTime.errors.required"> dateTime est obligatoire </div>
+          </div>
+          </div>  
+</form>
+<!-- vous pouvez valider votre formulaire n'importe ou -->
+
+<div class="text-center m-2">
+    <button type="button" class="btn btn-primary m-2" [disabled]="loading_edit_motionsensors "
+        (click)="form_edit_motionsensors .ngSubmit.emit()">{{loading_edit_motionsensors ?"En cours ...":"Valider"}}</button>
+    <button class="btn btn-secondary m-2" type="reset" (click)="onReset_edit_motionsensors ()">Vider</button>
+</div>

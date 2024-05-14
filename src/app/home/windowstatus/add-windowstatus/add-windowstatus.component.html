@@ -1,0 +1,35 @@
+
+<form  [formGroup]="reactiveForm_add_windowstatus " (ngSubmit)="onSubmit_add_windowstatus ()" #form_add_windowstatus ="ngForm" class="row">
+  
+<!-- name field avec un control de validite -->
+          <div class="form-group col-sm-6">
+          <label >name</label>
+          <input class="form-control" type="text"  formControlName="name"  placeholder="name"  [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
+          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required"> name est obligatoire </div>
+          </div>
+          </div>  
+<!-- status field avec un control de validite -->
+          <div class="form-group col-sm-6">
+          <label >status</label>
+          <input class="form-control" type="text"  formControlName="status"  placeholder="status"  [ngClass]="{ 'is-invalid': submitted && f.status.errors }"/>
+          <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+          <div *ngIf="f.status.errors.required"> status est obligatoire </div>
+          </div>
+          </div>  
+<!-- dateTime field avec un control de validite -->
+          <div class="form-group col-sm-6">
+          <label >dateTime</label>
+          <input class="form-control" type="text"  formControlName="dateTime"  placeholder="dateTime"  [ngClass]="{ 'is-invalid': submitted && f.dateTime.errors }"/>
+          <div *ngIf="submitted && f.dateTime.errors" class="invalid-feedback">
+          <div *ngIf="f.dateTime.errors.required"> dateTime est obligatoire </div>
+          </div>
+          </div>  
+</form>
+<!-- vous pouvez valider votre formulaire n'importe ou -->
+
+<div class="text-center m-2">
+    <button type="button" class="btn btn-primary m-2" [disabled]="loading_add_windowstatus "
+        (click)="form_add_windowstatus .ngSubmit.emit()">{{loading_add_windowstatus ?"En cours ...":"Valider"}}</button>
+    <button class="btn btn-secondary m-2" type="reset" (click)="onReset_add_windowstatus ()">Vider</button>
+</div>

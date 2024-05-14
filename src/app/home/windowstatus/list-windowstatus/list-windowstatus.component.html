@@ -1,0 +1,69 @@
+<!-- entete -->
+<div class="d-flex align-items-center justify-content-between">
+  <div class="fs-1">Les Windowstatuss  - {{les_windowstatuss.length}}</div>
+  <div class="d-flex">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_add_windowstatus">Ajouter Windowstatus</button>
+  </div>
+</div>
+<!-- list -->
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+<th scope="col">name</th>
+<th scope="col">status</th>
+<th scope="col">dateTime</th><th scope="col">actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let one_windowstatus of les_windowstatuss">
+        <td>{{one_windowstatus.id}}</td>
+<td>{{one_windowstatus.name}}</td>
+<td>{{one_windowstatus.status}}</td>
+<td>{{one_windowstatus.dateTime}}</td><td>
+  <div class="dropdown">
+    <button [disabled]="loading_delete_windowstatus" type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">{{loading_delete_windowstatus?"en cours ...":"actions"}}</button>
+    <div class="dropdown-menu">
+      <a (click)="on_click_edit(one_windowstatus)" class="dropdown-item" data-bs-toggle="modal"
+        data-bs-target="#modal_edit_windowstatus">
+        <i class="bx bx-edit-alt me-1"></i>
+        Modifier
+      </a>
+      <a class="dropdown-item" href="javascript:void(0);" (click)=delete_windowstatus({id_windowstatus:one_windowstatus.id_windowstatus})><i class="bx bx-trash me-1"></i>Supprimer</a>
+    </div>
+  </div>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- ajout -->
+<div class="modal fade" id="modal_add_windowstatus" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+          <div class="modal-header " data-bs-theme="dark">
+              <h1 class="modal-title fs-5">Ajouter Windowstatus</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <app-add-windowstatus (cb_add_windowstatus)="after_add($event)"></app-add-windowstatus>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- modification -->
+<div class="modal fade" id="modal_edit_windowstatus" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header" data-bs-theme="dark">
+        <h1 class="modal-title fs-5">Modifier Windowstatus</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="on_close_modal_edit()"></button>
+      </div>
+      <div class="modal-body">
+        <app-edit-windowstatus *ngIf="windowstatus_to_edit" (cb_edit_windowstatus)="after_edit($event)" [windowstatus_to_edit]="windowstatus_to_edit"></app-edit-windowstatus>
+      </div>
+    </div>
+  </div>
+</div>
+  

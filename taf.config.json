@@ -1,0 +1,481 @@
+{
+    "projectName": "projet1.angular",
+    "decription": "Fichier de configuration de Taf",
+    "taf_base_url": "http:\/\/localhost\/memoireiot.taf\/",
+    "les_modules": [
+        {
+            "module": "home",
+            "les_tables": [
+                {
+                    "table": "admin",
+                    "description": [
+                        "id",
+                        "firstName",
+                        "lastName",
+                        "email",
+                        "phone",
+                        "password"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "admin",
+                        "cle_primaire": {
+                            "Field": "id",
+                            "Type": "int(11)",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": "cl\u00e9 primaire"
+                        },
+                        "les_based_table_name": [
+                            "admin"
+                        ],
+                        "les_referenced_table": [],
+                        "les_colonnes": [
+                            {
+                                "Field": "id",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": "cl\u00e9 primaire"
+                            },
+                            {
+                                "Field": "firstName",
+                                "Type": "varchar(155)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "lastName",
+                                "Type": "varchar(155)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "email",
+                                "Type": "varchar(155)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "phone",
+                                "Type": "varchar(155)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "password",
+                                "Type": "varchar(155)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "doorstatus",
+                    "description": [
+                        "id",
+                        "name",
+                        "state",
+                        "dateTime"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "doorstatus",
+                        "cle_primaire": {
+                            "Field": "id",
+                            "Type": "int(11)",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": "cl\u00e9 primaire"
+                        },
+                        "les_based_table_name": [
+                            "doorstatus"
+                        ],
+                        "les_referenced_table": [],
+                        "les_colonnes": [
+                            {
+                                "Field": "id",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": "cl\u00e9 primaire"
+                            },
+                            {
+                                "Field": "name",
+                                "Type": "varchar(155)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "state",
+                                "Type": "varchar(155)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "dateTime",
+                                "Type": "datetime",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "motionsensors",
+                    "description": [
+                        "id",
+                        "state",
+                        "dateTime"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "motionsensors",
+                        "cle_primaire": {
+                            "Field": "id",
+                            "Type": "int(11)",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": "cl\u00e9 primaire"
+                        },
+                        "les_based_table_name": [
+                            "motionsensors"
+                        ],
+                        "les_referenced_table": [],
+                        "les_colonnes": [
+                            {
+                                "Field": "id",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": "cl\u00e9 primaire"
+                            },
+                            {
+                                "Field": "state",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "dateTime",
+                                "Type": "datetime",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "user",
+                    "description": [
+                        "id",
+                        "firstName",
+                        "lastName",
+                        "email",
+                        "password",
+                        "phone",
+                        "relationship"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "user",
+                        "cle_primaire": {
+                            "Field": "id",
+                            "Type": "int(11)",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": "cl\u00e9 primaire"
+                        },
+                        "les_based_table_name": [
+                            "user"
+                        ],
+                        "les_referenced_table": [],
+                        "les_colonnes": [
+                            {
+                                "Field": "id",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": "cl\u00e9 primaire"
+                            },
+                            {
+                                "Field": "firstName",
+                                "Type": "varchar(150)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "lastName",
+                                "Type": "varchar(150)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "email",
+                                "Type": "varchar(150)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "password",
+                                "Type": "varchar(150)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "phone",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "relationship",
+                                "Type": "varchar(155)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "waterlevelsensors",
+                    "description": [
+                        "id",
+                        "name",
+                        "state",
+                        "dateTime"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "waterlevelsensors",
+                        "cle_primaire": {
+                            "Field": "id",
+                            "Type": "int(11)",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": "cl\u00e9 primaire"
+                        },
+                        "les_based_table_name": [
+                            "waterlevelsensors"
+                        ],
+                        "les_referenced_table": [],
+                        "les_colonnes": [
+                            {
+                                "Field": "id",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": "cl\u00e9 primaire"
+                            },
+                            {
+                                "Field": "name",
+                                "Type": "varchar(155)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "state",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "dateTime",
+                                "Type": "datetime",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "windowstatus",
+                    "description": [
+                        "id",
+                        "name",
+                        "status",
+                        "dateTime"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "windowstatus",
+                        "cle_primaire": {
+                            "Field": "id",
+                            "Type": "int(11)",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": "cl\u00e9 primaire"
+                        },
+                        "les_based_table_name": [
+                            "windowstatus"
+                        ],
+                        "les_referenced_table": [],
+                        "les_colonnes": [
+                            {
+                                "Field": "id",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": "cl\u00e9 primaire"
+                            },
+                            {
+                                "Field": "name",
+                                "Type": "varchar(155)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "status",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "dateTime",
+                                "Type": "datetime",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                }
+            ]
+        },
+        {
+            "module": "public",
+            "les_tables": [
+                {
+                    "table": "login",
+                    "description": [
+                        "login",
+                        "pwd"
+                    ],
+                    "les_types": [
+                        "login"
+                    ]
+                }
+            ]
+        }
+    ]
+}

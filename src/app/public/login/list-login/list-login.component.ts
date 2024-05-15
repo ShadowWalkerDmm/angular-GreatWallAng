@@ -48,6 +48,7 @@ pwd: ["", Validators.required]
           console.log("Opération effectuée avec succés sur la table login. Réponse= ", reponse);
           this.onReset_login_login()
           await this.api.save_on_local_storage("token", reponse.data)
+          let user_connected = this.api.token.
           //alert("Opération éffectuée avec succés")
           this.router.navigate(['/home'])
       } else {

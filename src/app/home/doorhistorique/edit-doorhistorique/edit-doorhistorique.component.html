@@ -1,0 +1,28 @@
+
+<form  [formGroup]="reactiveForm_edit_doorhistorique " (ngSubmit)="onSubmit_edit_doorhistorique ()" #form_edit_doorhistorique ="ngForm" class="row">
+  
+
+<!-- state field avec un control de validite -->
+          <div class="form-group col-sm-6">
+          <label >state</label>
+          <input class="form-control" type="text"  formControlName="state"  placeholder="state"  [ngClass]="{ 'is-invalid': submitted && f.state.errors }"/>
+          <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+          <div *ngIf="f.state.errors.required"> state est obligatoire </div>
+          </div>
+          </div>  
+<!-- updated_at field avec un control de validite -->
+          <div class="form-group col-sm-6">
+          <label >updated_at</label>
+          <input class="form-control" type="text"  formControlName="updated_at"  placeholder="updated_at"  [ngClass]="{ 'is-invalid': submitted && f.updated_at.errors }"/>
+          <div *ngIf="submitted && f.updated_at.errors" class="invalid-feedback">
+          <div *ngIf="f.updated_at.errors.required"> updated_at est obligatoire </div>
+          </div>
+          </div>  
+</form>
+<!-- vous pouvez valider votre formulaire n'importe ou -->
+
+<div class="text-center m-2">
+    <button type="button" class="btn btn-primary m-2" [disabled]="loading_edit_doorhistorique "
+        (click)="form_edit_doorhistorique .ngSubmit.emit()">{{loading_edit_doorhistorique ?"En cours ...":"Valider"}}</button>
+    <button class="btn btn-secondary m-2" type="reset" (click)="onReset_edit_doorhistorique ()">Vider</button>
+</div>

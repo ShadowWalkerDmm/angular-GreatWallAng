@@ -1,0 +1,65 @@
+<!-- entete -->
+<div class="d-flex align-items-center justify-content-between">
+  <div class="fs-1">Les Authoritys  - {{les_authoritys.length}}</div>
+  <div class="d-flex">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_add_authority">Ajouter Authority</button>
+  </div>
+</div>
+<!-- list -->
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">authority_id</th>
+<th scope="col">privileges</th><th scope="col">actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let one_authority of les_authoritys">
+        <td>{{one_authority.authority_id}}</td>
+<td>{{one_authority.privileges}}</td><td>
+  <div class="dropdown">
+    <button [disabled]="loading_delete_authority" type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">{{loading_delete_authority?"en cours ...":"actions"}}</button>
+    <div class="dropdown-menu">
+      <a (click)="on_click_edit(one_authority)" class="dropdown-item" data-bs-toggle="modal"
+        data-bs-target="#modal_edit_authority">
+        <i class="bx bx-edit-alt me-1"></i>
+        Modifier
+      </a>
+      <a class="dropdown-item" href="javascript:void(0);" (click)=delete_authority({id_authority:one_authority.id_authority})><i class="bx bx-trash me-1"></i>Supprimer</a>
+    </div>
+  </div>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- ajout -->
+<div class="modal fade" id="modal_add_authority" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+          <div class="modal-header " data-bs-theme="dark">
+              <h1 class="modal-title fs-5">Ajouter Authority</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <app-add-authority (cb_add_authority)="after_add($event)"></app-add-authority>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- modification -->
+<div class="modal fade" id="modal_edit_authority" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header" data-bs-theme="dark">
+        <h1 class="modal-title fs-5">Modifier Authority</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="on_close_modal_edit()"></button>
+      </div>
+      <div class="modal-body">
+        <app-edit-authority *ngIf="authority_to_edit" (cb_edit_authority)="after_edit($event)" [authority_to_edit]="authority_to_edit"></app-edit-authority>
+      </div>
+    </div>
+  </div>
+</div>
+  

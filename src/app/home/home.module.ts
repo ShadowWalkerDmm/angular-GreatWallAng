@@ -22,6 +22,12 @@ import { ListWaterlevelsensorsComponent } from './waterlevelsensors/list-waterle
 import { AddWindowstatusComponent } from './windowstatus/add-windowstatus/add-windowstatus.component';
 import { EditWindowstatusComponent } from './windowstatus/edit-windowstatus/edit-windowstatus.component';
 import { ListWindowstatusComponent } from './windowstatus/list-windowstatus/list-windowstatus.component';
+import { AddDoorhistoriqueComponent } from './doorhistorique/add-doorhistorique/add-doorhistorique.component';
+import { EditDoorhistoriqueComponent } from './doorhistorique/edit-doorhistorique/edit-doorhistorique.component';
+import { ListDoorhistoriqueComponent } from './doorhistorique/list-doorhistorique/list-doorhistorique.component';
+import { AddAuthorityComponent } from './authority/add-authority/add-authority.component';
+import { EditAuthorityComponent } from './authority/edit-authority/edit-authority.component';
+import { ListAuthorityComponent } from './authority/list-authority/list-authority.component';
   
   
   @NgModule({
@@ -44,7 +50,13 @@ import { ListWindowstatusComponent } from './windowstatus/list-windowstatus/list
     ListWaterlevelsensorsComponent,
     AddWindowstatusComponent,
     EditWindowstatusComponent,
-    ListWindowstatusComponent
+    ListWindowstatusComponent,
+    AddDoorhistoriqueComponent,
+    EditDoorhistoriqueComponent,
+    ListDoorhistoriqueComponent,
+    AddAuthorityComponent,
+    EditAuthorityComponent,
+    ListAuthorityComponent
   ],
     imports: [
       CommonModule,

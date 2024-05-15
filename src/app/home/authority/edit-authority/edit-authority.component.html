@@ -1,0 +1,19 @@
+
+<form  [formGroup]="reactiveForm_edit_authority " (ngSubmit)="onSubmit_edit_authority ()" #form_edit_authority ="ngForm" class="row">
+  
+<!-- privileges field avec un control de validite -->
+          <div class="form-group col-sm-6">
+          <label >privileges</label>
+          <input class="form-control" type="text"  formControlName="privileges"  placeholder="privileges"  [ngClass]="{ 'is-invalid': submitted && f.privileges.errors }"/>
+          <div *ngIf="submitted && f.privileges.errors" class="invalid-feedback">
+          <div *ngIf="f.privileges.errors.required"> privileges est obligatoire </div>
+          </div>
+          </div>  
+</form>
+<!-- vous pouvez valider votre formulaire n'importe ou -->
+
+<div class="text-center m-2">
+    <button type="button" class="btn btn-primary m-2" [disabled]="loading_edit_authority "
+        (click)="form_edit_authority .ngSubmit.emit()">{{loading_edit_authority ?"En cours ...":"Valider"}}</button>
+    <button class="btn btn-secondary m-2" type="reset" (click)="onReset_edit_authority ()">Vider</button>
+</div>

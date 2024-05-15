@@ -7,19 +7,15 @@
             "module": "home",
             "les_tables": [
                 {
-                    "table": "admin",
+                    "table": "authority",
                     "description": [
-                        "id",
-                        "firstName",
-                        "lastName",
-                        "email",
-                        "phone",
-                        "password"
+                        "authority_id",
+                        "privileges"
                     ],
                     "table_descriptions": {
-                        "table_name": "admin",
+                        "table_name": "authority",
                         "cle_primaire": {
-                            "Field": "id",
+                            "Field": "authority_id",
                             "Type": "int(11)",
                             "Null": "NO",
                             "Key": "PRI",
@@ -28,12 +24,12 @@
                             "explications": "cl\u00e9 primaire"
                         },
                         "les_based_table_name": [
-                            "admin"
+                            "authority"
                         ],
                         "les_referenced_table": [],
                         "les_colonnes": [
                             {
-                                "Field": "id",
+                                "Field": "authority_id",
                                 "Type": "int(11)",
                                 "Null": "NO",
                                 "Key": "PRI",
@@ -42,8 +38,68 @@
                                 "explications": "cl\u00e9 primaire"
                             },
                             {
-                                "Field": "firstName",
+                                "Field": "privileges",
                                 "Type": "varchar(155)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "doorhistorique",
+                    "description": [
+                        "idUser",
+                        "idDoor",
+                        "state",
+                        "updated_at"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "doorhistorique",
+                        "cle_primaire": {
+                            "Field": "idDoor",
+                            "Type": "int(11)",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "",
+                            "explications": "cl\u00e9 primaire"
+                        },
+                        "les_based_table_name": [
+                            "doorhistorique"
+                        ],
+                        "les_referenced_table": [],
+                        "les_colonnes": [
+                            {
+                                "Field": "idUser",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "cl\u00e9 primaire"
+                            },
+                            {
+                                "Field": "idDoor",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "cl\u00e9 primaire"
+                            },
+                            {
+                                "Field": "state",
+                                "Type": "varchar(110)",
                                 "Null": "NO",
                                 "Key": "",
                                 "Default": null,
@@ -51,38 +107,11 @@
                                 "explications": ""
                             },
                             {
-                                "Field": "lastName",
-                                "Type": "varchar(155)",
+                                "Field": "updated_at",
+                                "Type": "datetime",
                                 "Null": "NO",
                                 "Key": "",
-                                "Default": null,
-                                "Extra": "",
-                                "explications": ""
-                            },
-                            {
-                                "Field": "email",
-                                "Type": "varchar(155)",
-                                "Null": "NO",
-                                "Key": "",
-                                "Default": null,
-                                "Extra": "",
-                                "explications": ""
-                            },
-                            {
-                                "Field": "phone",
-                                "Type": "varchar(155)",
-                                "Null": "NO",
-                                "Key": "",
-                                "Default": null,
-                                "Extra": "",
-                                "explications": ""
-                            },
-                            {
-                                "Field": "password",
-                                "Type": "varchar(155)",
-                                "Null": "NO",
-                                "Key": "",
-                                "Default": null,
+                                "Default": "current_timestamp()",
                                 "Extra": "",
                                 "explications": ""
                             }
@@ -151,7 +180,7 @@
                                 "Type": "datetime",
                                 "Null": "NO",
                                 "Key": "",
-                                "Default": null,
+                                "Default": "current_timestamp()",
                                 "Extra": "",
                                 "explications": ""
                             }
@@ -198,7 +227,7 @@
                             },
                             {
                                 "Field": "state",
-                                "Type": "int(11)",
+                                "Type": "varchar(80)",
                                 "Null": "NO",
                                 "Key": "",
                                 "Default": null,
@@ -210,7 +239,7 @@
                                 "Type": "datetime",
                                 "Null": "NO",
                                 "Key": "",
-                                "Default": null,
+                                "Default": "current_timestamp()",
                                 "Extra": "",
                                 "explications": ""
                             }
@@ -232,7 +261,8 @@
                         "email",
                         "password",
                         "phone",
-                        "relationship"
+                        "relationship",
+                        "authority_id"
                     ],
                     "table_descriptions": {
                         "table_name": "user",
@@ -246,9 +276,12 @@
                             "explications": "cl\u00e9 primaire"
                         },
                         "les_based_table_name": [
-                            "user"
+                            "user",
+                            "authority"
                         ],
-                        "les_referenced_table": [],
+                        "les_referenced_table": [
+                            "authority"
+                        ],
                         "les_colonnes": [
                             {
                                 "Field": "id",
@@ -297,7 +330,7 @@
                             },
                             {
                                 "Field": "phone",
-                                "Type": "int(11)",
+                                "Type": "varchar(11)",
                                 "Null": "NO",
                                 "Key": "",
                                 "Default": null,
@@ -312,6 +345,59 @@
                                 "Default": null,
                                 "Extra": "",
                                 "explications": ""
+                            },
+                            {
+                                "Field": "authority_id",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "MUL",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "cl\u00e9 \u00e9trang\u00e8re li\u00e9e \u00e0 la colonne authority_id de la table authority",
+                                "table": {
+                                    "TABLE_NAME": "user",
+                                    "COLUMN_NAME": "authority_id",
+                                    "REFERENCED_TABLE_NAME": "authority",
+                                    "REFERENCED_COLUMN_NAME": "authority_id"
+                                },
+                                "table_existant": false,
+                                "referenced_table": {
+                                    "table_name": "authority",
+                                    "cle_primaire": {
+                                        "Field": "authority_id",
+                                        "Type": "int(11)",
+                                        "Null": "NO",
+                                        "Key": "PRI",
+                                        "Default": null,
+                                        "Extra": "auto_increment",
+                                        "explications": "cl\u00e9 primaire"
+                                    },
+                                    "les_based_table_name": [
+                                        "user",
+                                        "authority"
+                                    ],
+                                    "les_referenced_table": [],
+                                    "les_colonnes": [
+                                        {
+                                            "Field": "authority_id",
+                                            "Type": "int(11)",
+                                            "Null": "NO",
+                                            "Key": "PRI",
+                                            "Default": null,
+                                            "Extra": "auto_increment",
+                                            "explications": "cl\u00e9 primaire"
+                                        },
+                                        {
+                                            "Field": "privileges",
+                                            "Type": "varchar(155)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        }
+                                    ]
+                                }
                             }
                         ]
                     },
@@ -366,7 +452,7 @@
                             },
                             {
                                 "Field": "state",
-                                "Type": "int(11)",
+                                "Type": "varchar(80)",
                                 "Null": "NO",
                                 "Key": "",
                                 "Default": null,
@@ -378,7 +464,7 @@
                                 "Type": "datetime",
                                 "Null": "NO",
                                 "Key": "",
-                                "Default": null,
+                                "Default": "current_timestamp()",
                                 "Extra": "",
                                 "explications": ""
                             }
@@ -435,7 +521,7 @@
                             },
                             {
                                 "Field": "status",
-                                "Type": "int(11)",
+                                "Type": "varchar(80)",
                                 "Null": "NO",
                                 "Key": "",
                                 "Default": null,
@@ -447,7 +533,7 @@
                                 "Type": "datetime",
                                 "Null": "NO",
                                 "Key": "",
-                                "Default": null,
+                                "Default": "current_timestamp()",
                                 "Extra": "",
                                 "explications": ""
                             }

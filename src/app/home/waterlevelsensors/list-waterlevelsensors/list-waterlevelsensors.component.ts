@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ApiService } from '../../../service/api/api.service';
 @Component({
   selector: 'app-list-waterlevelsensors',
@@ -11,6 +11,8 @@ export class ListWaterlevelsensorsComponent {
   selected_waterlevelsensors: any = undefined
   waterlevelsensors_to_edit: any = undefined
   loading_delete_waterlevelsensors = false
+  @ViewChild('closeWaterLevelModal') closeWaterLevelModal!: ElementRef;
+  @ViewChild('closeEditWaterLevelModal') closeEditWaterLevelModal!: ElementRef;
   constructor(public api: ApiService,) {
 
   }
@@ -35,13 +37,17 @@ export class ListWaterlevelsensorsComponent {
 
   after_add(event: any) {
     if (event.status) {
+      this.closeWaterLevelModal.nativeElement.click();
       this.les_waterlevelsensorss.unshift(event.waterlevelsensors)
+      this.get_waterlevelsensors()
     } else {
 
     }
   }
   after_edit(params: any) {
+    this.closeEditWaterLevelModal.nativeElement.click();
     this.les_waterlevelsensorss[this.les_waterlevelsensorss.indexOf(this.waterlevelsensors_to_edit)]=params.new_data
+    this.get_waterlevelsensors()
   }
   voir_plus(one_waterlevelsensors: any) {
     this.selected_waterlevelsensors = one_waterlevelsensors

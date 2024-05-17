@@ -1,8 +1,9 @@
 <!-- entete -->
 <div class="d-flex align-items-center justify-content-between">
-  <div class="fs-1">Les Doorstatuss  - {{les_doorstatuss.length}}</div>
+  <div class="fs-1">Les Doorstatuss - {{les_doorstatuss.length}}</div>
   <div class="d-flex">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_add_doorstatus">Ajouter Doorstatus</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_add_doorstatus">Ajouter
+      Doorstatus</button>
   </div>
 </div>
 <!-- list -->
@@ -11,29 +12,66 @@
     <thead>
       <tr>
         <th scope="col">id</th>
-<th scope="col">name</th>
-<th scope="col">state</th>
-<th scope="col">dateTime</th><th scope="col">actions</th>
+        <th scope="col">Porte</th>
+        <th scope="col">name</th>
+        <th scope="col">state</th>
+        <th scope="col">dateTime</th>
+        <th scope="col">actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let one_doorstatus of les_doorstatuss">
         <td>{{one_doorstatus.id}}</td>
-<td>{{one_doorstatus.name}}</td>
-<td>{{one_doorstatus.state}}</td>
-<td>{{one_doorstatus.dateTime}}</td><td>
-  <div class="dropdown">
-    <button [disabled]="loading_delete_doorstatus" type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">{{loading_delete_doorstatus?"en cours ...":"actions"}}</button>
-    <div class="dropdown-menu">
-      <a (click)="on_click_edit(one_doorstatus)" class="dropdown-item" data-bs-toggle="modal"
-        data-bs-target="#modal_edit_doorstatus">
-        <i class="bx bx-edit-alt me-1"></i>
-        Modifier
-      </a>
-      <a class="dropdown-item" href="javascript:void(0);" (click)=delete_doorstatus({id_doorstatus:one_doorstatus.id_doorstatus})><i class="bx bx-trash me-1"></i>Supprimer</a>
-    </div>
-  </div>
-</td>
+        <td>
+          @if(one_doorstatus.name == "front door"){
+          <div class="frameDoor">
+            <div class="door door1 " style="float:left" [ngClass]="{'doorOpen1' : frontdoorOpen1 }">
+              <img src="../../../../assets/frontdoor.jpg">
+            </div>
+            <div class="door door2" style="float:right" [ngClass]="{'doorOpen2' : frontdoorOpen2}">
+              <img src="../../../../assets/frontdoor.jpg">
+            </div>
+          </div>
+          } @else{
+          <div class="frameDoor">
+            <div class="door door1 " style="float:left" [ngClass]="{'doorOpen1' : backdoorOpen1 }">
+              <img src="../../../../assets/backdoor.jpg">
+            </div>
+            <div class="door door2" style="float:right" [ngClass]="{'doorOpen2' : backdoorOpen2}">
+              <img src="../../../../assets/backdoor.jpg">
+            </div>
+          </div>
+          }
+        </td>
+        <td>{{one_doorstatus.name}}</td>
+        <td>{{one_doorstatus.state}}</td>
+        <td>{{one_doorstatus.dateTime}}</td>
+        <td>
+          <button (click)="on_click_edit(one_doorstatus)" class="click " data-bs-toggle="modal" data-bs-target="#modal_opened">
+            {{one_doorstatus.state == "opened"? "closed"  : "opened"}}
+          </button>
+          <!-- @if(one_doorstatus.state == "opened"){
+          <button (click)="on_click_edit(one_doorstatus)" class="click " data-bs-toggle="modal"
+            data-bs-target="#modal_opened">fermer</button>
+          } -->
+          <!-- @else{
+          <button (click)="on_click_edit(one_doorstatus)" class="click " data-bs-toggle="modal"
+            data-bs-target="#modal_opened">ouvrir</button>
+          } -->
+          <!-- <div class="dropdown">
+            <button [disabled]="loading_delete_doorstatus" type="button" class="btn p-0 dropdown-toggle hide-arrow"
+              data-bs-toggle="dropdown">{{loading_delete_doorstatus?"en cours ...":"actions"}}</button>
+            <div class="dropdown-menu">
+              <button (click)="on_click_edit(one_doorstatus)" class="dropdown-item" data-bs-toggle="modal"
+                data-bs-target="#modal_edit_doorstatus" #closeEditDoorModal>
+                <i class="bx bx-edit-alt me-1"></i>
+                Modifier
+              </button>
+              <a class="dropdown-item" href="javascript:void(0);" (click)=delete_doorstatus({id:one_doorstatus.id})><i
+                  class="bx bx-trash me-1"></i>Supprimer</a>
+            </div>
+          </div> -->
+        </td>
       </tr>
     </tbody>
   </table>
@@ -41,29 +79,65 @@
 <!-- ajout -->
 <div class="modal fade" id="modal_add_doorstatus" data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-          <div class="modal-header " data-bs-theme="dark">
-              <h1 class="modal-title fs-5">Ajouter Doorstatus</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <app-add-doorstatus (cb_add_doorstatus)="after_add($event)"></app-add-doorstatus>
-          </div>
-      </div>
-  </div>
-</div>
-<!-- modification -->
-<div class="modal fade" id="modal_edit_doorstatus" data-bs-backdrop="static">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
-      <div class="modal-header" data-bs-theme="dark">
-        <h1 class="modal-title fs-5">Modifier Doorstatus</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="on_close_modal_edit()"></button>
+      <div class="modal-header ">
+        <h1 class="modal-title fs-5">Ajouter Doorstatus</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #closeDoorModal></button>
       </div>
       <div class="modal-body">
-        <app-edit-doorstatus *ngIf="doorstatus_to_edit" (cb_edit_doorstatus)="after_edit($event)" [doorstatus_to_edit]="doorstatus_to_edit"></app-edit-doorstatus>
+        <app-add-doorstatus (cb_add_doorstatus)="after_add($event)"></app-add-doorstatus>
       </div>
     </div>
   </div>
 </div>
-  
+<!-- opened -->
+<div class="modal fade" id="modal_opened" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header ">
+        <h1 class="modal-title fs-5"> {{"Voulez-vous "}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #closeEditDoorModal></button>
+      </div>
+      <div class="modal-body">
+        <h2></h2>
+        <app-edit-doorstatus *ngIf="doorstatus_to_edit" (cb_edit_doorstatus)="after_edit($event)"
+          [doorstatus_to_edit]="doorstatus_to_edit" ></app-edit-doorstatus>
+        <!-- <app-add-doorhistorique *ngIf="doorstatus_to_edit" [idDoor]="doorstatus_to_edit.id" [state]="'opened'"
+          (cb_add_doorhistorique)="after_open($event)" /> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- closed -->
+<!-- <div class="modal fade" id="modal_closed" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header ">
+        <h1 class="modal-title fs-5"> Ouverture</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #closeEditDoorModal></button>
+      </div>
+      <div class="modal-body"> -->
+        <!-- <app-edit-doorstatus *ngIf="doorstatus_to_edit" (cb_edit_doorstatus)="after_edit($event)"
+          [doorstatus_to_edit]="doorstatus_to_edit" [state]="'closed'"></app-edit-doorstatus> -->
+        <!-- <app-add-doorhistorique *ngIf="doorstatus_to_edit" [idDoor]="doorstatus_to_edit.id" [state]="'closed'"
+          (cb_add_doorhistorique)="after_open($event)" /> -->
+      <!-- </div>
+    </div>
+  </div> -->
+<!-- </div> -->
+<!-- modification -->
+<!-- <div class="modal fade" id="modal_edit_doorstatus" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header" data-bs-theme="dark">
+        <h1 class="modal-title fs-5">Modifier Doorstatus</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="on_close_modal_edit()"></button>
+      </div>
+      <div class="modal-body">
+        <app-edit-doorstatus *ngIf="doorstatus_to_edit" (cb_edit_doorstatus)="after_edit($event)"
+          [doorstatus_to_edit]="doorstatus_to_edit"></app-edit-doorstatus>
+      </div>
+    </div>
+  </div>
+</div> -->

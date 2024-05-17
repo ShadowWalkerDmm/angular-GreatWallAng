@@ -1,30 +1,33 @@
+<form [formGroup]="reactiveForm_edit_doorstatus " (ngSubmit)="onSubmit_edit_doorstatus ()"
+    #form_edit_doorstatus="ngForm" class="row">
 
-<form  [formGroup]="reactiveForm_edit_doorstatus " (ngSubmit)="onSubmit_edit_doorstatus ()" #form_edit_doorstatus ="ngForm" class="row">
-  
-<!-- name field avec un control de validite -->
-          <div class="form-group col-sm-6">
-          <label >name</label>
-          <input class="form-control" type="text"  formControlName="name"  placeholder="name"  [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
-          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-          <div *ngIf="f.name.errors.required"> name est obligatoire </div>
-          </div>
-          </div>  
-<!-- state field avec un control de validite -->
-          <div class="form-group col-sm-6">
-          <label >state</label>
-          <input class="form-control" type="text"  formControlName="state"  placeholder="state"  [ngClass]="{ 'is-invalid': submitted && f.state.errors }"/>
-          <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
-          <div *ngIf="f.state.errors.required"> state est obligatoire </div>
-          </div>
-          </div>  
-<!-- dateTime field avec un control de validite -->
-          <div class="form-group col-sm-6">
-          <label >dateTime</label>
-          <input class="form-control" type="text"  formControlName="dateTime"  placeholder="dateTime"  [ngClass]="{ 'is-invalid': submitted && f.dateTime.errors }"/>
-          <div *ngIf="submitted && f.dateTime.errors" class="invalid-feedback">
-          <div *ngIf="f.dateTime.errors.required"> dateTime est obligatoire </div>
-          </div>
-          </div>  
+    <!-- name field avec un control de validite -->
+    <!-- <div class="form-group col-sm-6">
+        <label>name</label>
+        <input class="form-control" type="text" formControlName="name" placeholder="name"
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required"> name est obligatoire </div>
+        </div>
+    </div> -->
+    <!-- state field avec un control de validite -->
+    <!-- <div class="form-group col-sm-6">
+        <label>state</label>
+        <input class="form-control" type="text" formControlName="state" placeholder="state"
+            [ngClass]="{ 'is-invalid': submitted && f.state.errors }" />
+        <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+            <div *ngIf="f.state.errors.required"> state est obligatoire </div>
+        </div>
+    </div> -->
+    <!-- dateTime field avec un control de validite -->
+    <!-- <div class="form-group col-sm-6">
+        <label>dateTime</label>
+        <input class="form-control" type="text" formControlName="dateTime" placeholder="dateTime"
+            [ngClass]="{ 'is-invalid': submitted && f.dateTime.errors }" />
+        <div *ngIf="submitted && f.dateTime.errors" class="invalid-feedback">
+            <div *ngIf="f.dateTime.errors.required"> dateTime est obligatoire </div>
+        </div>
+    </div> -->
 </form>
 <!-- vous pouvez valider votre formulaire n'importe ou -->
 
@@ -33,3 +36,6 @@
         (click)="form_edit_doorstatus .ngSubmit.emit()">{{loading_edit_doorstatus ?"En cours ...":"Valider"}}</button>
     <button class="btn btn-secondary m-2" type="reset" (click)="onReset_edit_doorstatus ()">Vider</button>
 </div>
+
+
+<!-- <app-add-doorhistorique [idDoor]="doorstatus_to_edit.id" /> -->

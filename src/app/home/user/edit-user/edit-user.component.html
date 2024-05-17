@@ -1,54 +1,79 @@
+<form [formGroup]="reactiveForm_edit_user " (ngSubmit)="onSubmit_edit_user ()" #form_edit_user="ngForm" class="row">
 
-<form  [formGroup]="reactiveForm_edit_user " (ngSubmit)="onSubmit_edit_user ()" #form_edit_user ="ngForm" class="row">
-  
-<!-- firstName field avec un control de validite -->
-          <div class="form-group col-sm-6">
-          <label >firstName</label>
-          <input class="form-control" type="text"  formControlName="firstName"  placeholder="firstName"  [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"/>
-          <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-          <div *ngIf="f.firstName.errors.required"> firstName est obligatoire </div>
-          </div>
-          </div>  
-<!-- lastName field avec un control de validite -->
-          <div class="form-group col-sm-6">
-          <label >lastName</label>
-          <input class="form-control" type="text"  formControlName="lastName"  placeholder="lastName"  [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"/>
-          <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-          <div *ngIf="f.lastName.errors.required"> lastName est obligatoire </div>
-          </div>
-          </div>  
-<!-- email field avec un control de validite -->
-          <div class="form-group col-sm-6">
-          <label >email</label>
-          <input class="form-control" type="text"  formControlName="email"  placeholder="email"  [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
-          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-          <div *ngIf="f.email.errors.required"> email est obligatoire </div>
-          </div>
-          </div>  
-<!-- password field avec un control de validite -->
-          <div class="form-group col-sm-6">
-          <label >password</label>
-          <input class="form-control" type="text"  formControlName="password"  placeholder="password"  [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
-          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-          <div *ngIf="f.password.errors.required"> password est obligatoire </div>
-          </div>
-          </div>  
-<!-- phone field avec un control de validite -->
-          <div class="form-group col-sm-6">
-          <label >phone</label>
-          <input class="form-control" type="text"  formControlName="phone"  placeholder="phone"  [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"/>
-          <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-          <div *ngIf="f.phone.errors.required"> phone est obligatoire </div>
-          </div>
-          </div>  
-<!-- relationship field avec un control de validite -->
-          <div class="form-group col-sm-6">
-          <label >relationship</label>
-          <input class="form-control" type="text"  formControlName="relationship"  placeholder="relationship"  [ngClass]="{ 'is-invalid': submitted && f.relationship.errors }"/>
-          <div *ngIf="submitted && f.relationship.errors" class="invalid-feedback">
-          <div *ngIf="f.relationship.errors.required"> relationship est obligatoire </div>
-          </div>
-          </div>  
+    <!-- firstName field avec un control de validite -->
+    <!-- <div class="form-group col-sm-6">
+        <label>firstName</label>
+        <input class="form-control" type="text" formControlName="firstName" placeholder="firstName"
+            [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+            <div *ngIf="f.firstName.errors.required"> firstName est obligatoire </div>
+        </div>
+    </div> -->
+    <!-- lastName field avec un control de validite -->
+    <!-- <div class="form-group col-sm-6">
+        <label>lastName</label>
+        <input class="form-control" type="text" formControlName="lastName" placeholder="lastName"
+            [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+            <div *ngIf="f.lastName.errors.required"> lastName est obligatoire </div>
+        </div>
+    </div> -->
+    <!-- email field avec un control de validite -->
+    <!-- <div class="form-group col-sm-6">
+        <label>email</label>
+        <input class="form-control" type="text" formControlName="email" placeholder="email"
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required"> email est obligatoire </div>
+        </div>
+    </div> -->
+    <!-- password field avec un control de validite -->
+    <!-- <div class="form-group col-sm-6">
+        <label>password</label>
+        <input class="form-control" type="text" formControlName="password" placeholder="password"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required"> password est obligatoire </div>
+        </div>
+    </div> -->
+    <!-- phone field avec un control de validite -->
+    <!-- <div class="form-group col-sm-6">
+        <label>phone</label>
+        <input class="form-control" type="text" formControlName="phone" placeholder="phone"
+            [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+            <div *ngIf="f.phone.errors.required"> phone est obligatoire </div>
+        </div>
+    </div> -->
+    <!-- relationship field avec un control de validite -->
+    <!-- <div class="form-group col-sm-6">
+        <label>relationship</label>
+        <input class="form-control" type="text" formControlName="relationship" placeholder="relationship"
+            [ngClass]="{ 'is-invalid': submitted && f.relationship.errors }" />
+        <div *ngIf="submitted && f.relationship.errors" class="invalid-feedback">
+            <div *ngIf="f.relationship.errors.required"> relationship est obligatoire </div>
+        </div>
+    </div> -->
+
+    <div class="form-group col-sm-6">
+        <label>status</label>
+        <!-- <input class="form-control" type="text" formControlName="status" placeholder="status"
+            [ngClass]="{ 'is-invalid': submitted && f.status.errors }" /> -->
+            <select class="form-control category-select" id="exampleFormControlSelect1" formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+                <option value="actif">actif</option>
+                <option value="inactif">inactif</option>
+                <!-- <option>Modulator</option>
+                <option>Admin</option>
+                <option>User</option>
+                <option>Subscriber</option> -->
+              </select>
+        <!-- <select class="form-select" formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+        </select> -->
+        <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+            <div *ngIf="f.status.errors.required"> status est obligatoire </div>
+        </div>
+    </div>
+
 </form>
 <!-- vous pouvez valider votre formulaire n'importe ou -->
 

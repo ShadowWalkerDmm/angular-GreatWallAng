@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from '../../../service/api/api.service';
 @Component({
@@ -10,11 +10,14 @@ import { ApiService } from '../../../service/api/api.service';
 export class AddDoorhistoriqueComponent {
   @Output()
   cb_add_doorhistorique=new EventEmitter()
+  @Input() idDoor! : number
+  @Input() state! : string
   reactiveForm_add_doorhistorique !: FormGroup;
   submitted:boolean=false
   loading_add_doorhistorique :boolean=false
   form_details: any = {}
   loading_get_details_add_doorhistorique_form = false
+  
   constructor(private formBuilder: FormBuilder,public api:ApiService) { }
 
   ngOnInit(): void {
@@ -23,8 +26,9 @@ export class AddDoorhistoriqueComponent {
   }
   init_form() {
       this.reactiveForm_add_doorhistorique  = this.formBuilder.group({
-          state: ["", Validators.required],
-updated_at: ["", Validators.required]
+        idUser:[ this.api.token.user_connected.id],
+        idDoor:[this.idDoor],
+        state: [this.state],
       });
   }
 
@@ -39,7 +43,7 @@ updated_at: ["", Validators.required]
           return;
       }
       var doorhistorique =this.reactiveForm_add_doorhistorique .value
-      this.add_doorhistorique (doorhistorique )
+      //this.add_doorhistorique (doorhistorique )
   }
   // vider le formulaire
   onReset_add_doorhistorique () {

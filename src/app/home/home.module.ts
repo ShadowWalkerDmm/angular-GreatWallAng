@@ -4,9 +4,6 @@ import { NgModule } from '@angular/core';
   import { HomeRoutingModule } from './home-routing.module';
   import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { AddAdminComponent } from './admin/add-admin/add-admin.component';
-import { EditAdminComponent } from './admin/edit-admin/edit-admin.component';
-import { ListAdminComponent } from './admin/list-admin/list-admin.component';
 import { AddDoorstatusComponent } from './doorstatus/add-doorstatus/add-doorstatus.component';
 import { EditDoorstatusComponent } from './doorstatus/edit-doorstatus/edit-doorstatus.component';
 import { ListDoorstatusComponent } from './doorstatus/list-doorstatus/list-doorstatus.component';
@@ -33,9 +30,6 @@ import { ListAuthorityComponent } from './authority/list-authority/list-authorit
   @NgModule({
     declarations: [
     HomeComponent,
-    AddAdminComponent,
-    EditAdminComponent,
-    ListAdminComponent,
     AddDoorstatusComponent,
     EditDoorstatusComponent,
     ListDoorstatusComponent,

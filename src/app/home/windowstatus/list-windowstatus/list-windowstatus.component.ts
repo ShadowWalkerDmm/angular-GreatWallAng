@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ApiService } from '../../../service/api/api.service';
 @Component({
   selector: 'app-list-windowstatus',
@@ -11,6 +11,8 @@ export class ListWindowstatusComponent {
   selected_windowstatus: any = undefined
   windowstatus_to_edit: any = undefined
   loading_delete_windowstatus = false
+  @ViewChild('closeWindowsModal') closeWindowsModal!: ElementRef;
+  @ViewChild('closeEditWindowsModal') closeEditWindowsModal!: ElementRef;
   constructor(public api: ApiService,) {
 
   }
@@ -35,13 +37,17 @@ export class ListWindowstatusComponent {
 
   after_add(event: any) {
     if (event.status) {
+      this.closeWindowsModal.nativeElement.click();
       this.les_windowstatuss.unshift(event.windowstatus)
+      this.get_windowstatus()
     } else {
 
     }
   }
   after_edit(params: any) {
-    this.les_windowstatuss[this.les_windowstatuss.indexOf(this.windowstatus_to_edit)]=params.new_data
+    this.closeEditWindowsModal.nativeElement.click();
+    this.les_windowstatuss[this.les_windowstatuss.indexOf(this.windowstatus_to_edit)] = params.new_data
+    this.get_windowstatus()
   }
   voir_plus(one_windowstatus: any) {
     this.selected_windowstatus = one_windowstatus
@@ -49,27 +55,27 @@ export class ListWindowstatusComponent {
   on_click_edit(one_windowstatus: any) {
     this.windowstatus_to_edit = one_windowstatus
   }
-  on_close_modal_edit(){
-    this.windowstatus_to_edit=undefined
+  on_close_modal_edit() {
+    this.windowstatus_to_edit = undefined
   }
-  delete_windowstatus (windowstatus : any){
+  delete_windowstatus(windowstatus: any) {
     this.loading_delete_windowstatus = true;
-    this.api.taf_post("windowstatus/delete", windowstatus,(reponse: any)=>{
+    this.api.taf_post("windowstatus/delete", windowstatus, (reponse: any) => {
       //when success
-      if(reponse.status){
-        console.log("Opération effectuée avec succés sur la table windowstatus . Réponse = ",reponse)
+      if (reponse.status) {
+        console.log("Opération effectuée avec succés sur la table windowstatus . Réponse = ", reponse)
         this.get_windowstatus()
         alert("Opération effectuée avec succés")
-      }else{
-        console.log("L'opération sur la table windowstatus  a échoué. Réponse = ",reponse)
+      } else {
+        console.log("L'opération sur la table windowstatus  a échoué. Réponse = ", reponse)
         alert("L'opération a échouée")
       }
       this.loading_delete_windowstatus = false;
     },
-    (error: any)=>{
-      //when error
-      console.log("Erreur inconnue! ",error)
-      this.loading_delete_windowstatus = false;
-    })
+      (error: any) => {
+        //when error
+        console.log("Erreur inconnue! ", error)
+        this.loading_delete_windowstatus = false;
+      })
   }
 }

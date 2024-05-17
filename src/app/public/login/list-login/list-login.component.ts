@@ -11,6 +11,7 @@ export class ListLoginComponent {
   reactiveForm_login_login !: FormGroup;
   submitted:boolean=false
   loading_login_login :boolean=false
+  user_connected : any
   constructor(private formBuilder: FormBuilder,public api:ApiService,private router:Router) { }
 
   ngOnInit(): void {
@@ -47,10 +48,19 @@ pwd: ["", Validators.required]
       if (reponse.status) {
           console.log("Opération effectuée avec succés sur la table login. Réponse= ", reponse);
           this.onReset_login_login()
-          await this.api.save_on_local_storage("token", reponse.data)
-          let user_connected = this.api.token.
-          //alert("Opération éffectuée avec succés")
-          this.router.navigate(['/home'])
+          if(reponse.user["status"] == "actif"){
+            await this.api.save_on_local_storage("token", reponse.data)
+            //alert("Opération éffectuée avec succés")
+            if(reponse.user["authority_id"] == 1){
+              console.log("admin route",reponse.user["authority_id"])
+          } else{
+                console.log("user route", reponse.user["authority_id"])
+            }
+            this.router.navigate(['/home'])
+          } else {
+             alert("Votre compte est désactivé");
+          }
+
       } else {
           console.log("L'opération sur la table login a échoué. Réponse= ", reponse);
           alert("L'opération a echoué")

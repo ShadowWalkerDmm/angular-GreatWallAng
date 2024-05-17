@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ApiService } from '../../../service/api/api.service';
 @Component({
   selector: 'app-list-user',
@@ -11,6 +11,8 @@ export class ListUserComponent {
   selected_user: any = undefined
   user_to_edit: any = undefined
   loading_delete_user = false
+  @ViewChild('closeUserModal') closeUserModal!: ElementRef;
+  @ViewChild('closeEditUserModal') closeEditUserModal!: ElementRef;
   constructor(public api: ApiService,) {
 
   }
@@ -35,13 +37,17 @@ export class ListUserComponent {
 
   after_add(event: any) {
     if (event.status) {
+      this.closeUserModal.nativeElement.click();
       this.les_users.unshift(event.user)
+      this.get_user()
     } else {
 
     }
   }
   after_edit(params: any) {
+    this.closeEditUserModal.nativeElement.click();
     this.les_users[this.les_users.indexOf(this.user_to_edit)]=params.new_data
+    this.get_user()
   }
   voir_plus(one_user: any) {
     this.selected_user = one_user

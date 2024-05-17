@@ -9,7 +9,7 @@ export class HomeComponent {
   menu:any={
     titre:"Menu",
     items:[
-      {libelle:"Admin",path:"/home/admin"},
+      // {libelle:"Admin",path:"/home/admin"},
 {libelle:"Doorstatus",path:"/home/doorstatus"},
 {libelle:"Motionsensors",path:"/home/motionsensors"},
 {libelle:"User",path:"/home/user"},

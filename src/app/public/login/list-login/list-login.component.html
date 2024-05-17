@@ -1,29 +1,62 @@
-<div class="d-flex align-items-center vh-100">
+<div class="wrapper">
+  <div class="logo">
+    <img
+      src="https://www.freepnglogos.com/uploads/dragon-ball-png/goku-dragon-ball-character-with-blue-electricity-around-png-7.png"
+      alt="">
+  </div>
+  <div class="text-center mt-4 name">
+    GreatWall
+  </div>
   <div class="container">
-    <form  [formGroup]="reactiveForm_login_login " (ngSubmit)="onSubmit_login_login ()" #form_login_login ="ngForm" class="row">
+    <form [formGroup]="reactiveForm_login_login " (ngSubmit)="onSubmit_login_login ()" #form_login_login="ngForm"
+      class="p-3 mt-3">
       <!-- login field avec un control de validite -->
-    <div class="form-group col-sm-6">
-      <label >login</label>
-      <input class="form-control" type="text"  formControlName="login"  placeholder="login"  [ngClass]="{ 'is-invalid': submitted && f.login.errors }"/>
-      <div *ngIf="submitted && f.login.errors" class="invalid-feedback">
+      <div class="form-field d-flex align-items-center">
+        <!-- <label >login</label> -->
+        <span class="far fa-user"></span>
+        <input name="userName" id="userName" placeholder="Username" type="text" formControlName="login"
+          [ngClass]="{ 'is-invalid': submitted && f.login.errors }" />
+        <div *ngIf="submitted && f.login.errors" class="invalid-feedback">
           <div *ngIf="f.login.errors.required"> login est obligatoire </div>
+        </div>
       </div>
-    </div>  
-<!-- pwd field avec un control de validite -->
-    <div class="form-group col-sm-6">
-      <label >pwd</label>
-      <input class="form-control" type="text"  formControlName="pwd"  placeholder="pwd"  [ngClass]="{ 'is-invalid': submitted && f.pwd.errors }"/>
-      <div *ngIf="submitted && f.pwd.errors" class="invalid-feedback">
+      <!-- pwd field avec un control de validite -->
+      <div class="form-field d-flex align-items-center">
+        <!-- <label >pwd</label> -->
+        <span class="fas fa-key"></span>
+        <input name="password" id="pwd" placeholder="Password" type="password" formControlName="pwd"
+          [ngClass]="{ 'is-invalid': submitted && f.pwd.errors }" />
+        <div *ngIf="submitted && f.pwd.errors" class="invalid-feedback">
           <div *ngIf="f.pwd.errors.required"> pwd est obligatoire </div>
+        </div>
       </div>
-    </div>  
     </form>
     <!-- vous pouvez valider votre formulaire n'importe ou -->
 
     <div class="text-center m-2">
-        <button type="button" class="btn btn-primary m-2" [disabled]="loading_login_login "
-            (click)="form_login_login .ngSubmit.emit()">{{loading_login_login ?"En cours ...":"Valider"}}</button>
-        <button class="btn btn-secondary m-2" type="reset" (click)="onReset_login_login ()">Vider</button>
+      <button type="button" class="btn mt-3" [disabled]="loading_login_login "
+        (click)="form_login_login .ngSubmit.emit()">{{loading_login_login ?"En cours ...":"Valider"}}</button>
+      <button class="btn warning mt-3" type="reset" (click)="onReset_login_login ()">Vider</button>
     </div>
+    <!-- <div class="text-center fs-6">
+      <a routerLink="registration">Sign up</a>
+    </div> -->
   </div>
 </div>
+
+
+<!-- <form class="p-3 mt-3"> -->
+<!-- <div class="form-field d-flex align-items-center"> -->
+<!-- <span class="far fa-user"></span> -->
+<!-- <input type="text" name="userName" id="userName" placeholder="Username"> -->
+<!-- </div> -->
+<!-- <div class="form-field d-flex align-items-center"> -->
+<!-- <span class="fas fa-key"></span> -->
+<!-- <input type="password" name="password" id="pwd" placeholder="Password">
+      </div> -->
+<!-- <button class="btn mt-3">Login</button>
+  </form> -->
+<!-- <div class="text-center fs-6"> -->
+<!-- <a href="#">Forget password?</a> or <a href="#">Sign up</a> -->
+<!-- </div>
+</div> -->

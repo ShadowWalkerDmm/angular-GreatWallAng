@@ -1,13 +1,15 @@
-
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService } from '../../../service/api/api.service';
+import { ApiService } from '../../api.service';
+
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  selector: 'app-registation',
+  // standalone: true,
+  // imports: [],
+  templateUrl: './registation.component.html',
+  styleUrl: './registation.component.css'
 })
-export class AddUserComponent {
+export class RegistationComponent {
   @Output()
   cb_add_user = new EventEmitter()
   reactiveForm_add_user !: FormGroup;
@@ -18,7 +20,7 @@ export class AddUserComponent {
   constructor(private formBuilder: FormBuilder, public api: ApiService) { }
 
   ngOnInit(): void {
-    this.get_details_add_user_form()
+    // this.get_details_add_user_form()
     this.init_form()
   }
   init_form() {

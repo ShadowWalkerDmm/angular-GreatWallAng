@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import path from 'path';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,8 @@ export class PublicComponent {
   menu:any={
     titre:"Menu",
     items:[
-      {libelle:"Login",path:"/public/login"}
+      {libelle:"Login",path:"/public/login"},
+      {libelle:"Registation",path:"/public/registration"}
     ]
   }
 }

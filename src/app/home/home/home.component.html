@@ -1,52 +1,144 @@
-<!-- <div class="d-flex align-items-center justify-content-between">
-      <div class="fs-1">
-            Module home
-      </div>
-      <div class="d-flex">
-            <div class="dropdown">
-                  <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                        data-bs-toggle="dropdown">{{menu.titre}}</button>
-                  <div class="dropdown-menu">
-                        <a routerLinkActive="bg-primary text-white" *ngFor="let one_menu of menu.items"
-                              [routerLink]="[one_menu.path]" class="dropdown-item">
-                              {{one_menu.libelle}}
-                        </a>
+<!-- <div class="container"> -->
+<nav class="navbar fixed-top">
+      <div class="container-fluid">
+            <div class="btn btn-outline-primary" style="width: 100px; height: auto;">
+                  <img src="https://t3.ftcdn.net/jpg/00/30/06/74/360_F_30067437_WjYW9DE4cycTa2m0eDhCkinCV9tYw61J.jpg"
+                        alt="" (click)="onIconClick()" class="w-100 h-100">
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                  aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                  aria-labelledby="offcanvasNavbarLabel">
+                  <div class="offcanvas-header">
+                        <button (click)="on_click_edit(this.api.token.user_connected)" class="btn btn-outline-primary"
+                              style="width: 50%" type="button" data-bs-toggle="modal" data-bs-target="#modal_edit_user"
+                              #closeEditUserModal>
+                              <!-- <h1>{{this.api.token.current_user.id}}</h1> -->
+                              <i class="bi bi-person-lines-fill"></i>
+                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body d-flex flex-column">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                              @if (authority_id == 1) {
+                              <li class="nav-item">
+                                    <button class="btn btn-outline-primary m-1" type="button"
+                                          routerLinkActive="bg-primary text-white" [routerLink]="[menu.items[2].path]">
+                                          <i class="bi bi-people"></i>
+                                          Users
+                                    </button>
+                              </li>
+                              <li class="nav-item">
+                                    <button class="btn btn-outline-primary m-1" type="button"
+                                          routerLinkActive="bg-primary text-white" [routerLink]="[menu.items[0].path]">
+                                          <i class="bi bi-door-closed"></i>
+                                          Doors
+                                    </button>
+                              </li>
+                              <li class="nav-item">
+                                    <button class="btn btn-outline-primary m-1" type="button"
+                                          routerLinkActive="bg-primary text-white" [routerLink]="[menu.items[1].path]">
+                                          <i class="bi bi-person-walking"></i>
+                                          Motions
+                                    </button>
+                              </li>
+                              <li class="nav-item">
+                                    <button class="btn btn-outline-primary m-1" type="button"
+                                          routerLinkActive="bg-primary text-white" [routerLink]="[menu.items[3].path]">
+                                          <i class="bi bi-water"></i>
+                                          Water Level
+                                    </button>
+                              </li>
+                              <li class="nav-item">
+                                    <button class="btn btn-outline-primary m-1" type="button"
+                                          routerLinkActive="bg-primary text-white" [routerLink]="[menu.items[4].path]">
+                                          <i class="bi bi-shop-window"></i>
+                                          Windows
+                                    </button>
+                              </li>
+                              <li class="nav-item">
+                                    <button class="btn btn-outline-primary m-1" type="button"
+                                          routerLinkActive="bg-primary text-white" [routerLink]="[menu.items[5].path]">
+                                          <i class="bi bi-fire"></i>
+                                          Smoke
+                                    </button>
+                              </li>
+                              } @else {
+                              <li class="nav-item">
+                                    <button class="btn btn-outline-primary m-1" type="button"
+                                          routerLinkActive="bg-primary text-white" [routerLink]="[menu.items[0].path]">
+                                          <i class="bi bi-door-closed"></i>
+                                          Doors
+                                    </button>
+                              </li>
+                              <li class="nav-item">
+                                    <button class="btn btn-outline-primary m-1" type="button"
+                                          routerLinkActive="bg-primary text-white" [routerLink]="[menu.items[1].path]">
+                                          <i class="bi bi-person-walking"></i>
+                                          Motions
+                                    </button>
+                              </li>
+                              <li class="nav-item">
+                                    <button class="btn btn-outline-primary m-1" type="button"
+                                          routerLinkActive="bg-primary text-white" [routerLink]="[menu.items[3].path]">
+                                          <i class="bi bi-water"></i>
+                                          Water Level
+                                    </button>
+                              </li>
+                              <li class="nav-item">
+                                    <button class="btn btn-outline-primary m-1" type="button"
+                                          routerLinkActive="bg-primary text-white" [routerLink]="[menu.items[4].path]">
+                                          <i class="bi bi-shop-window"></i>
+                                          Windows
+                                    </button>
+                              </li>
+                              <li class="nav-item">
+                                    <button class="btn btn-outline-primary m-1" type="button"
+                                          routerLinkActive="bg-primary text-white" [routerLink]="[menu.items[5].path]">
+                                          <i class="bi bi-fire"></i>
+                                          Smoke
+                                    </button>
+                              </li>
+                              }
+                              <div class="mt-auto">
+                                    <button class="btn btn-outline-danger" style="width: 100%;" type="button"
+                                          (click)="api.deconnexion()">
+                                          Disconnect
+                                          <i class="bi bi-box-arrow-left"></i>
+                                    </button>
+                              </div>
+                        </ul>
                   </div>
             </div>
       </div>
-</div> -->
+</nav>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<div class="container">
-      <nav class="navbar bg-body-tertiary nav-fill">
-            <form class="container text-center">
-                  <button class="btn btn-outline-success me-2" type="button" routerLinkActive="bg-primary text-white"
-                        [routerLink]="[menu.items[2].path]">
-                        <i class="bi bi-people"></i>
-                        {{menu.items[2].libelle}}
-                  </button>
-                  <button class="btn btn-outline-success me-2" type="button" routerLinkActive="bg-primary text-white"
-                        [routerLink]="[menu.items[0].path]">
-                        <i class="bi bi-door-closed"></i>
-                        {{menu.items[0].libelle}}
-                  </button>
-                  <button class="btn btn-outline-success me-2" type="button" routerLinkActive="bg-primary text-white"
-                        [routerLink]="[menu.items[1].path]">
-                        <i class="bi bi-person-walking"></i>
-                        {{menu.items[1].libelle}}
-                  </button>
-                  <button class="btn btn-outline-success me-2" type="button" routerLinkActive="bg-primary text-white"
-                        [routerLink]="[menu.items[3].path]">
-                        <i class="bi bi-water"></i>
-                        {{menu.items[3].libelle}}
-                  </button>
-                  <button class="btn btn-outline-success me-2" type="button" routerLinkActive="bg-primary text-white"
-                        [routerLink]="[menu.items[4].path]">
-                        <i class="bi bi-shop-window"></i>
-                        {{menu.items[4].libelle}}
-                  </button>
-            </form>
-      </nav>
+<!-- alter user -->
+
+<div class="modal fade" id="modal_edit_user" data-bs-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                  <div class="modal-header">
+                        @if(this.api.token.user_connected.authority_id == 1){
+                              <h1 class="modal-title text-center">Admin</h1>
+                        }@else {
+                              <h1 class="modal-title text-center">User</h1>
+                        }
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                              (click)="on_close_modal_edit()"></button>
+                  </div>
+                  <div class="modal-body">
+                        <app-profile *ngIf="user_to_edit" (cb_edit_user)="after_edit($event)"
+                              [user_to_edit]="user_to_edit"></app-profile>
+                  </div>
+            </div>
+      </div>
+</div>
+
+<div class="container-sm">
       <router-outlet></router-outlet>
+
 </div>

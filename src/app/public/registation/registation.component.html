@@ -18,7 +18,7 @@
             <div class="form-field d-flex align-items-center">
                 <!-- <label>firstName</label> -->
                 <span class="far fa-user"></span>
-                <input name="firstName" id="firtsName" placeholder="Input your first name" type="text"
+                <input name="firstName" id="firtsName" placeholder="Input your first name" type="text" formControlName="firstName"
                     [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
                 <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
                     <div *ngIf="f.firstName.errors.required"> firstName est obligatoire </div>
@@ -28,7 +28,7 @@
             <div class="form-field d-flex align-items-center">
                 <!-- <label>lastName</label> -->
                 <span class="far fa-user"></span>
-                <input name="userName" id="userName" placeholder="Input your last name" type="text"
+                <input name="lastName" id="lastName" placeholder="Input your last name" type="text"
                     formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
                 <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
                     <div *ngIf="f.lastName.errors.required"> lastName est obligatoire </div>
@@ -82,5 +82,8 @@
     <div class="text-center m-2">
         <button type="button" class="btn mt-3" [disabled]="loading_add_user "
             (click)="form_add_user .ngSubmit.emit()">{{loading_add_user ?"En cours ...":"Valider"}}</button>
-            <button class="btn warning mt-3" type="reset" (click)="onReset_add_user ()">Vider</button>
+        <button class="btn warning mt-3" type="reset" (click)="onReset_add_user ()">Vider</button>
     </div>
+    <!-- <div class="text-center fs-6">
+        <a routerLink="login">Already have an account</a>
+    </div> -->

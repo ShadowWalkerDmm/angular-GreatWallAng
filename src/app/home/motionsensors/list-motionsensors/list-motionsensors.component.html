@@ -1,67 +1,93 @@
-<!-- entete -->
-<div class="d-flex align-items-center justify-content-between">
-  <div class="fs-1">Les Motionsensorss  - {{les_motionsensorss.length}}</div>
-  <div class="d-flex">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_add_motionsensors">Ajouter Motionsensors</button>
+<div class="container ">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="text-center">Motion Detection</h1>
+      <div [ngClass]="{'show': motionDetected}" class="alert alert-danger alert-motion" role="alert">
+        Motion detected!
+      </div>
+    </div>
   </div>
 </div>
+<div class="d-flex justify-content-end">
+  <button class="btn btn-outline-primary " (click)="show()">
+    <i class="fa-solid fa-clock-rotate-left"></i>
+  </button>
+</div>
+@if (show_historique) {
 <!-- list -->
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
+<div class="table-sm">
+  <table class="table table-bordered">
+    <thead class="table-dark">
       <tr>
-        <th scope="col">id</th>
-<th scope="col">state</th>
-<th scope="col">dateTime</th><th scope="col">actions</th>
+        <th scope="col">Number</th>
+        <th scope="col">state</th>
+        <th scope="col">dateTime</th>
+        <!-- <th scope="col">actions</th> -->
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let one_motionsensors of les_motionsensorss">
-        <td>{{one_motionsensors.id}}</td>
-<td>{{one_motionsensors.state}}</td>
-<td>{{one_motionsensors.dateTime}}</td><td>
-  <div class="dropdown">
-    <button [disabled]="loading_delete_motionsensors" type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">{{loading_delete_motionsensors?"en cours ...":"actions"}}</button>
-    <div class="dropdown-menu">
-      <a (click)="on_click_edit(one_motionsensors)" class="dropdown-item" data-bs-toggle="modal"
-        data-bs-target="#modal_edit_motionsensors">
-        <i class="bx bx-edit-alt me-1"></i>
-        Modifier
-      </a>
-      <a class="dropdown-item" href="javascript:void(0);" (click)=delete_motionsensors({id_motionsensors:one_motionsensors.id_motionsensors})><i class="bx bx-trash me-1"></i>Supprimer</a>
-    </div>
-  </div>
-</td>
+
+      <tr *ngFor="let one_motionsensors of les_motionsensorss; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{one_motionsensors.state}}</td>
+        <td>{{api.format_date(one_motionsensors.dateTime).shadow}}</td>
+        <!-- <td>{{api.format_date(one_motionsensors.dateTime).full_datetime}}</td> -->
+        <!-- <td>
+          <div class="dropdown">
+            <button [disabled]="loading_delete_motionsensors" type="button" class="btn p-0 dropdown-toggle hide-arrow"
+              data-bs-toggle="dropdown">{{loading_delete_motionsensors?"en cours ...":"actions"}}</button>
+            <div class="dropdown-menu">
+              <a (click)="on_click_edit(one_motionsensors)" class="dropdown-item" data-bs-toggle="modal"
+                data-bs-target="#modal_edit_motionsensors">
+                <i class="bx bx-edit-alt me-1"></i>
+                Modifier
+              </a>
+              <a class="dropdown-item" href="javascript:void(0);"
+                (click)=delete_motionsensors({id_motionsensors:one_motionsensors.id_motionsensors})><i
+                  class="bx bx-trash me-1"></i>Supprimer</a>
+            </div>
+          </div>
+        </td> -->
       </tr>
     </tbody>
   </table>
 </div>
-<!-- ajout -->
-<div class="modal fade" id="modal_add_motionsensors" data-bs-backdrop="static">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-          <div class="modal-header " data-bs-theme="dark">
-              <h1 class="modal-title fs-5">Ajouter Motionsensors</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <app-add-motionsensors (cb_add_motionsensors)="after_add($event)"></app-add-motionsensors>
-          </div>
-      </div>
+
+}
+<!-- entete -->
+<!-- <div class="d-flex align-items-center justify-content-between">
+  <div class="fs-1">Les Motionsensorss  - {{les_motionsensorss.length}}</div>
+  <div class="d-flex">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_add_motionsensors">Ajouter Motionsensors</button>
   </div>
-</div>
+</div> -->
+<!-- ajout -->
+<!-- <div class="modal fade" id="modal_add_motionsensors" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header " data-bs-theme="dark">
+        <h1 class="modal-title fs-5">Ajouter Motionsensors</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-add-motionsensors (cb_add_motionsensors)="after_add($event)"></app-add-motionsensors>
+      </div>
+    </div>
+  </div>
+</div> -->
 <!-- modification -->
-<div class="modal fade" id="modal_edit_motionsensors" data-bs-backdrop="static">
+<!-- <div class="modal fade" id="modal_edit_motionsensors" data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header" data-bs-theme="dark">
         <h1 class="modal-title fs-5">Modifier Motionsensors</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="on_close_modal_edit()"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="on_close_modal_edit()"></button>
       </div>
       <div class="modal-body">
-        <app-edit-motionsensors *ngIf="motionsensors_to_edit" (cb_edit_motionsensors)="after_edit($event)" [motionsensors_to_edit]="motionsensors_to_edit"></app-edit-motionsensors>
+        <app-edit-motionsensors *ngIf="motionsensors_to_edit" (cb_edit_motionsensors)="after_edit($event)"
+          [motionsensors_to_edit]="motionsensors_to_edit"></app-edit-motionsensors>
       </div>
     </div>
   </div>
-</div>
-  
+</div> -->

@@ -58,6 +58,7 @@
                 {
                     "table": "doorhistorique",
                     "description": [
+                        "id",
                         "idUser",
                         "idDoor",
                         "state",
@@ -66,36 +67,268 @@
                     "table_descriptions": {
                         "table_name": "doorhistorique",
                         "cle_primaire": {
-                            "Field": "idDoor",
+                            "Field": "id",
                             "Type": "int(11)",
                             "Null": "NO",
                             "Key": "PRI",
                             "Default": null,
-                            "Extra": "",
+                            "Extra": "auto_increment",
                             "explications": "cl\u00e9 primaire"
                         },
                         "les_based_table_name": [
-                            "doorhistorique"
+                            "doorhistorique",
+                            "user",
+                            "doorstatus"
                         ],
-                        "les_referenced_table": [],
+                        "les_referenced_table": [
+                            "user",
+                            "doorstatus"
+                        ],
                         "les_colonnes": [
                             {
-                                "Field": "idUser",
+                                "Field": "id",
                                 "Type": "int(11)",
                                 "Null": "NO",
                                 "Key": "PRI",
                                 "Default": null,
-                                "Extra": "",
+                                "Extra": "auto_increment",
                                 "explications": "cl\u00e9 primaire"
+                            },
+                            {
+                                "Field": "idUser",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "MUL",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "cl\u00e9 \u00e9trang\u00e8re li\u00e9e \u00e0 la colonne id de la table user",
+                                "table": {
+                                    "TABLE_NAME": "doorhistorique",
+                                    "COLUMN_NAME": "idUser",
+                                    "REFERENCED_TABLE_NAME": "user",
+                                    "REFERENCED_COLUMN_NAME": "id"
+                                },
+                                "table_existant": false,
+                                "referenced_table": {
+                                    "table_name": "user",
+                                    "cle_primaire": {
+                                        "Field": "id",
+                                        "Type": "int(11)",
+                                        "Null": "NO",
+                                        "Key": "PRI",
+                                        "Default": null,
+                                        "Extra": "auto_increment",
+                                        "explications": "cl\u00e9 primaire"
+                                    },
+                                    "les_based_table_name": [
+                                        "doorhistorique",
+                                        "user",
+                                        "authority"
+                                    ],
+                                    "les_referenced_table": [
+                                        "authority"
+                                    ],
+                                    "les_colonnes": [
+                                        {
+                                            "Field": "id",
+                                            "Type": "int(11)",
+                                            "Null": "NO",
+                                            "Key": "PRI",
+                                            "Default": null,
+                                            "Extra": "auto_increment",
+                                            "explications": "cl\u00e9 primaire"
+                                        },
+                                        {
+                                            "Field": "firstName",
+                                            "Type": "varchar(150)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "lastName",
+                                            "Type": "varchar(150)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "email",
+                                            "Type": "varchar(150)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "password",
+                                            "Type": "varchar(150)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "phone",
+                                            "Type": "varchar(11)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "relationship",
+                                            "Type": "varchar(155)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "authority_id",
+                                            "Type": "int(11)",
+                                            "Null": "NO",
+                                            "Key": "MUL",
+                                            "Default": "2",
+                                            "Extra": "",
+                                            "explications": "cl\u00e9 \u00e9trang\u00e8re li\u00e9e \u00e0 la colonne authority_id de la table authority",
+                                            "table": {
+                                                "TABLE_NAME": "user",
+                                                "COLUMN_NAME": "authority_id",
+                                                "REFERENCED_TABLE_NAME": "authority",
+                                                "REFERENCED_COLUMN_NAME": "authority_id"
+                                            },
+                                            "table_existant": false,
+                                            "referenced_table": {
+                                                "table_name": "authority",
+                                                "cle_primaire": {
+                                                    "Field": "authority_id",
+                                                    "Type": "int(11)",
+                                                    "Null": "NO",
+                                                    "Key": "PRI",
+                                                    "Default": null,
+                                                    "Extra": "auto_increment",
+                                                    "explications": "cl\u00e9 primaire"
+                                                },
+                                                "les_based_table_name": [
+                                                    "doorhistorique",
+                                                    "user",
+                                                    "authority"
+                                                ],
+                                                "les_referenced_table": [],
+                                                "les_colonnes": [
+                                                    {
+                                                        "Field": "authority_id",
+                                                        "Type": "int(11)",
+                                                        "Null": "NO",
+                                                        "Key": "PRI",
+                                                        "Default": null,
+                                                        "Extra": "auto_increment",
+                                                        "explications": "cl\u00e9 primaire"
+                                                    },
+                                                    {
+                                                        "Field": "privileges",
+                                                        "Type": "varchar(155)",
+                                                        "Null": "NO",
+                                                        "Key": "",
+                                                        "Default": null,
+                                                        "Extra": "",
+                                                        "explications": ""
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "Field": "status",
+                                            "Type": "varchar(155)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": "inactif",
+                                            "Extra": "",
+                                            "explications": ""
+                                        }
+                                    ]
+                                }
                             },
                             {
                                 "Field": "idDoor",
                                 "Type": "int(11)",
                                 "Null": "NO",
-                                "Key": "PRI",
+                                "Key": "MUL",
                                 "Default": null,
                                 "Extra": "",
-                                "explications": "cl\u00e9 primaire"
+                                "explications": "cl\u00e9 \u00e9trang\u00e8re li\u00e9e \u00e0 la colonne id de la table doorstatus",
+                                "table": {
+                                    "TABLE_NAME": "doorhistorique",
+                                    "COLUMN_NAME": "idDoor",
+                                    "REFERENCED_TABLE_NAME": "doorstatus",
+                                    "REFERENCED_COLUMN_NAME": "id"
+                                },
+                                "table_existant": false,
+                                "referenced_table": {
+                                    "table_name": "doorstatus",
+                                    "cle_primaire": {
+                                        "Field": "id",
+                                        "Type": "int(11)",
+                                        "Null": "NO",
+                                        "Key": "PRI",
+                                        "Default": null,
+                                        "Extra": "auto_increment",
+                                        "explications": "cl\u00e9 primaire"
+                                    },
+                                    "les_based_table_name": [
+                                        "doorhistorique",
+                                        "user",
+                                        "doorstatus"
+                                    ],
+                                    "les_referenced_table": [],
+                                    "les_colonnes": [
+                                        {
+                                            "Field": "id",
+                                            "Type": "int(11)",
+                                            "Null": "NO",
+                                            "Key": "PRI",
+                                            "Default": null,
+                                            "Extra": "auto_increment",
+                                            "explications": "cl\u00e9 primaire"
+                                        },
+                                        {
+                                            "Field": "name",
+                                            "Type": "varchar(155)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "state",
+                                            "Type": "varchar(155)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "dateTime",
+                                            "Type": "datetime",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": "current_timestamp()",
+                                            "Extra": "",
+                                            "explications": ""
+                                        }
+                                    ]
+                                }
                             },
                             {
                                 "Field": "state",
@@ -253,6 +486,65 @@
                     ]
                 },
                 {
+                    "table": "smokesensors",
+                    "description": [
+                        "id",
+                        "state",
+                        "updated_at"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "smokesensors",
+                        "cle_primaire": {
+                            "Field": "id",
+                            "Type": "int(11)",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": "cl\u00e9 primaire"
+                        },
+                        "les_based_table_name": [
+                            "smokesensors"
+                        ],
+                        "les_referenced_table": [],
+                        "les_colonnes": [
+                            {
+                                "Field": "id",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": "cl\u00e9 primaire"
+                            },
+                            {
+                                "Field": "state",
+                                "Type": "varchar(155)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "updated_at",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
                     "table": "user",
                     "description": [
                         "id",
@@ -262,7 +554,8 @@
                         "password",
                         "phone",
                         "relationship",
-                        "authority_id"
+                        "authority_id",
+                        "status"
                     ],
                     "table_descriptions": {
                         "table_name": "user",
@@ -351,7 +644,7 @@
                                 "Type": "int(11)",
                                 "Null": "NO",
                                 "Key": "MUL",
-                                "Default": null,
+                                "Default": "2",
                                 "Extra": "",
                                 "explications": "cl\u00e9 \u00e9trang\u00e8re li\u00e9e \u00e0 la colonne authority_id de la table authority",
                                 "table": {
@@ -398,6 +691,15 @@
                                         }
                                     ]
                                 }
+                            },
+                            {
+                                "Field": "status",
+                                "Type": "varchar(155)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": "inactif",
+                                "Extra": "",
+                                "explications": ""
                             }
                         ]
                     },

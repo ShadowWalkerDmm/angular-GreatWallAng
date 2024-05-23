@@ -1,14 +1,13 @@
-
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from '../../../service/api/api.service';
 
 @Component({
-  selector: 'app-edit-user',
-  templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.css']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
-export class EditUserComponent {
+export class ProfileComponent implements OnChanges {
   reactiveForm_edit_user !: FormGroup;
   submitted: boolean = false
   loading_edit_user: boolean = false
@@ -17,29 +16,55 @@ export class EditUserComponent {
   @Output()
   cb_edit_user = new EventEmitter()
   form_details: any = {}
+  current_user: any = {}
   loading_get_details_add_user_form = false
-  constructor(private formBuilder: FormBuilder, public api: ApiService) {
 
+  constructor(private formBuilder: FormBuilder, public api: ApiService) { }
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   this.door_statut = changes["doorstatus_to_edit"].currentValue
+  //   this.door_statut.state = this.door_statut.state == "opened" ? "closed" : "opened"
+  //   console.log("door_statut:",this.door_statut)
+  //   this.update_form(this.door_statut)
+  // }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['user_to_edit']) {
+      this.current_user = changes["user_to_edit"].currentValue
+      this.update_form(this.current_user)
+      // console.log("current user", this.current_user)
+    }
   }
+
   ngOnInit(): void {
-    this.get_details_add_user_form()
-    this.update_form(this.user_to_edit)
+    this.get_details_add_user_form();
+    this.current_user = this.user_to_edit
+    this.update_form(this.current_user);
   }
-  // mise à jour du formulaire
+
+  // Mise à jour du formulaire
   update_form(user_to_edit: any) {
     this.reactiveForm_edit_user = this.formBuilder.group({
+      firstName: [user_to_edit.firstName, Validators.required],
+      lastName: [user_to_edit.lastName, Validators.required],
+      email: [user_to_edit.email, Validators.required],
+      password: [user_to_edit.password, Validators.required],
+      phone: [user_to_edit.phone, Validators.required],
+      relationship: [user_to_edit.relationship, Validators.required],
       authority_id: [user_to_edit.authority_id, Validators.required],
       status: [user_to_edit.status, Validators.required]
     });
   }
 
-  // acces facile au champs de votre formulaire
-  get f(): any { return this.reactiveForm_edit_user.controls; }
-  // validation du formulaire
+  // Accès facile aux champs de votre formulaire
+  get f(): any {
+    return this.reactiveForm_edit_user.controls;
+  }
+
+  // Validation du formulaire
   onSubmit_edit_user() {
     this.submitted = true;
-    console.log(this.reactiveForm_edit_user.value)
-    // stop here if form is invalid
+
+    // Stop here if form is invalid
     if (this.reactiveForm_edit_user.invalid) {
       return;
     }
@@ -50,18 +75,21 @@ export class EditUserComponent {
       data: JSON.stringify(user)
     })
   }
-  // vider le formulaire
+
+  // Vider le formulaire
   onReset_edit_user() {
     this.submitted = false;
     this.reactiveForm_edit_user.reset();
   }
+
   edit_user(user: any) {
     this.loading_edit_user = true;
-    this.api.taf_post("user/edit", user, (reponse: any) => {
+    this.api.taf_post("user/update_user", user, (reponse: any) => {
       if (reponse.status) {
         this.cb_edit_user.emit({
           new_data: JSON.parse(user.data)
         })
+        this.api.deconnexion()
         console.log("Opération effectuée avec succés sur la table user. Réponse= ", reponse);
         this.onReset_edit_user()
         alert("Opération effectuée avec succés sur la table user")
@@ -74,6 +102,7 @@ export class EditUserComponent {
       this.loading_edit_user = false;
     })
   }
+
   get_details_add_user_form() {
     this.loading_get_details_add_user_form = true;
     this.api.taf_post("user/get_form_details", {}, (reponse: any) => {

@@ -37,7 +37,7 @@ export class ApiService {
         await localStorage.setItem(this.local_storage_prefixe + key, JSON.stringify(value));
     }
     async delete_from_local_storage(key: string) {
-        await localStorage.setItem(this.local_storage_prefixe + key, 'null');
+        await localStorage.setItem( key, 'null');
     }
 
     async get_token() {

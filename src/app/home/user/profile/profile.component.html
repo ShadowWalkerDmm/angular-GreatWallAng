@@ -1,0 +1,100 @@
+<form [formGroup]="reactiveForm_edit_user " (ngSubmit)="onSubmit_edit_user ()" #form_edit_user="ngForm" class="row">
+
+    <fieldset disabled="disabled">
+        <!-- firstName field avec un control de validite -->
+        <div class="input-group mb-3">
+            <span for="disabledTextInput" class="input-group-text" id="inputGroup-sizing-default"><strong>Prenom:
+                </strong></span>
+            <input type="text" class="form-control" id="disabledTextInput" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default" formControlName="firstName"
+                [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                <div *ngIf="f.firstName.errors.required"> firstName est obligatoire </div>
+            </div>
+        </div>
+        <!-- lastName field avec un control de validite -->
+        <div class="input-group mb-3">
+            <span for="disabledTextInput" class="input-group-text" id="inputGroup-sizing-default"><strong>Nom :
+                </strong></span>
+            <input type="text" class="form-control" id="disabledTextInput" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default" formControlName="firstName"
+                [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+            <!-- <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                <div *ngIf="f.lastName.errors.required"> lastName est obligatoire </div>
+            </div> -->
+        </div>
+        <!-- email field avec un control de validite -->
+        <div class="input-group mb-3">
+            <span for="disabledTextInput" class="input-group-text" id="inputGroup-sizing-default"><strong>Email :
+                </strong></span>
+            <input type="email" class="form-control" id="disabledTextInput" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default" formControlName="email"
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <!-- <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                <div *ngIf="f.lastName.errors.required"> lastName est obligatoire </div>
+            </div> -->
+        </div>
+        <!-- relationship -->
+        <div class="input-group mb-3">
+            <span for="disabledTextInput" class="input-group-text" id="inputGroup-sizing-default"><strong>Relation :
+            </strong></span>
+            <input type="text" class="form-control" id="disabledTextInput" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default" formControlName="relationship"
+            [ngClass]="{ 'is-invalid': submitted && f.relationship.errors }" />
+            <!-- <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                <div *ngIf="f.lastName.errors.required"> lastName est obligatoire </div>
+            </div> -->
+        </div>
+        
+        <!-- count status -->
+        <div class="input-group mb-3">
+            <span for="disabledTextInput" class="input-group-text" id="inputGroup-sizing-default"><strong>Account status :
+                </strong></span>
+            <input type="text" class="form-control" id="disabledTextInput" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default" formControlName="status"
+                [ngClass]="{ 'is-invalid': submitted && f.status.errors }" />
+            <!-- <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                <div *ngIf="f.lastName.errors.required"> lastName est obligatoire </div>
+            </div> -->
+        </div>
+        <!-- authority -->
+        <!-- <div class="input-group mb-3">
+            <span for="disabledTextInput" class="input-group-text" id="inputGroup-sizing-default"><strong>Niveau d'accès :
+                </strong></span>
+            <input type="text" class="form-control" id="disabledTextInput" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default" formControlName="authority_id"
+                [ngClass]="{ 'is-invalid': submitted && f.authority_id.errors }" /> -->
+            <!-- <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                <div *ngIf="f.lastName.errors.required"> lastName est obligatoire </div>
+            </div> -->
+        <!-- </div> -->
+        
+    </fieldset>
+    
+    <!-- password field avec un control de validite -->
+    <div class="input-group mb-3">
+        <span for="disabledTextInput" class="input-group-text" id="inputGroup-sizing-default"><strong>password</strong></span>
+        <input class="form-control" type="password" formControlName="password" placeholder="password" aria-label="Sizing example input"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required"> password est obligatoire </div>
+        </div>
+    </div>
+    <!-- phone field avec un control de validite -->
+    <div class="input-group mb-3">
+        <span for="disabledTextInput" class="input-group-text" id="inputGroup-sizing-default"><strong>Phone</strong></span>
+        <input class="form-control" type="tel" formControlName="phone" placeholder="phone" aria-label="Sizing example input"
+            [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+            <div *ngIf="f.phone.errors.required"> phone est obligatoire </div>
+        </div>
+    </div>
+
+</form>
+<!-- vous pouvez valider votre formulaire n'importe ou -->
+
+<div class="text-center m-2">
+    <button type="button" class="btn btn-primary m-2" [disabled]="loading_edit_user "
+        (click)="form_edit_user .ngSubmit.emit()">{{loading_edit_user ?"En cours ...":"Valider"}}</button>
+    <!-- <button class="btn btn-secondary m-2" type="reset" (click)="onReset_edit_user ()">Vider</button> -->
+</div>

@@ -25,6 +25,10 @@ import { ListDoorhistoriqueComponent } from './doorhistorique/list-doorhistoriqu
 import { AddAuthorityComponent } from './authority/add-authority/add-authority.component';
 import { EditAuthorityComponent } from './authority/edit-authority/edit-authority.component';
 import { ListAuthorityComponent } from './authority/list-authority/list-authority.component';
+import { AddSmokesensorsComponent } from './smokesensors/add-smokesensors/add-smokesensors.component';
+import { EditSmokesensorsComponent } from './smokesensors/edit-smokesensors/edit-smokesensors.component';
+import { ListSmokesensorsComponent } from './smokesensors/list-smokesensors/list-smokesensors.component';
+import { ProfileComponent } from './user/profile/profile.component';
   
   
   @NgModule({
@@ -50,7 +54,11 @@ import { ListAuthorityComponent } from './authority/list-authority/list-authorit
     ListDoorhistoriqueComponent,
     AddAuthorityComponent,
     EditAuthorityComponent,
-    ListAuthorityComponent
+    ListAuthorityComponent,
+    AddSmokesensorsComponent,
+    EditSmokesensorsComponent,
+    ListSmokesensorsComponent,
+    ProfileComponent
   ],
     imports: [
       CommonModule,

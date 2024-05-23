@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import moment from 'moment';
 
 
 @Injectable({
@@ -23,7 +24,7 @@ export class ApiService {
     is_expired: null,
     date_expiration: null
   }
-  
+
   constructor(private http: HttpClient, private route: Router) { }
   // sauvegardes
   async get_from_local_storage(key: string): Promise<any> {
@@ -91,7 +92,7 @@ export class ApiService {
   }
   async taf_post_login(path: string, data_to_send: any, on_success: Function, on_error: Function) {
     let api_url = this.taf_base_url + path;
-    
+
     this.http.post(api_url, data_to_send).subscribe(
       (reponse: any) => {// on success
         on_success(reponse)
@@ -128,6 +129,29 @@ export class ApiService {
   on_token_expire() {
     alert("Votre session s'est expiré! Veuillez vous connecter à nouveau")
     this.delete_from_local_storage("token")
+    this.route.navigate(['/public/login'])
+  }
+
+  format_date(date_string: string) {
+    return {
+      full: moment(date_string).locale("fr").format("dddd Do MMMM YYYY"),// 27 février 2023
+      jma: moment(date_string).locale("fr").format("Do MMMM YYYY"),// jeudi ...
+      jma2: moment(date_string).locale("fr").format("DD-MM-YYYY"),// 01-11-2023
+      jma3: moment(date_string).locale("fr").format("YYYY-MM-DD"),// 2023-10-21
+      full_datetime: moment(date_string).locale("fr").format("dddd Do MMMM YYYY à HH:mm"),// 27 février 2023
+      shadow: moment(date_string, "YYYYMMDD").fromNow(),
+    }
+  }
+  format_current_date() {
+    return {
+      full: moment().locale("fr").format("dddd Do MMMM YYYY"),// 27 février 2023
+      jma: moment().locale("fr").format("Do MMMM YYYY"),// jeudi ...
+      jma2: moment().locale("fr").format("DD-MM-YYYY"),// 01-11-2023
+      full_datetime: moment().locale("fr").format("dddd Do MMMM YYYY à HH:mm"),// 27 février 2023
+    }
+  }
+  deconnexion() {
+    this.delete_from_local_storage('token')
     this.route.navigate(['/public/login'])
   }
 }

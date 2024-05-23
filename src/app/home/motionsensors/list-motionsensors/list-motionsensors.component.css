@@ -1,0 +1,20 @@
+.alert-motion {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    display: none;
+  }
+  
+  .alert-motion.show {
+    display: block;
+    animation: fadeInOut 2s linear;
+  }
+  
+  @keyframes fadeInOut {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  

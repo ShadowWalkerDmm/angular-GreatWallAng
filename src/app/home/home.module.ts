@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
   import { CommonModule } from '@angular/common';
   
   import { HomeRoutingModule } from './home-routing.module';
-  import { ReactiveFormsModule } from '@angular/forms';
+  import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { AddDoorstatusComponent } from './doorstatus/add-doorstatus/add-doorstatus.component';
 import { EditDoorstatusComponent } from './doorstatus/edit-doorstatus/edit-doorstatus.component';
@@ -63,7 +63,8 @@ import { ProfileComponent } from './user/profile/profile.component';
     imports: [
       CommonModule,
       HomeRoutingModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      FormsModule
     ]
   })
   export class HomeModule { }

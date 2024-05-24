@@ -10,7 +10,8 @@ import moment from 'moment';
 })
 export class ApiService {
   local_storage_prefixe = "angular-GreatWallAng";
-  taf_base_url = "http://localhost/memoireiot.taf/";
+  // taf_base_url = "http://localhost/memoireiot.taf/";
+  taf_base_url = "https://shadonet.alwaysdata.net/memoireiot.taf/";
 
   network: any = {
     token: undefined,
@@ -140,6 +141,8 @@ export class ApiService {
       jma3: moment(date_string).locale("fr").format("YYYY-MM-DD"),// 2023-10-21
       full_datetime: moment(date_string).locale("fr").format("dddd Do MMMM YYYY à HH:mm"),// 27 février 2023
       shadow: moment(date_string, "YYYYMMDD").fromNow(),
+      shadow02: moment(date_string, "YYYMMDD").calendar(), 
+      temps: moment().format('LT'),//15:00
     }
   }
   format_current_date() {
@@ -148,6 +151,7 @@ export class ApiService {
       jma: moment().locale("fr").format("Do MMMM YYYY"),// jeudi ...
       jma2: moment().locale("fr").format("DD-MM-YYYY"),// 01-11-2023
       full_datetime: moment().locale("fr").format("dddd Do MMMM YYYY à HH:mm"),// 27 février 2023
+      time: moment().format('LT'),//15:00
     }
   }
   deconnexion() {

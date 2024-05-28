@@ -1,9 +1,12 @@
-<div class="container ">
+<div class="container mt-5">
   <div class="row">
     <div class="col-12">
       <h1 class="text-center">Motion Detection</h1>
-      <div [ngClass]="{'show': motionDetected}" class="alert alert-danger alert-motion" role="alert">
+      <div [ngClass]="{'show': motionDetected, 'd-none': !motionDetected}"
+        class="alert alert-danger alert-dismissible fade draggable-alert" role="alert" draggable="true"
+        (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
         Motion detected!
+        <button type="button" class="btn-close" aria-label="Close" (click)="motionDetected = false"></button>
       </div>
     </div>
   </div>
@@ -30,64 +33,65 @@
       <tr *ngFor="let one_motionsensors of les_motionsensorss; let i = index">
         <td>{{i+1}}</td>
         <td>{{one_motionsensors.state}}</td>
-        <td>{{api.format_date(one_motionsensors.dateTime).shadow}}</td>
+        <td>{{api.format_date(one_motionsensors.dateTime).full_datetime}}</td>
         <!-- <td>{{api.format_date(one_motionsensors.dateTime).full_datetime}}</td> -->
-        <!-- <td>
-          <div class="dropdown">
-            <button [disabled]="loading_delete_motionsensors" type="button" class="btn p-0 dropdown-toggle hide-arrow"
-              data-bs-toggle="dropdown">{{loading_delete_motionsensors?"en cours ...":"actions"}}</button>
-            <div class="dropdown-menu">
-              <a (click)="on_click_edit(one_motionsensors)" class="dropdown-item" data-bs-toggle="modal"
-                data-bs-target="#modal_edit_motionsensors">
-                <i class="bx bx-edit-alt me-1"></i>
-                Modifier
-              </a>
-              <a class="dropdown-item" href="javascript:void(0);"
-                (click)=delete_motionsensors({id_motionsensors:one_motionsensors.id_motionsensors})><i
-                  class="bx bx-trash me-1"></i>Supprimer</a>
-            </div>
-          </div>
-        </td> -->
       </tr>
     </tbody>
   </table>
 </div>
-
 }
-<!-- entete -->
-<!-- <div class="d-flex align-items-center justify-content-between">
-  <div class="fs-1">Les Motionsensorss  - {{les_motionsensorss.length}}</div>
-  <div class="d-flex">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_add_motionsensors">Ajouter Motionsensors</button>
-  </div>
-</div> -->
-<!-- ajout -->
-<!-- <div class="modal fade" id="modal_add_motionsensors" data-bs-backdrop="static">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header " data-bs-theme="dark">
-        <h1 class="modal-title fs-5">Ajouter Motionsensors</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <app-add-motionsensors (cb_add_motionsensors)="after_add($event)"></app-add-motionsensors>
+
+<div class="container mb-3">
+  <div class="row g-2">
+    <!-- states -->
+    <div class="col-md">
+      <div class="form-floating">
+        <select class="form-select" id="floatingSelectGrid" [(ngModel)]="filterCriteria.states">
+          <option value="">All</option>
+          <option value="Motion detected!">Motion detected</option>
+          <option value="Motion stopped!">Motion stopped</option>
+        </select>
+        <label for="floatingSelectGrid">States</label>
       </div>
     </div>
-  </div>
-</div> -->
-<!-- modification -->
-<!-- <div class="modal fade" id="modal_edit_motionsensors" data-bs-backdrop="static">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header" data-bs-theme="dark">
-        <h1 class="modal-title fs-5">Modifier Motionsensors</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-          (click)="on_close_modal_edit()"></button>
-      </div>
-      <div class="modal-body">
-        <app-edit-motionsensors *ngIf="motionsensors_to_edit" (cb_edit_motionsensors)="after_edit($event)"
-          [motionsensors_to_edit]="motionsensors_to_edit"></app-edit-motionsensors>
+    <!-- Date/Time from -->
+    <div class="col-md">
+      <div class="form-floating">
+        <input [(ngModel)]="filterCriteria.dateFrom" type="datetime-local" class="form-control"
+          id="floatingInputGrid">
+        <label for="floatingInputGrid">Date/Time De</label>
       </div>
     </div>
+    <!-- Date/time to -->
+    <div class="col-md">
+      <div class="form-floating">
+        <input [(ngModel)]="filterCriteria.dateTo" type="datetime-local" class="form-control"
+          id="floatingInputGrid">
+        <label for="floatingInputGrid">Date/Time A</label>
+      </div>
+    </div>
+    <!-- button -->
+    <button class="btn btn-outline-success" (click)="filterData()">Filter</button>
   </div>
-</div> -->
+</div>
+<!-- display of historique -->
+<div style="max-height: 400px; overflow-y: auto;">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Num</th>
+        <th scope="col">State</th>
+        <th scope="col">Date/time</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (motion of filteredData; track $index) {
+      <tr>
+        <td>{{motion.id}}</td>
+        <td>{{motion.state}}</td>
+        <td>{{api.format_date(motion.dateTime).full_datetime}}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

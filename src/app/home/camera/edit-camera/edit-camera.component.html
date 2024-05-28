@@ -1,0 +1,38 @@
+<form [formGroup]="reactiveForm_edit_camera " (ngSubmit)="onSubmit_edit_camera ()" #form_edit_camera="ngForm"
+    class="row">
+
+    <!-- name field avec un control de validite -->
+    <div class="form-group col-sm-6">
+        <label>name</label>
+        <input class="form-control" type="text" formControlName="name" placeholder="name"
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required"> name est obligatoire </div>
+        </div>
+    </div>
+    <!-- link field avec un control de validite -->
+    <div class="form-group col-sm-6">
+        <label>link</label>
+        <input class="form-control" type="url" formControlName="link" placeholder="link"
+            [ngClass]="{ 'is-invalid': submitted && f.link.errors }" />
+        <div *ngIf="submitted && f.link.errors" class="invalid-feedback">
+            <div *ngIf="f.link.errors.required"> link est obligatoire </div>
+        </div>
+    </div>
+    <!-- added_at field avec un control de validite -->
+    <!-- <div class="form-group col-sm-6">
+        <label>added_at</label>
+        <input class="form-control" type="text" formControlName="added_at" placeholder="added_at"
+            [ngClass]="{ 'is-invalid': submitted && f.added_at.errors }" />
+        <div *ngIf="submitted && f.added_at.errors" class="invalid-feedback">
+            <div *ngIf="f.added_at.errors.required"> added_at est obligatoire </div>
+        </div>
+    </div> -->
+</form>
+<!-- vous pouvez valider votre formulaire n'importe ou -->
+
+<div class="text-center m-2">
+    <button type="button" class="btn btn-primary m-2" [disabled]="loading_edit_camera "
+        (click)="form_edit_camera .ngSubmit.emit()">{{loading_edit_camera ?"En cours ...":"Valider"}}</button>
+    <button class="btn btn-secondary m-2" type="reset" (click)="onReset_edit_camera ()">Vider</button>
+</div>

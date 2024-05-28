@@ -5,6 +5,10 @@
     <table class="table table-bordered caption-top">
       <caption>
         <h1 class="mt-5"><strong>GESTION DES PROTES</strong></h1>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button class="btn btn-outline-primary" data-bs-toggle="modal"
+            data-bs-target="#modal_add_doorstatus">Ajout</button>
+        </div>
       </caption>
       <thead class="table-dark">
         <tr>
@@ -12,6 +16,7 @@
           <th scope="col">name</th>
           <th scope="col">state</th>
           <!-- <th scope="col">dateTime</th> -->
+          <th scope="col">change state</th>
           <th scope="col">actions</th>
         </tr>
       </thead>
@@ -35,6 +40,10 @@
               data-bs-target="#modal_opened">
               {{one_doorstatus.state == "opened"? "closed" : "opened"}}
             </button>
+          </td>
+          <td class="d-grid gap-2 col-6 mx-auto">
+            <button class="btn btn-outline-danger" href="javascript:void(0);" (click)=delete_doorstatus({id:one_doorstatus.id})><i
+                class="bx bx-trash me-1"></i>Supprimer</button>
           </td>
         </tr>
       </tbody>
@@ -69,7 +78,7 @@
           <div class="form-floating">
             <input [(ngModel)]="filterCriteria.dateFrom" type="datetime-local" class="form-control"
               id="floatingInputGrid">
-            <label for="floatingInputGrid">Date/Time From</label>
+            <label for="floatingInputGrid">Date/Time De</label>
           </div>
         </div>
         <!-- Date/time to -->
@@ -77,7 +86,7 @@
           <div class="form-floating">
             <input [(ngModel)]="filterCriteria.dateTo" type="datetime-local" class="form-control"
               id="floatingInputGrid">
-            <label for="floatingInputGrid">Date/Time TO</label>
+            <label for="floatingInputGrid">Date/Time A</label>
           </div>
         </div>
         <!-- button -->
@@ -103,7 +112,7 @@
             <td>{{door.firstName}}</td>
             <td>{{door.name}}</td>
             <td>{{door.state}}</td>
-            <td>({{api.format_date(door.updated_at).full_datetime}})</td>
+            <td>{{api.format_date(door.updated_at).full_datetime}}</td>
           </tr>
           }
         </tbody>

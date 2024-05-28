@@ -1,7 +1,7 @@
 {
     "projectName": "projet1.angular",
     "decription": "Fichier de configuration de Taf",
-    "taf_base_url": "http:\/\/localhost\/memoireiot.taf\/",
+    "taf_base_url": "https:\/\/shadonet.alwaysdata.net\/memoireiot.taf\/",
     "les_modules": [
         {
             "module": "home",
@@ -43,6 +43,75 @@
                                 "Null": "NO",
                                 "Key": "",
                                 "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "camera",
+                    "description": [
+                        "id_camera",
+                        "name",
+                        "link",
+                        "added_at"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "camera",
+                        "cle_primaire": {
+                            "Field": "id_camera",
+                            "Type": "int(11)",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": "cl\u00e9 primaire"
+                        },
+                        "les_based_table_name": [
+                            "camera"
+                        ],
+                        "les_referenced_table": [],
+                        "les_colonnes": [
+                            {
+                                "Field": "id_camera",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": "cl\u00e9 primaire"
+                            },
+                            {
+                                "Field": "name",
+                                "Type": "varchar(155)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "link",
+                                "Type": "text",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "added_at",
+                                "Type": "timestamp",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": "current_timestamp()",
                                 "Extra": "",
                                 "explications": ""
                             }
@@ -528,10 +597,10 @@
                             },
                             {
                                 "Field": "updated_at",
-                                "Type": "int(11)",
+                                "Type": "datetime",
                                 "Null": "NO",
                                 "Key": "",
-                                "Default": null,
+                                "Default": "current_timestamp()",
                                 "Extra": "",
                                 "explications": ""
                             }

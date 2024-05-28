@@ -8,6 +8,7 @@ import { ListWindowstatusComponent } from './windowstatus/list-windowstatus/list
 import { ListDoorhistoriqueComponent } from './doorhistorique/list-doorhistorique/list-doorhistorique.component';
 import { ListSmokesensorsComponent } from './smokesensors/list-smokesensors/list-smokesensors.component';
 import { ProfileComponent } from './user/profile/profile.component';
+import { ListCameraComponent } from './camera/list-camera/list-camera.component';
 
 const routes: Routes = [
   { path: "doorstatus", component: ListDoorstatusComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: "windowstatus", component: ListWindowstatusComponent },
   { path: "doorhistorique", component: ListDoorhistoriqueComponent },
   { path: "smokesensors", component: ListSmokesensorsComponent},
-  { path: "profile", component: ProfileComponent}
+  { path: "profile", component: ProfileComponent},
+  { path: "camera", component: ListCameraComponent},
 ];
 
 @NgModule({

@@ -13,21 +13,13 @@
     <!-- state field avec un control de validite -->
     <div class="form-group col-sm-6">
         <label>state</label>
-        <input class="form-control" type="text" formControlName="state" placeholder="state"
-            [ngClass]="{ 'is-invalid': submitted && f.state.errors }" />
+        <select class="form-select" id="" formControlName="state" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" >
+            <option value="closed">closed</option>
+        </select>
         <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
             <div *ngIf="f.state.errors.required"> state est obligatoire </div>
         </div>
     </div>
-    <!-- dateTime field avec un control de validite -->
-    <!-- <div class="form-group col-sm-6">
-        <label>dateTime</label>
-        <input class="form-control" type="text" formControlName="dateTime" placeholder="dateTime"
-            [ngClass]="{ 'is-invalid': submitted && f.dateTime.errors }" />
-        <div *ngIf="submitted && f.dateTime.errors" class="invalid-feedback">
-            <div *ngIf="f.dateTime.errors.required"> dateTime est obligatoire </div>
-        </div>
-    </div> -->
 </form>
 <!-- vous pouvez valider votre formulaire n'importe ou -->
 

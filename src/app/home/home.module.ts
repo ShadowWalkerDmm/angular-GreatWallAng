@@ -29,6 +29,9 @@ import { AddSmokesensorsComponent } from './smokesensors/add-smokesensors/add-sm
 import { EditSmokesensorsComponent } from './smokesensors/edit-smokesensors/edit-smokesensors.component';
 import { ListSmokesensorsComponent } from './smokesensors/list-smokesensors/list-smokesensors.component';
 import { ProfileComponent } from './user/profile/profile.component';
+import { AddCameraComponent } from './camera/add-camera/add-camera.component';
+import { EditCameraComponent } from './camera/edit-camera/edit-camera.component';
+import { ListCameraComponent } from './camera/list-camera/list-camera.component';
   
   
   @NgModule({
@@ -58,7 +61,10 @@ import { ProfileComponent } from './user/profile/profile.component';
     AddSmokesensorsComponent,
     EditSmokesensorsComponent,
     ListSmokesensorsComponent,
-    ProfileComponent
+    ProfileComponent,
+    AddCameraComponent,
+    EditCameraComponent,
+    ListCameraComponent
   ],
     imports: [
       CommonModule,

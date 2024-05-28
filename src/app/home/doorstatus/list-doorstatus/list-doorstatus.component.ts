@@ -93,6 +93,11 @@ export class ListDoorstatusComponent {
       })
   }
 
+  //track
+  trackById(index: number, item: any): number {
+    return item.id;
+  }
+
   //get data from doorhistorique
 
   get_doorhistorique() {
@@ -119,20 +124,15 @@ export class ListDoorstatusComponent {
     state: '',
     dateFrom: '',
     dateTo: '',
-    // timeFrom: '',
-    // timeTo: ''
   };
 
   filterData() {
     this.filteredData = this.les_doorhistoriques.filter(doorhistorique => {
-      // const matchesIdDoor = this.filterCriteria.idDoor ? doorhistorique.idDoor.includes(this.filterCriteria.idDoor) : true;
       const matchesIdDoor = this.filterCriteria.idDoor ? doorhistorique.idDoor == this.filterCriteria.idDoor : true;
       const matchesState = this.filterCriteria.state ? doorhistorique.state === this.filterCriteria.state : true;
       const matchesDate = this.filterCriteria.dateFrom && this.filterCriteria.dateTo ?
         this.isWithinDateRange(doorhistorique.updated_at, this.filterCriteria.dateFrom, this.filterCriteria.dateTo) : true;
-      // const matchesTime = this.filterCriteria.timeFrom && this.filterCriteria.timeTo ?
-      // this.isWithinTimeRange(doorhistorique.updated_at, this.filterCriteria.timeFrom, this.filterCriteria.timeTo) : true;
-      return matchesIdDoor && matchesState && matchesDate ;/*&& matchesTime;*/
+      return matchesIdDoor && matchesState && matchesDate ;
     });
   }
 
@@ -145,23 +145,4 @@ export class ListDoorstatusComponent {
     console.log("date to",toDate)
     return date >= fromDate && date <= toDate;
   }
-
-  // isWithinTimeRange(dateTime: string, timeFrom: string, timeTo: string): boolean {
-  //   const time = this.parseTime(dateTime);
-  //   const fromTime = this.parseTime(timeFrom);
-  //   const toTime = this.parseTime(timeTo);
-  //   return time >= fromTime && time <= toTime;
-  // }
-
-  // parseDateTime(dateTime: string): Date {
-  //   const [datePart, timePart] = dateTime.split(' ');
-  //   const [year, month, day] = datePart.split('-').map(part => parseInt(part, 10));
-  //   const [hours, minutes, seconds] = timePart.split(':').map(part => parseInt(part, 10));
-  //   return new Date(year, month - 1, day, hours, minutes, seconds);
-  // }
-
-  // parseTime(time: string): number {
-  //   const [hours, minutes, seconds] = time.split(':').map(part => parseInt(part, 10));
-  //   return hours * 3600 + minutes * 60 + seconds;
-  // }
 }

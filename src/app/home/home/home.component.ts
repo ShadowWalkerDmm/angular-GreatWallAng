@@ -18,7 +18,8 @@ export class HomeComponent {
       { libelle: "User", path: "/home/user" },
       { libelle: "Waterlevelsensors", path: "/home/waterlevelsensors" },
       { libelle: "Windowstatus", path: "/home/windowstatus" },
-      { libelle: "SmokeSensors", path: "/home/smokesensors" }
+      { libelle: "SmokeSensors", path: "/home/smokesensors" },
+      { libelle: "Camera", path: "/home/camera"}
     ]
   }
 

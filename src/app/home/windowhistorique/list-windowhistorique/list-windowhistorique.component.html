@@ -1,0 +1,69 @@
+<!-- entete -->
+<div class="d-flex align-items-center justify-content-between">
+  <div class="fs-1">Les Windowhistoriques  - {{les_windowhistoriques.length}}</div>
+  <div class="d-flex">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_add_windowhistorique">Ajouter Windowhistorique</button>
+  </div>
+</div>
+<!-- list -->
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">id_windowhistorique</th>
+<th scope="col">idWindow</th>
+<th scope="col">state</th>
+<th scope="col">uploadDate</th><th scope="col">actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let one_windowhistorique of les_windowhistoriques">
+        <td>{{one_windowhistorique.id_windowhistorique}}</td>
+<td>{{one_windowhistorique.idWindow}}</td>
+<td>{{one_windowhistorique.state}}</td>
+<td>{{one_windowhistorique.uploadDate}}</td><td>
+  <div class="dropdown">
+    <button [disabled]="loading_delete_windowhistorique" type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">{{loading_delete_windowhistorique?"en cours ...":"actions"}}</button>
+    <div class="dropdown-menu">
+      <a (click)="on_click_edit(one_windowhistorique)" class="dropdown-item" data-bs-toggle="modal"
+        data-bs-target="#modal_edit_windowhistorique">
+        <i class="bx bx-edit-alt me-1"></i>
+        Modifier
+      </a>
+      <a class="dropdown-item" href="javascript:void(0);" (click)=delete_windowhistorique({id_windowhistorique:one_windowhistorique.id_windowhistorique})><i class="bx bx-trash me-1"></i>Supprimer</a>
+    </div>
+  </div>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- ajout -->
+<div class="modal fade" id="modal_add_windowhistorique" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+          <div class="modal-header " data-bs-theme="dark">
+              <h1 class="modal-title fs-5">Ajouter Windowhistorique</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <app-add-windowhistorique (cb_add_windowhistorique)="after_add($event)"></app-add-windowhistorique>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- modification -->
+<div class="modal fade" id="modal_edit_windowhistorique" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header" data-bs-theme="dark">
+        <h1 class="modal-title fs-5">Modifier Windowhistorique</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="on_close_modal_edit()"></button>
+      </div>
+      <div class="modal-body">
+        <app-edit-windowhistorique *ngIf="windowhistorique_to_edit" (cb_edit_windowhistorique)="after_edit($event)" [windowhistorique_to_edit]="windowhistorique_to_edit"></app-edit-windowhistorique>
+      </div>
+    </div>
+  </div>
+</div>
+  

@@ -783,7 +783,6 @@
                     "table": "waterlevelsensors",
                     "description": [
                         "id",
-                        "name",
                         "state",
                         "dateTime"
                     ],
@@ -813,15 +812,6 @@
                                 "explications": "cl\u00e9 primaire"
                             },
                             {
-                                "Field": "name",
-                                "Type": "varchar(155)",
-                                "Null": "NO",
-                                "Key": "",
-                                "Default": null,
-                                "Extra": "",
-                                "explications": ""
-                            },
-                            {
                                 "Field": "state",
                                 "Type": "varchar(80)",
                                 "Null": "NO",
@@ -832,6 +822,140 @@
                             },
                             {
                                 "Field": "dateTime",
+                                "Type": "datetime",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": "current_timestamp()",
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "windowhistorique",
+                    "description": [
+                        "id_windowhistorique",
+                        "idWindow",
+                        "state",
+                        "uploadDate"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "windowhistorique",
+                        "cle_primaire": {
+                            "Field": "id_windowhistorique",
+                            "Type": "int(11)",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": "cl\u00e9 primaire"
+                        },
+                        "les_based_table_name": [
+                            "windowhistorique",
+                            "windowstatus"
+                        ],
+                        "les_referenced_table": [
+                            "windowstatus"
+                        ],
+                        "les_colonnes": [
+                            {
+                                "Field": "id_windowhistorique",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": "cl\u00e9 primaire"
+                            },
+                            {
+                                "Field": "idWindow",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "MUL",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "cl\u00e9 \u00e9trang\u00e8re li\u00e9e \u00e0 la colonne id de la table windowstatus",
+                                "table": {
+                                    "TABLE_NAME": "windowhistorique",
+                                    "COLUMN_NAME": "idWindow",
+                                    "REFERENCED_TABLE_NAME": "windowstatus",
+                                    "REFERENCED_COLUMN_NAME": "id"
+                                },
+                                "table_existant": false,
+                                "referenced_table": {
+                                    "table_name": "windowstatus",
+                                    "cle_primaire": {
+                                        "Field": "id",
+                                        "Type": "int(11)",
+                                        "Null": "NO",
+                                        "Key": "PRI",
+                                        "Default": null,
+                                        "Extra": "auto_increment",
+                                        "explications": "cl\u00e9 primaire"
+                                    },
+                                    "les_based_table_name": [
+                                        "windowhistorique",
+                                        "windowstatus"
+                                    ],
+                                    "les_referenced_table": [],
+                                    "les_colonnes": [
+                                        {
+                                            "Field": "id",
+                                            "Type": "int(11)",
+                                            "Null": "NO",
+                                            "Key": "PRI",
+                                            "Default": null,
+                                            "Extra": "auto_increment",
+                                            "explications": "cl\u00e9 primaire"
+                                        },
+                                        {
+                                            "Field": "name",
+                                            "Type": "varchar(155)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "status",
+                                            "Type": "varchar(80)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "dateTime",
+                                            "Type": "datetime",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": "current_timestamp()",
+                                            "Extra": "",
+                                            "explications": ""
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Field": "state",
+                                "Type": "varchar(155)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "uploadDate",
                                 "Type": "datetime",
                                 "Null": "NO",
                                 "Key": "",

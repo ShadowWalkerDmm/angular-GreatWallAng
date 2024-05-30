@@ -1,8 +1,9 @@
 <div class="container-fluid">
+      <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSaxxXY9TuP-8kovJxbgudXb52ZpNYBQmNLg&s" alt="" srcset=""> -->
       <nav class="navbar fixed-top ">
             <div class="container-fluid">
                   <div class="btn btn-outline-primary" style="width: 100px; height: auto;">
-                        <img src="https://t3.ftcdn.net/jpg/00/30/06/74/360_F_30067437_WjYW9DE4cycTa2m0eDhCkinCV9tYw61J.jpg"
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSaxxXY9TuP-8kovJxbgudXb52ZpNYBQmNLg&s"
                               alt="" (click)="onIconClick()" class="w-100 h-100">
                   </div>
                   <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
@@ -26,6 +27,7 @@
                                     @if (authority_id == 1) {
                                     <li class="nav-item">
                                           <button class="btn btn-outline-primary m-1" type="button"
+                                                data-bs-dismiss="offcanvas" aria-label="Close"
                                                 routerLinkActive="bg-primary text-white" style="width: 100%;"
                                                 [routerLink]="[menu.items[2].path]">
                                                 <i class="bi bi-people"></i>
@@ -34,6 +36,7 @@
                                     </li>
                                     <li class="nav-item">
                                           <button class="btn btn-outline-primary m-1" type="button"
+                                                data-bs-dismiss="offcanvas" aria-label="Close"
                                                 routerLinkActive="bg-primary text-white" style="width: 100%;"
                                                 [routerLink]="[menu.items[0].path]">
                                                 <i class="bi bi-door-closed"></i>
@@ -42,6 +45,7 @@
                                     </li>
                                     <li class="nav-item">
                                           <button class="btn btn-outline-primary m-1" type="button"
+                                                data-bs-dismiss="offcanvas" aria-label="Close"
                                                 routerLinkActive="bg-primary text-white" style="width: 100%;"
                                                 [routerLink]="[menu.items[1].path]">
                                                 <i class="bi bi-person-walking"></i>
@@ -50,6 +54,7 @@
                                     </li>
                                     <li class="nav-item">
                                           <button class="btn btn-outline-primary m-1" type="button"
+                                                data-bs-dismiss="offcanvas" aria-label="Close"
                                                 routerLinkActive="bg-primary text-white" style="width: 100%;"
                                                 [routerLink]="[menu.items[3].path]">
                                                 <i class="bi bi-water"></i>
@@ -58,6 +63,7 @@
                                     </li>
                                     <li class="nav-item">
                                           <button class="btn btn-outline-primary m-1" type="button"
+                                                data-bs-dismiss="offcanvas" aria-label="Close"
                                                 routerLinkActive="bg-primary text-white" style="width: 100%;"
                                                 [routerLink]="[menu.items[4].path]">
                                                 <i class="bi bi-shop-window"></i>
@@ -66,6 +72,7 @@
                                     </li>
                                     <li class="nav-item">
                                           <button class="btn btn-outline-primary m-1" type="button"
+                                                data-bs-dismiss="offcanvas" aria-label="Close"
                                                 routerLinkActive="bg-primary text-white" style="width: 100%;"
                                                 [routerLink]="[menu.items[5].path]">
                                                 <i class="bi bi-fire"></i>
@@ -74,14 +81,17 @@
                                     </li>
                                     <li class="nav-item">
                                           <button class="btn btn-outline-primary m-1" type="button"
+                                                data-bs-dismiss="offcanvas" aria-label="Close"
                                                 routerLinkActive="bg-primary text-white" style="width: 100%;"
                                                 [routerLink]="[menu.items[6].path]">
+                                                <i class="bi bi-camera-reels"></i>
                                                 Camera
                                           </button>
                                     </li>
                                     } @else {
                                     <li class="nav-item">
                                           <button class="btn btn-outline-primary m-1" type="button"
+                                                data-bs-dismiss="offcanvas" aria-label="Close"
                                                 routerLinkActive="bg-primary text-white" style="width: 100%;"
                                                 [routerLink]="[menu.items[0].path]">
                                                 <i class="bi bi-door-closed"></i>
@@ -90,6 +100,7 @@
                                     </li>
                                     <li class="nav-item">
                                           <button class="btn btn-outline-primary m-1" type="button"
+                                                data-bs-dismiss="offcanvas" aria-label="Close"
                                                 routerLinkActive="bg-primary text-white" style="width: 100%;"
                                                 [routerLink]="[menu.items[1].path]">
                                                 <i class="bi bi-person-walking"></i>
@@ -98,6 +109,7 @@
                                     </li>
                                     <li class="nav-item">
                                           <button class="btn btn-outline-primary m-1" type="button"
+                                                data-bs-dismiss="offcanvas" aria-label="Close"
                                                 routerLinkActive="bg-primary text-white" style="width: 100%;"
                                                 [routerLink]="[menu.items[3].path]">
                                                 <i class="bi bi-water"></i>
@@ -106,6 +118,7 @@
                                     </li>
                                     <li class="nav-item">
                                           <button class="btn btn-outline-primary m-1" type="button"
+                                                data-bs-dismiss="offcanvas" aria-label="Close"
                                                 routerLinkActive="bg-primary text-white" style="width: 100%;"
                                                 [routerLink]="[menu.items[4].path]">
                                                 <i class="bi bi-shop-window"></i>
@@ -114,6 +127,7 @@
                                     </li>
                                     <li class="nav-item">
                                           <button class="btn btn-outline-primary m-1" type="button"
+                                                data-bs-dismiss="offcanvas" aria-label="Close"
                                                 routerLinkActive="bg-primary text-white" style="width: 100%;"
                                                 [routerLink]="[menu.items[5].path]">
                                                 <i class="bi bi-fire"></i>
@@ -122,8 +136,10 @@
                                     </li>
                                     <li class="nav-item">
                                           <button class="btn btn-outline-primary m-1" type="button"
+                                                data-bs-dismiss="offcanvas" aria-label="Close"
                                                 routerLinkActive="bg-primary text-white" style="width: 100%;"
                                                 [routerLink]="[menu.items[6].path]">
+                                                <i class="bi bi-camera-reels"></i>
                                                 Camera
                                           </button>
                                     </li>
@@ -140,6 +156,7 @@
                   </div>
             </div>
       </nav>
+
 
 
       <!-- alter user -->
@@ -163,8 +180,7 @@
                   </div>
             </div>
       </div>
-</div>
-
-<div class="container-fluid">
-      <router-outlet></router-outlet>
+      <div class="container-fluid">
+            <router-outlet></router-outlet>
+      </div>
 </div>

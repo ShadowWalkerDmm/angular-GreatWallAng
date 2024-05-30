@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./list-doorstatus.component.css']
 })
 export class ListDoorstatusComponent {
+  authority_id: number = this.api.token.user_connected.authority_id
   loading_get_doorstatus = false
   loading_get_doorhistorique = false
   les_doorstatuss: any[] = []
@@ -140,9 +141,6 @@ export class ListDoorstatusComponent {
     const date = new Date(dateTime);
     const fromDate = new Date(dateFrom);
     const toDate = new Date(dateTo);
-    console.log("date time",date)
-    console.log("date from",fromDate)
-    console.log("date to",toDate)
     return date >= fromDate && date <= toDate;
   }
 }

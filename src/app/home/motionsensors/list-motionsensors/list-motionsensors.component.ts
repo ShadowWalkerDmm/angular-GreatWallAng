@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../../service/api/api.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-list-motionsensors',
@@ -11,18 +12,21 @@ export class ListMotionsensorsComponent {
 
   motionDetected = false;
   show_historique = false;
-
   loading_get_motionsensors = false
   les_motionsensorss: any[] = []
+  // filterData: any[] = [];
   selected_motionsensors: any = undefined
   motionsensors_to_edit: any = undefined
   loading_delete_motionsensors = false
-  constructor(public api: ApiService,) {
+
+  constructor(public api: ApiService) {
 
   }
+
   ngOnInit(): void {
     this.get_motionsensors()
   }
+
   get_motionsensors() {
     this.loading_get_motionsensors = true;
     this.api.taf_post("motionsensors/get", {}, (reponse: any) => {
@@ -117,7 +121,7 @@ export class ListMotionsensorsComponent {
   DT = ""
 
   filterCriteria = {
-    states: "",
+    states: '',
     dateFrom: '',
     dateTo: '',
   };
@@ -126,7 +130,7 @@ export class ListMotionsensorsComponent {
     this.filteredData = this.les_motionsensorss.filter(motionsensors => {
       const matchesState = this.filterCriteria.states ? motionsensors.state === this.filterCriteria.states : true;
       const matchesDate = this.filterCriteria.dateFrom && this.filterCriteria.dateTo ?
-        this.isWithinDateRange(motionsensors.dateTime, this.filterCriteria.dateFrom, this.filterCriteria.dateTo) : true;
+      this.isWithinDateRange(motionsensors.dateTime, this.filterCriteria.dateFrom, this.filterCriteria.dateTo) : true;
       return matchesState && matchesDate ;
     });
   }
@@ -135,9 +139,6 @@ export class ListMotionsensorsComponent {
     const date = new Date(DT);
     const fromDate = new Date(dateFrom);
     const toDate = new Date(dateTo);
-    console.log("date time",date)
-    console.log("date from",fromDate)
-    console.log("date to",toDate)
     return date >= fromDate && date <= toDate;
   }
 }

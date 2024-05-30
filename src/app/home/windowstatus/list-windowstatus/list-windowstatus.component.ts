@@ -6,18 +6,23 @@ import { ApiService } from '../../../service/api/api.service';
   styleUrls: ['./list-windowstatus.component.css']
 })
 export class ListWindowstatusComponent {
+  authority_id: number = this.api.token.user_connected.authority_id
+  loading_get_windowhistorique = false
   loading_get_windowstatus = false
   les_windowstatuss: any[] = []
+  les_windowhistoriques: any[] = []
   selected_windowstatus: any = undefined
   windowstatus_to_edit: any = undefined
   loading_delete_windowstatus = false
   @ViewChild('closeWindowsModal') closeWindowsModal!: ElementRef;
   @ViewChild('closeEditWindowsModal') closeEditWindowsModal!: ElementRef;
+
   constructor(public api: ApiService,) {
 
   }
   ngOnInit(): void {
     this.get_windowstatus()
+    this.get_windowhistorique()
   }
   get_windowstatus() {
     this.loading_get_windowstatus = true;
@@ -77,5 +82,51 @@ export class ListWindowstatusComponent {
         console.log("Erreur inconnue! ", error)
         this.loading_delete_windowstatus = false;
       })
+  }
+
+// windows historique get function
+  get_windowhistorique() {
+    this.loading_get_windowhistorique = true;
+    this.api.taf_post("windowhistorique/get", {}, (reponse: any) => {
+      if (reponse.status) {
+        this.les_windowhistoriques = reponse.data
+        console.log("Opération effectuée avec succés sur la table windowhistorique. Réponse= ", reponse);
+      } else {
+        console.log("L'opération sur la table windowhistorique a échoué. Réponse= ", reponse);
+        alert("L'opération a echoué")
+      }
+      this.loading_get_windowhistorique = false;
+    }, (error: any) => {
+      this.loading_get_windowhistorique = false;
+    })
+  }
+
+  //filter
+
+  filteredData = this.les_windowhistoriques;
+  dateTime = ""
+
+  filterCriteria = {
+    idWindow: '',
+    state: '',
+    dateFrom: '',
+    dateTo: '',
+  };
+
+  filterData() {
+    this.filteredData = this.les_windowhistoriques.filter(window => {
+      const matchesIdDoor = this.filterCriteria.idWindow ? window.idWindow == this.filterCriteria.idWindow : true;
+      const matchesState = this.filterCriteria.state ? window.state === this.filterCriteria.state : true;
+      const matchesDate = this.filterCriteria.dateFrom && this.filterCriteria.dateTo ?
+        this.isWithinDateRange(window.uploadDate, this.filterCriteria.dateFrom, this.filterCriteria.dateTo) : true;
+      return matchesIdDoor && matchesState && matchesDate ;
+    });
+  }
+  
+  isWithinDateRange(uploadDate: string, dateFrom: string, dateTo: string): boolean {
+    const date = new Date(uploadDate);
+    const fromDate = new Date(dateFrom);
+    const toDate = new Date(dateTo);
+    return date >= fromDate && date <= toDate;
   }
 }

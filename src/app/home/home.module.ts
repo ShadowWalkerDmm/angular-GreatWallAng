@@ -32,6 +32,9 @@ import { ProfileComponent } from './user/profile/profile.component';
 import { AddCameraComponent } from './camera/add-camera/add-camera.component';
 import { EditCameraComponent } from './camera/edit-camera/edit-camera.component';
 import { ListCameraComponent } from './camera/list-camera/list-camera.component';
+import { AddWindowhistoriqueComponent } from './windowhistorique/add-windowhistorique/add-windowhistorique.component';
+import { EditWindowhistoriqueComponent } from './windowhistorique/edit-windowhistorique/edit-windowhistorique.component';
+import { ListWindowhistoriqueComponent } from './windowhistorique/list-windowhistorique/list-windowhistorique.component';
   
   
   @NgModule({
@@ -64,7 +67,10 @@ import { ListCameraComponent } from './camera/list-camera/list-camera.component'
     ProfileComponent,
     AddCameraComponent,
     EditCameraComponent,
-    ListCameraComponent
+    ListCameraComponent,
+    AddWindowhistoriqueComponent,
+    EditWindowhistoriqueComponent,
+    ListWindowhistoriqueComponent
   ],
     imports: [
       CommonModule,

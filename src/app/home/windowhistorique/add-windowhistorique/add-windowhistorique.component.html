@@ -1,0 +1,38 @@
+
+<form  [formGroup]="reactiveForm_add_windowhistorique " (ngSubmit)="onSubmit_add_windowhistorique ()" #form_add_windowhistorique ="ngForm" class="row">
+  
+<!-- champs idWindow avec un control de validite : clé étrangère liée à la colonne idWindow de la table windowstatus -->
+        <div class="form-group col-sm-6">
+          <label >windowstatus</label>
+          <select [ngClass]="{ 'is-invalid': submitted && f.idWindow.errors }" class="form-select" formControlName="idWindow">
+            <option value="">Sélectionnez un(e) windowstatus</option>
+            <option [value]="one_windowstatus.id" *ngFor="let one_windowstatus of form_details.les_windowstatuss">{{"windowstatus N°"+one_windowstatus.id}}</option>
+          </select>
+          <div *ngIf="submitted && f.idWindow.errors" class="invalid-feedback">
+            <div *ngIf="f.idWindow.errors.required">ce champ est obligatoire</div>
+          </div>
+        </div>
+<!-- state field avec un control de validite -->
+          <div class="form-group col-sm-6">
+          <label >state</label>
+          <input class="form-control" type="text"  formControlName="state"  placeholder="state"  [ngClass]="{ 'is-invalid': submitted && f.state.errors }"/>
+          <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+          <div *ngIf="f.state.errors.required"> state est obligatoire </div>
+          </div>
+          </div>  
+<!-- uploadDate field avec un control de validite -->
+          <div class="form-group col-sm-6">
+          <label >uploadDate</label>
+          <input class="form-control" type="text"  formControlName="uploadDate"  placeholder="uploadDate"  [ngClass]="{ 'is-invalid': submitted && f.uploadDate.errors }"/>
+          <div *ngIf="submitted && f.uploadDate.errors" class="invalid-feedback">
+          <div *ngIf="f.uploadDate.errors.required"> uploadDate est obligatoire </div>
+          </div>
+          </div>  
+</form>
+<!-- vous pouvez valider votre formulaire n'importe ou -->
+
+<div class="text-center m-2">
+    <button type="button" class="btn btn-primary m-2" [disabled]="loading_add_windowhistorique "
+        (click)="form_add_windowhistorique .ngSubmit.emit()">{{loading_add_windowhistorique ?"En cours ...":"Valider"}}</button>
+    <button class="btn btn-secondary m-2" type="reset" (click)="onReset_add_windowhistorique ()">Vider</button>
+</div>

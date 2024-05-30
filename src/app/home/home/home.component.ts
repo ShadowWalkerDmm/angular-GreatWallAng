@@ -30,13 +30,6 @@ export class HomeComponent {
   constructor(public api: ApiService, public route: Router) {
   }
 
-
-  // closeOffcanvas() {
-  //   const offcanvasElement = this.offcanvas.nativeElement;
-  //   const offcanvas = Offcanvas.getOrCreateInstance(offcanvasElement);
-  //   offcanvas.hide();
-  // }
-
   onIconClick() {
     this.route.navigate(['/home'])
   }

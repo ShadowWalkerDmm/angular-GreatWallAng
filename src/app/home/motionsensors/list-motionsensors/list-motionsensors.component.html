@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mb-5 mt-5">
   <div class="row">
     <div class="col-12">
       <h1 class="text-center">Motion Detection</h1>
@@ -11,87 +11,57 @@
     </div>
   </div>
 </div>
-<div class="d-flex justify-content-end">
-  <button class="btn btn-outline-primary " (click)="show()">
-    <i class="fa-solid fa-clock-rotate-left"></i>
-  </button>
-</div>
-@if (show_historique) {
-<!-- list -->
-<div class="table-sm">
-  <table class="table table-bordered">
-    <thead class="table-dark">
-      <tr>
-        <th scope="col">Number</th>
-        <th scope="col">state</th>
-        <th scope="col">dateTime</th>
-        <!-- <th scope="col">actions</th> -->
-      </tr>
-    </thead>
-    <tbody>
-
-      <tr *ngFor="let one_motionsensors of les_motionsensorss; let i = index">
-        <td>{{i+1}}</td>
-        <td>{{one_motionsensors.state}}</td>
-        <td>{{api.format_date(one_motionsensors.dateTime).full_datetime}}</td>
-        <!-- <td>{{api.format_date(one_motionsensors.dateTime).full_datetime}}</td> -->
-      </tr>
-    </tbody>
-  </table>
-</div>
-}
 
 <div class="container mb-3">
   <div class="row g-2">
     <!-- states -->
-    <div class="col-md">
+    <!-- <div class="col-md">
       <div class="form-floating">
         <select class="form-select" id="floatingSelectGrid" [(ngModel)]="filterCriteria.states">
           <option value="">All</option>
-          <option value="Motion detected!">Motion detected</option>
-          <option value="Motion stopped!">Motion stopped</option>
+          <option value='Motion detected!'>Motion detected</option>
+          <option value='Motion stopped!'>Motion stopped</option>
         </select>
         <label for="floatingSelectGrid">States</label>
       </div>
-    </div>
+    </div> -->
     <!-- Date/Time from -->
     <div class="col-md">
       <div class="form-floating">
-        <input [(ngModel)]="filterCriteria.dateFrom" type="datetime-local" class="form-control"
-          id="floatingInputGrid">
+        <input [(ngModel)]="filterCriteria.dateFrom" type="datetime-local" class="form-control" id="floatingInputGrid">
         <label for="floatingInputGrid">Date/Time De</label>
       </div>
     </div>
     <!-- Date/time to -->
     <div class="col-md">
       <div class="form-floating">
-        <input [(ngModel)]="filterCriteria.dateTo" type="datetime-local" class="form-control"
-          id="floatingInputGrid">
+        <input [(ngModel)]="filterCriteria.dateTo" type="datetime-local" class="form-control" id="floatingInputGrid">
         <label for="floatingInputGrid">Date/Time A</label>
       </div>
     </div>
     <!-- button -->
-    <button class="btn btn-outline-success" (click)="filterData()">Filter</button>
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn btn-outline-success mb-2" (click)="filterData()">Filter</button>
+    </div>
   </div>
-</div>
-<!-- display of historique -->
-<div style="max-height: 400px; overflow-y: auto;">
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th scope="col">Num</th>
-        <th scope="col">State</th>
-        <th scope="col">Date/time</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (motion of filteredData; track $index) {
-      <tr>
-        <td>{{motion.id}}</td>
-        <td>{{motion.state}}</td>
-        <td>{{api.format_date(motion.dateTime).full_datetime}}</td>
-      </tr>
-      }
-    </tbody>
-  </table>
+
+  <!-- display of historique -->
+  <div style="max-height: 400px; overflow-y: auto;">
+    <table class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Num</th>
+          <th scope="col">State</th>
+          <th scope="col">Date/time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sensor of filteredData">
+          <td>{{sensor.id}}</td>
+          <td>{{sensor.state}}</td>
+          <td>{{api.format_date(sensor.dateTime).full_datetime}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

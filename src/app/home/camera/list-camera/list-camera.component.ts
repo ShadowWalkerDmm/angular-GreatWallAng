@@ -6,6 +6,7 @@ import { ApiService } from '../../../service/api/api.service';
   styleUrls: ['./list-camera.component.css']
 })
 export class ListCameraComponent {
+  authority_id: number = this.api.token.user_connected.authority_id
   loading_get_camera = false
   les_cameras: any[] = []
   selected_camera: any = undefined

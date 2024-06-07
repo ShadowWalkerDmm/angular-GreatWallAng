@@ -25,6 +25,11 @@ export class ApiService {
     is_expired: null,
     date_expiration: null
   }
+  sensorData: any[] = [];
+  latestSensorData: any = null; // Propriété pour stocker les dernières données reçues
+  motionDetected = false;
+  alertSmoke = false;
+  alertWater = false;
 
   constructor(private http: HttpClient, private route: Router) { }
   // sauvegardes

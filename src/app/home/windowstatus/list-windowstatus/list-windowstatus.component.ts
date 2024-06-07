@@ -1,5 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ApiService } from '../../../service/api/api.service';
+import { SocketService } from '../../../service/socket.service';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 @Component({
   selector: 'app-list-windowstatus',
   templateUrl: './list-windowstatus.component.html',
@@ -17,10 +20,28 @@ export class ListWindowstatusComponent {
   @ViewChild('closeWindowsModal') closeWindowsModal!: ElementRef;
   @ViewChild('closeEditWindowsModal') closeEditWindowsModal!: ElementRef;
 
-  constructor(public api: ApiService,) {
+  // closed = true
+  private wsURL = 'ws://localhost:1880/ws/sensor';
+  sensorData: any[] = [];
+  latestSensorData: any = null; // Propriété pour stocker les dernières données reçues
+
+  constructor(public api: ApiService, private wsService: SocketService) {
 
   }
   ngOnInit(): void {
+
+    // let wsSubject = this.wsService.connect(this.wsURL);
+    // wsSubject.subscribe(
+    //   (msg: MessageEvent) => {
+    //     const data = JSON.parse(msg.data);
+    //     this.sensorData.push(data);
+    //     this.latestSensorData = data; // Mettre à jour les dernières données reçues
+    //     // this.closed = data.window === 'closed' || data.window === 'opened';
+    //   },
+    //   (err) => console.error(err),
+    //   () => console.log('complete')
+    // );
+
     this.get_windowstatus()
     this.get_windowhistorique()
   }
@@ -84,7 +105,7 @@ export class ListWindowstatusComponent {
       })
   }
 
-// windows historique get function
+  // windows historique get function
   get_windowhistorique() {
     this.loading_get_windowhistorique = true;
     this.api.taf_post("windowhistorique/get", {}, (reponse: any) => {
@@ -119,14 +140,34 @@ export class ListWindowstatusComponent {
       const matchesState = this.filterCriteria.state ? window.state === this.filterCriteria.state : true;
       const matchesDate = this.filterCriteria.dateFrom && this.filterCriteria.dateTo ?
         this.isWithinDateRange(window.uploadDate, this.filterCriteria.dateFrom, this.filterCriteria.dateTo) : true;
-      return matchesIdDoor && matchesState && matchesDate ;
+      return matchesIdDoor && matchesState && matchesDate;
     });
   }
-  
+
   isWithinDateRange(uploadDate: string, dateFrom: string, dateTo: string): boolean {
     const date = new Date(uploadDate);
     const fromDate = new Date(dateFrom);
     const toDate = new Date(dateTo);
     return date >= fromDate && date <= toDate;
+  }
+
+  //download historique in pdf
+  downloadPDF() {
+    if (this.les_windowhistoriques.length === 0) {
+      alert('No data available to download.');
+      return;
+    }
+
+    const doc = new jsPDF();
+    const col = Object.keys(this.les_windowhistoriques[0]);
+    const rows = this.les_windowhistoriques.map(item => col.map(key => item[key]));
+
+    doc.text('Historique des Données des Fenêtres', 14, 16);
+    autoTable(doc, {
+      head: [col],
+      body: rows,
+      startY: 20,
+    });
+    doc.save('historiquefenetres.pdf');
   }
 }

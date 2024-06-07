@@ -1,4 +1,4 @@
-<div class="container mb-5 mt-5">
+<!-- <div class="container mb-5 mt-5">
   <div class="row">
     <div class="col-12">
       <h1 class="text-center">Water Level Management</h1>
@@ -6,6 +6,34 @@
         class="alert alert-danger alert-dismissible fade draggable-alert" role="alert" draggable="true"
         (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
         Alert high water level
+        <button type="button" class="btn-close" aria-label="Close" (click)="alert = false"></button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="container mb-5 mt-5">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="text-center">Water Level Detection</h1>
+      <div [ngClass]="{
+            'show': api.alertWater,
+            'd-none': !api.alertWater,
+            'bg-waterlevel-detected': api.latestSensorData?.water === 'alert',
+            'bg-waterlevel-stopped': api.latestSensorData?.water === 'stoped'
+          }"
+        class="alert alert-dismissible fade draggable-alert alert-waterlevel" role="alert" draggable="true"
+        (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
+        <div *ngIf="api.latestSensorData">
+          <p *ngIf="api.latestSensorData.water === 'alert'">
+            Attention Niveau d'eau élévé!
+          </p>
+          <p *ngIf="api.latestSensorData.water === 'stoped'">
+             Niveau d'eau normal!
+          </p>
+          <!-- <p><strong>Timestamp:</strong> {{ api.latestSensorData.timestamp }}</p>
+          <p><strong>Motion:</strong> {{ api.latestSensorData.water }}</p> -->
+        </div>
         <button type="button" class="btn-close" aria-label="Close" (click)="alert = false"></button>
       </div>
     </div>
@@ -42,7 +70,8 @@
     </div>
     <!-- button -->
     <div class="d-grid gap-2 col-6 mx-auto">
-      <button class="btn btn-outline-success mb-2" (click)="filterData()">Filter</button>
+      <button class="btn btn-outline-success mb-2" (click)="filterData()">Filtrer</button>
+      <button class="btn btn-outline-info mb-2" (click)="downloadPDF()">Télécharger l'historique</button>
     </div>
   </div>
   <!-- display of historique -->
@@ -98,3 +127,4 @@
     </div>
   </div>
 </div>
+

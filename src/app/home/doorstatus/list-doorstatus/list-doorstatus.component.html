@@ -18,43 +18,96 @@
       <thead class="table-dark">
         <tr>
           <th scope="col">Porte</th>
-          <th scope="col">name</th>
           <th scope="col">state</th>
           <th scope="col">change</th>
           @if (authority_id == 1) {
-            <th scope="col">actions</th>
+          <th scope="col">actions</th>
           }
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let one_doorstatus of les_doorstatuss">
+        @for (item of api.latestSensorData.doors; track $index) {
+        <tr>
           <td>
             <div class="frameDoor">
-              <div class="door door1 " style="float:left" [ngClass]="{'doorOpen1' : one_doorstatus.state == 'opened' }">
-                <img [src]="one_doorstatus.pic">
+              <div class="door door1 " style="float:left" [ngClass]="{'doorOpen1' : item.stateDoor == 'opened' }">
+                <img src="../../../../assets/backdoor.jpg">
               </div>
-              <div class="door door2" style="float:right" [ngClass]="{'doorOpen2' : one_doorstatus.state == 'opened'}">
-                <img [src]="one_doorstatus.pic">
+              <div class="door door2" style="float:right" [ngClass]="{'doorOpen2' : item.stateDoor == 'opened'}">
+                <img src="../../../../assets/backdoor.jpg">
               </div>
             </div>
+            <div class="text-center">{{item.name}}</div>
           </td>
-          <td class="align-items-center">{{one_doorstatus.name}}</td>
-          <td>{{one_doorstatus.state}}</td>
+          <td>{{item.stateDoor}}</td>
           <td>
-            <button class="btn btn-outline-info" (click)="on_click_edit(one_doorstatus)" data-bs-toggle="modal"
-              data-bs-target="#modal_opened">
-              {{one_doorstatus.state == "opened"? "closed" : "opened"}}
+            <button class="btn btn-outline-info" (click)="on_click_edit(item)">
+              {{item.stateDoor == "opened"? "closed" : "opened"}}
             </button>
           </td>
           @if (authority_id == 1) {
-            <td>
-              <button class="btn btn-outline-danger" href="javascript:void(0);"
-                (click)=delete_doorstatus({id:one_doorstatus.id})><i class="bi bi-trash"></i></button>
-            </td>
+          <td>
+            <button class="btn btn-outline-danger" href="javascript:void(0);"
+              (click)=delete_doorstatus({id:item.idDoor})><i class="bi bi-trash"></i></button>
+          </td>
           }
-        </tr>
+          }
+          <!-- <tr *ngFor="let one_doorstatus of les_doorstatuss">
+          @if (api.latestSensorData.idDoor1 == one_doorstatus.id || api.latestSensorData.idDoor2 == one_doorstatus.id) {
+          @if (one_doorstatus.id == api.latestSensorData.idDoor1) {
+          <td>
+            <div class="frameDoor">
+              <div class="door door1 " style="float:left"
+                [ngClass]="{'doorOpen1' : api.latestSensorData.door1 == 'opened' }">
+                <img [src]="one_doorstatus.pic">
+              </div>
+              <div class="door door2" style="float:right"
+                [ngClass]="{'doorOpen2' : api.latestSensorData.door1 == 'opened'}">
+                <img [src]="one_doorstatus.pic">
+              </div>
+            </div>
+            <div class="text-center">{{one_doorstatus.name}}</div>
+          </td>
+          <td>{{api.latestSensorData.door1}}</td>
+          <td>
+            <button class="btn btn-outline-info" (click)="on_click_edit(one_doorstatus)">
+              {{api.latestSensorData.door1 == "opened"? "closed" : "opened"}}
+            </button>
+          </td>
+          }@else if (one_doorstatus.id == api.latestSensorData.idDoor2) {
+          <td>
+            <div class="frameDoor">
+              <div class="door door1 " style="float:left"
+                [ngClass]="{'doorOpen1' : api.latestSensorData.door2 == 'opened' }">
+                <img [src]="one_doorstatus.pic">
+              </div>
+              <div class="door door2" style="float:right"
+                [ngClass]="{'doorOpen2' : api.latestSensorData.door2 == 'opened'}">
+                <img [src]="one_doorstatus.pic">
+              </div>
+            </div>
+            <div class="text-center">{{one_doorstatus.name}}</div>
+          </td>
+          <td>{{api.latestSensorData.door2}}</td>
+          <td>
+            <button class="btn btn-outline-info" (click)="on_click_edit(one_doorstatus)" >
+              {{api.latestSensorData.door2 == "opened"? "closed" : "opened"}}
+            </button>
+          </td>
+          }
+          @if (authority_id == 1) {
+          <td>
+            <button class="btn btn-outline-danger" href="javascript:void(0);"
+              (click)=delete_doorstatus({id:one_doorstatus.id})><i class="bi bi-trash"></i></button>
+          </td>
+          }
+          }
+        </tr> -->
       </tbody>
     </table>
+
+    <!-- <button (click)="sendMessage()">Send Message</button> -->
+
   </div>
 
 
@@ -125,7 +178,8 @@
                 </div>
               </div>
               <!-- button -->
-              <button class="btn btn-outline-success" (click)="filterData()">Filter</button>
+              <button class="btn btn-outline-success" (click)="filterData()">Filtrer</button>
+              <button class="btn btn-outline-info" (click)="downloadPDF()">Télécharger l'historique</button>
             </div>
           </div>
         </div>

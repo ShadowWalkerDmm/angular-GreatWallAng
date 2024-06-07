@@ -27,7 +27,7 @@
   </div>
 </div> -->
 <div class="container">
-  <div class="mt-5 mb-3">
+  <!-- <div class="mt-5 mb-3">
     <div class="row">
       <div class="col-12">
         <h1 class="text-center">Smoke detector</h1>
@@ -39,7 +39,39 @@
         </div>
       </div>
     </div>
+  </div> -->
+
+  <div class="container mb-5 mt-5">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="text-center">Smoke Detection</h1>
+        <div [ngClass]="{
+              'show': api.alertSmoke,
+              'd-none': !api.alertSmoke,
+              'bg-smoke-detected': api.latestSensorData?.smoke === 'alert',
+              'bg-smoke-stopped': api.latestSensorData?.smoke === 'stoped'
+            }"
+          class="alert alert-dismissible fade draggable-alert alert-smoke" role="alert" draggable="true"
+          (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
+          <div *ngIf="api.latestSensorData">
+            <p *ngIf="api.latestSensorData.smoke === 'alert'">
+              Attention fumée détecté!
+            </p>
+            <p *ngIf="api.latestSensorData.smoke === 'stoped'">
+              Pas de fumée detectée!
+            </p>
+            <!-- <p><strong>Timestamp:</strong> {{ api.latestSensorData.timestamp }}</p>
+            <p><strong>Motion:</strong> {{ api.latestSensorData.smoke }}</p> -->
+          </div>
+          <button type="button" class="btn-close" aria-label="Close" (click)="alert = false"></button>
+        </div>
+      </div>
+    </div>
   </div>
+  
+  
+
+  <!-- Date/time filter -->
   <!-- Date/time from -->
   <div class="container mb-3">
     <div class="row g-2">
@@ -59,7 +91,8 @@
       </div>
       <!-- button -->
       <div class="d-grid gap-2 col-6 mx-auto">
-        <button class="btn btn-outline-success m-2" (click)="filterData()">Filter</button>
+        <button class="btn btn-outline-success m-2" (click)="filterData()">Filtrer</button>
+        <button class="btn btn-outline-info mb-2" (click)="downloadPDF()">Télécharger l'historique</button>
       </div>
     </div>
     <!-- display of historique -->
@@ -84,4 +117,5 @@
       </table>
     </div>
   </div>
+
 </div>

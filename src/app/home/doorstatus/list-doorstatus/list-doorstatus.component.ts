@@ -2,6 +2,9 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ApiService } from '../../../service/api/api.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SocketService } from '../../../service/socket.service';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-list-doorstatus',
@@ -24,10 +27,15 @@ export class ListDoorstatusComponent {
   doorOpen2: boolean = false;
 
 
-  constructor(public api: ApiService,) {
+  // closed = true
+  private wsURL = 'ws://localhost:1880/ws/sensor';
+
+  constructor(public api: ApiService,private wsService: SocketService) {
 
   }
   ngOnInit(): void {
+    console.log("latesensordata : ", this.api.latestSensorData)
+
     this.get_doorstatus(),
       this.get_doorhistorique()
   }
@@ -36,8 +44,6 @@ export class ListDoorstatusComponent {
     this.api.taf_post("doorstatus/get", {}, (reponse: any) => {
       if (reponse.status) {
         this.les_doorstatuss = reponse.data
-        reponse.data.forEach((door: any) => {
-        });
       } else {
         console.log("L'opération sur la table doorstatus a échoué. Réponse= ", reponse);
         alert("L'opération a echoué")
@@ -65,7 +71,28 @@ export class ListDoorstatusComponent {
     this.selected_doorstatus = one_doorstatus
   }
   on_click_edit(one_doorstatus: any) {
-    this.doorstatus_to_edit = one_doorstatus
+    let status:string = "" ;
+    if(one_doorstatus.id == this.api.latestSensorData.idDoor1){
+      if(this.api.latestSensorData.door1 == "opened"){
+        status = "closed"
+      } else{
+        status = "opened"
+      }
+    }else if (this.api.latestSensorData.idDoor2 == one_doorstatus.id){
+      if(this.api.latestSensorData.door2 == "opened"){
+        status = "closed"
+      } else{
+        status = "opened"
+      }
+    }
+    let doorState = {
+      idUser: this.api.token.user_connected.id,
+      idDoor: one_doorstatus.idDoor,
+      nameDoor: one_doorstatus.name,
+      stateDoor: status
+    }
+    this.sendMessage(doorState);
+    // this.doorstatus_to_edit = one_doorstatus
   }
   on_close_modal_edit() {
     this.doorstatus_to_edit = undefined
@@ -115,6 +142,27 @@ export class ListDoorstatusComponent {
       this.loading_get_doorhistorique = false;
     })
   }
+  
+
+  //download historique in pdf
+  downloadPDF() {
+    if (this.les_doorhistoriques.length === 0) {
+      alert('No data available to download.');
+      return;
+    }
+
+    const doc = new jsPDF();
+    const col = Object.keys(this.les_doorhistoriques[0]);
+    const rows = this.les_doorhistoriques.map(item => col.map(key => item[key]));
+
+    doc.text('Door Historique Data', 14, 16);
+    autoTable(doc, {
+      head: [col],
+      body: rows,
+      startY: 20,
+    });
+    doc.save('doorhistorique.pdf');
+  }
 
   // filter
   filteredData = this.les_doorhistoriques;
@@ -142,5 +190,10 @@ export class ListDoorstatusComponent {
     const fromDate = new Date(dateFrom);
     const toDate = new Date(dateTo);
     return date >= fromDate && date <= toDate;
+  }
+
+  sendMessage(doorState : {idUser : number,idDoor:number,nameDoor:string,stateDoor:string}): void {
+    this.wsService.sendMessage(doorState);
+    console.log("doorstate: ",doorState)
   }
 }

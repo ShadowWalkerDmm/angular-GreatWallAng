@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../../service/api/api.service';
+import { SocketService } from '../../../service/socket.service';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 @Component({
   selector: 'app-list-smokesensors',
   templateUrl: './list-smokesensors.component.html',
@@ -14,7 +17,11 @@ export class ListSmokesensorsComponent {
   smokesensors_to_edit: any = undefined
   loading_delete_smokesensors = false
 
-  constructor(public api: ApiService,) {
+  private wsURL = 'ws://localhost:1880/ws/sensor';
+  sensorData: any[] = [];
+  latestSensorData: any = null; // Propriété pour stocker les dernières données reçues
+
+  constructor(public api: ApiService, private wsService: SocketService) {
 
   }
 
@@ -27,7 +34,7 @@ export class ListSmokesensorsComponent {
     this.api.taf_post("smokesensors/get", {}, (reponse: any) => {
       if (reponse.status) {
         this.les_smokesensorss = reponse.data
-        if (this.les_smokesensorss[this.les_smokesensorss.length-1].state == "alert") {
+        if (this.les_smokesensorss[this.les_smokesensorss.length - 1].state == "alert") {
           setInterval(() => {
             this.alert = true;
           }, 2000);// update every 2 seconds
@@ -128,5 +135,25 @@ export class ListSmokesensorsComponent {
     const fromDate = new Date(dateFrom);
     const toDate = new Date(dateTo);
     return date >= fromDate && date <= toDate;
+  }
+
+  //download historique in pdf
+  downloadPDF() {
+    if (this.les_smokesensorss.length === 0) {
+      alert('No data available to download.');
+      return;
+    }
+
+    const doc = new jsPDF();
+    const col = Object.keys(this.les_smokesensorss[0]);
+    const rows = this.les_smokesensorss.map(item => col.map(key => item[key]));
+
+    doc.text('Historique des Données des Detecteurs de Fumée', 14, 16);
+    autoTable(doc, {
+      head: [col],
+      body: rows,
+      startY: 20,
+    });
+    doc.save('historique_des_detecteurs_de_fumée.pdf');
   }
 } 

@@ -1,16 +1,47 @@
+<!-- <div class="container mb-5 mt-5">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="text-center">Motion Detection</h1>
+      <div [ngClass]="{'show': api.motionDetected, 'd-none': !api.motionDetected}"
+        class="alert alert-danger alert-dismissible fade draggable-alert" role="alert" draggable="true"
+        (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
+        Motion detected!
+        <button type="button" class="btn-close" aria-label="Close" (click)="api.motionDetected = false"></button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
 <div class="container mb-5 mt-5">
   <div class="row">
     <div class="col-12">
       <h1 class="text-center">Motion Detection</h1>
-      <div [ngClass]="{'show': motionDetected, 'd-none': !motionDetected}"
-        class="alert alert-danger alert-dismissible fade draggable-alert" role="alert" draggable="true"
+      <div [ngClass]="{
+            'show': api.motionDetected,
+            'd-none': !api.motionDetected,
+            'bg-motion-detected': api.latestSensorData?.motion === 'motion detected',
+            'bg-motion-stopped': api.latestSensorData?.motion === 'motion stoped'
+          }"
+        class="alert alert-dismissible fade draggable-alert alert-motion" role="alert" draggable="true"
         (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
-        Motion detected!
-        <button type="button" class="btn-close" aria-label="Close" (click)="motionDetected = false"></button>
+        <div *ngIf="api.latestSensorData">
+          <p *ngIf="api.latestSensorData.motion === 'motion detected'">
+            Motion detected!
+          </p>
+          <p *ngIf="api.latestSensorData.motion === 'motion stoped'">
+            No motion detected!
+          </p>
+          <!-- <p><strong>Timestamp:</strong> {{ api.latestSensorData.timestamp }}</p>
+          <p><strong>Motion:</strong> {{ api.latestSensorData.motion }}</p> -->
+        </div>
+        <button type="button" class="btn-close" aria-label="Close" (click)="api.motionDetected = false"></button>
       </div>
     </div>
   </div>
 </div>
+
+
+
 
 <div class="container mb-3">
   <div class="row g-2">
@@ -42,6 +73,7 @@
     <!-- button -->
     <div class="d-grid gap-2 col-6 mx-auto">
       <button class="btn btn-outline-success mb-2" (click)="filterData()">Filter</button>
+      <button class="btn btn-outline-info mb-2" (click)="downloadPDF()">Télécharger l'historique</button>
     </div>
   </div>
 

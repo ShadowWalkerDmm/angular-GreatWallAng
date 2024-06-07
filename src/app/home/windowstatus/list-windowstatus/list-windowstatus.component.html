@@ -16,7 +16,6 @@
       <thead class="table-dark">
         <tr>
           <th scope="col">FENÊTRES</th>
-          <th scope="col">Nom</th>
           <th scope="col">État</th>
           @if (authority_id == 1) {
             <th scope="col">Actions</th>
@@ -24,35 +23,82 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let one_windowstatus of les_windowstatuss">
-          <td>
-            <div class="container">
-              <!-- backside -->
-              <div class="back">
-                <img [src]="one_windowstatus.pic" />
+        @for (item of api.latestSensorData.windows; track $index) {
+          <tr>
+            <td>
+              <div class="container">
+                <!-- backside -->
+                <div class="back">
+                  <img src="../../../../assets/window.avif"/>
+                </div>
+  
+                <!-- window -->
+                <div class="windows">
+                  <div class="leftSide"></div>
+                  <div class="rightSide " [ngClass]="{'hover-effect': item.stateWindow === 'opened'}"></div>
+                </div>
               </div>
-
-              <!-- window -->
-              <div class="windows">
-                <div class="leftSide"></div>
-                <div class="rightSide " [ngClass]="{'hover-effect': one_windowstatus.status === 'opened'}"></div>
-              </div>
-            </div>
-          </td>
-          <td class="align-items-center">{{one_windowstatus.name}}</td>
-          <td>{{one_windowstatus.status}}</td>
-          @if (authority_id == 1) {
+              <div class="text-center">{{item.name}}</div>
+            </td>
+            <td>{{item.stateWindow}}</td>
+            @if (authority_id == 1) {
             <td>
               <button class="btn btn-outline-danger" href="javascript:void(0);"
-                (click)="delete_windowstatus(one_windowstatus.id)">
-                <i class="bi bi-trash"></i>
-              </button>
+                (click)=delete_windowstatus({id:item.idWindow})><i class="bi bi-trash"></i></button>
             </td>
-          }
-        </tr>
+            }
+            }
+        <!-- <tr *ngFor="let one_windowstatus of les_windowstatuss">
+          @if (api.latestSensorData.idWindow1 == one_windowstatus.id || api.latestSensorData.idWindow2 == one_windowstatus.id) {
+            @if (one_windowstatus.id == api.latestSensorData.idWindow1) {
+              <td>
+                <div class="container">
+                  
+                  <div class="back">
+                    <img [src]="one_windowstatus.pic" />
+                  </div>
+    
+                  
+                  <div class="windows">
+                    <div class="leftSide"></div>
+                    <div class="rightSide " [ngClass]="{'hover-effect': api.latestSensorData.window1 === 'opened'}"></div>
+                  </div>
+                </div>
+                <div class="text-center">{{one_windowstatus.name}}</div>
+              </td>
+              <td>{{api.latestSensorData.window1}}</td>
+            }@else if (one_windowstatus.id == api.latestSensorData.idWindow2) {
+              <td>
+                <div class="container">
+                  
+                  <div class="back">
+                    <img [src]="one_windowstatus.pic" />
+                  </div>
+    
+                  
+                  <div class="windows">
+                    <div class="leftSide"></div>
+                    <div class="rightSide " [ngClass]="{'hover-effect': api.latestSensorData.window2 === 'opened'}"></div>
+                  </div>
+                </div>
+                <div class="text-center">{{one_windowstatus.name}}</div>
+              </td>
+              <td>{{api.latestSensorData.window2}}</td>
+            }
+            @if (authority_id == 1) {
+              <td>
+                <button class="btn btn-outline-danger" href="javascript:void(0);"
+                  (click)="delete_windowstatus(one_windowstatus.id)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            }
+          } -->
+        <!-- </tr> -->
       </tbody>
     </table>
   </div>
+
   <!-- ajout -->
   <div class="modal fade" id="modal_add_windowstatus" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -136,7 +182,8 @@
                 </div>
               </div>
               <!-- button -->
-              <button class="btn btn-outline-success" (click)="filterData()">Filter</button>
+              <button class="btn btn-outline-success" (click)="filterData()">Filtrer</button>
+              <button class="btn btn-outline-info" (click)="downloadPDF()">Télécharger l'historique</button>
             </div>
           </div>
         </div>

@@ -1,38 +1,46 @@
 .alert-motion {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 300px;
-    display: none;
-  }
-  
-  .alert-motion.show {
-    display: block;
-    animation: fadeInOut 2s linear;
-  }
-  
-  @keyframes fadeInOut {
-    0% { opacity: 0; }
-    50% { opacity: 1; }
-    100% { opacity: 0; }
-  }
-  
-  .draggable-alert {
-    position: relative; /* Start relative to parent */
-    top: 20px;
-    width: auto;
-    max-width: auto;
-    z-index: 1000;
-    cursor: move;
-  }
-  
-  .draggable-alert.show {
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-  }
-  
-  .draggable-alert.d-none {
-    opacity: 0;
-    pointer-events: none;
-  }
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  display: none;
+}
+
+.alert-motion.show {
+  display: block;
+  animation: fadeInOut 2s linear;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.draggable-alert {
+  position: relative; /* Start relative to parent */
+  top: 20px;
+  width: auto;
+  max-width: auto;
+  z-index: 1000;
+  cursor: move;
+}
+
+.draggable-alert.show {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.draggable-alert.d-none {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bg-motion-detected {
+  background-color: #dc3545; /* Bootstrap's danger color (red) */
+}
+
+.bg-motion-stopped {
+  background-color: #28a745; /* Bootstrap's success color (green) */
+}

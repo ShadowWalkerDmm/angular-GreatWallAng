@@ -1,5 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ApiService } from '../../../service/api/api.service';
+import { SocketService } from '../../../service/socket.service';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 @Component({
   selector: 'app-list-waterlevelsensors',
   templateUrl: './list-waterlevelsensors.component.html',
@@ -16,10 +19,15 @@ export class ListWaterlevelsensorsComponent {
   @ViewChild('closeWaterLevelModal') closeWaterLevelModal!: ElementRef;
   @ViewChild('closeEditWaterLevelModal') closeEditWaterLevelModal!: ElementRef;
 
-  constructor(public api: ApiService,) {
+  private wsURL = 'ws://localhost:1880/ws/sensor';
+  sensorData: any[] = [];
+  latestSensorData: any = null; // Propriété pour stocker les dernières données reçues
+
+  constructor(public api: ApiService, private wsService: SocketService) {
 
   }
   ngOnInit(): void {
+
     this.get_waterlevelsensors()
   }
   get_waterlevelsensors() {
@@ -134,4 +142,24 @@ export class ListWaterlevelsensorsComponent {
     const toDate = new Date(dateTo);
     return date >= fromDate && date <= toDate;
   }
+
+      //download historique in pdf
+      downloadPDF() {
+        if (this.les_waterlevelsensorss.length === 0) {
+          alert('No data available to download.');
+          return;
+        }
+    
+        const doc = new jsPDF();
+        const col = Object.keys(this.les_waterlevelsensorss[0]);
+        const rows = this.les_waterlevelsensorss.map(item => col.map(key => item[key]));
+    
+        doc.text("Historique des Données des Detecteurs de Niveau d'Eau", 14, 16);
+        autoTable(doc, {
+          head: [col],
+          body: rows,
+          startY: 20,
+        });
+        doc.save('historique_des_detecteurs_de_niveau_d_eau.pdf');
+      }
 }

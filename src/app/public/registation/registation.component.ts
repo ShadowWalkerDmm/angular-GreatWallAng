@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService } from '../../api.service';
+import { ApiService } from '../../service/api/api.service';
 
 @Component({
   selector: 'app-registation',

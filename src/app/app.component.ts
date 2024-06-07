@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-// import { ApiService } from './api.service';
-
 import { SocketService } from './service/socket.service';
 import { ApiService } from './service/api/api.service';
 
@@ -29,10 +27,12 @@ export class AppComponent implements OnInit {
     wsSubject.subscribe(
       (msg: MessageEvent) => {
         let data = JSON.parse(msg.data);
-
+        if(this.api.sensorData.length < 1){
+        this.api.sensorData.push(data);
+        }
         this.prepareData(data) //filter data so that we will always get all the elements
-        console.log("data : ", this.newData);
-        this.api.sensorData.push(this.newData);
+        // console.log("data : ", this.newData);
+        // this.api.sensorData.push(this.newData);
         console.log("table length: ",this.api.sensorData.length)
         if(this.api.sensorData.length > 1){
           this.api.latestSensorData = this.newData; // Mettre à jour les dernières données reçues
@@ -59,13 +59,11 @@ export class AppComponent implements OnInit {
     console.log("dernier element : ", this.api.sensorData[this.api.sensorData.length - 1])
     console.log("nouveau element : ", data)
     //afficher les cles du dernier du tableau
-    if (this.api.sensorData.length) {
+    if (this.api.sensorData.length >= 1) {
 
       let lastElement = this.api.sensorData[this.api.sensorData.length - 1];
       let newSensorDataKeyValue = Object.entries(data);
       let lastestSensorDataKeyValue = Object.entries(lastElement);
-    
-      console.log("les cles : ", newSensorDataKeyValue)
     
       let difference: any[] = [];
     
@@ -73,7 +71,6 @@ export class AppComponent implements OnInit {
       for (let [key, value] of lastestSensorDataKeyValue) {
         let found = false;
         for (let [lastKey, lastValue] of newSensorDataKeyValue) {
-          console.log("Last key : ",lastKey)
           if (key === lastKey) {
             found = true;
             break;
@@ -95,10 +92,12 @@ export class AppComponent implements OnInit {
         ...newSensorDataKeyValue,
         ...data
       }
-      console.log("newSensorDataKeyValue : ", this.newData);
 
+      this.api.sensorData.push(this.newData);
+      console.log("api.sensorData : ", this.api.sensorData);
+      
+      console.log("newData : ", this.newData);
     }
-    // console.log("data : ", data);
 
   }
 

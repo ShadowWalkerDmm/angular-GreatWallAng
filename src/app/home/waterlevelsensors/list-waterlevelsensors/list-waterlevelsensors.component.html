@@ -1,44 +1,56 @@
-<!-- <div class="container mb-5 mt-5">
-  <div class="row">
-    <div class="col-12">
-      <h1 class="text-center">Water Level Management</h1>
-      <div [ngClass]="{'show': alert, 'd-none': !alert}"
-        class="alert alert-danger alert-dismissible fade draggable-alert" role="alert" draggable="true"
-        (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
-        Alert high water level
-        <button type="button" class="btn-close" aria-label="Close" (click)="alert = false"></button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-<div class="container mb-5 mt-5">
-  <div class="row">
-    <div class="col-12">
-      <h1 class="text-center">Water Level Detection</h1>
-      <div [ngClass]="{
-            'show': api.alertWater,
-            'd-none': !api.alertWater,
-            'bg-waterlevel-detected': api.latestSensorData?.water === 'alert',
-            'bg-waterlevel-stopped': api.latestSensorData?.water === 'stoped'
-          }"
-        class="alert alert-dismissible fade draggable-alert alert-waterlevel" role="alert" draggable="true"
-        (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
-        <div *ngIf="api.latestSensorData">
-          <p *ngIf="api.latestSensorData.water === 'alert'">
-            Attention Niveau d'eau élévé!
-          </p>
-          <p *ngIf="api.latestSensorData.water === 'stoped'">
-             Niveau d'eau normal!
-          </p>
-          <!-- <p><strong>Timestamp:</strong> {{ api.latestSensorData.timestamp }}</p>
-          <p><strong>Motion:</strong> {{ api.latestSensorData.water }}</p> -->
+@if (!api.latestSensorData || !api.latestSensorData.water) {
+  <div class="container mb-5 mt-5">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="text-center">Water Level Detection</h1>
+        <div [ngClass]="{
+              'show': api.alertWater,
+              'd-none': !api.alertWater,
+              'bg-waterlevel-detected': this.les_waterlevelsensorss[0].state  === 'alert',
+              'bg-waterlevel-stopped': this.les_waterlevelsensorss[0].state  === 'stoped'
+            }"
+          class="alert alert-dismissible fade draggable-alert alert-waterlevel" role="alert" draggable="true"
+          (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
+          <div >
+            <p *ngIf="this.les_waterlevelsensorss[0].state  === 'alert'">
+              Attention Niveau d'eau élévé!
+            </p>
+            <p *ngIf="this.les_waterlevelsensorss[0].state  === 'stoped'">
+               Niveau d'eau normal!
+            </p>
+          </div>
+          <button type="button" class="btn-close" aria-label="Close" (click)="alert = false"></button>
         </div>
-        <button type="button" class="btn-close" aria-label="Close" (click)="alert = false"></button>
       </div>
     </div>
   </div>
-</div>
+}@else {
+  <div class="container mb-5 mt-5">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="text-center">Water Level Detection</h1>
+        <div [ngClass]="{
+              'show': api.alertWater,
+              'd-none': !api.alertWater,
+              'bg-waterlevel-detected': api.latestSensorData?.water === 'alert',
+              'bg-waterlevel-stopped': api.latestSensorData?.water === 'stoped'
+            }"
+          class="alert alert-dismissible fade draggable-alert alert-waterlevel" role="alert" draggable="true"
+          (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
+          <div *ngIf="api.latestSensorData">
+            <p *ngIf="api.latestSensorData.water === 'alert'">
+              Attention Niveau d'eau élévé!
+            </p>
+            <p *ngIf="api.latestSensorData.water === 'stoped'">
+               Niveau d'eau normal!
+            </p>
+          </div>
+          <button type="button" class="btn-close" aria-label="Close" (click)="alert = false"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
 
 
 <div class="container mb-3">

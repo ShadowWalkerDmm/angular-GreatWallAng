@@ -35,11 +35,12 @@ export class ListWaterlevelsensorsComponent {
     this.api.taf_post("waterlevelsensors/get", {}, (reponse: any) => {
       if (reponse.status) {
         this.les_waterlevelsensorss = reponse.data
-        if (this.les_waterlevelsensorss[this.les_waterlevelsensorss.length-1].state == "alert"){
-          setInterval(() => {
-            this.alert = true;
-          }, 2000); // Update every 2 seconds
-        }
+        // if (this.les_waterlevelsensorss[0].state == "alert"){
+        //   setInterval(() => {
+        //     this.alert = true;
+        //   }, 2000); // Update every 2 seconds
+        // }
+        this.api.alertWater = this.les_waterlevelsensorss[0].state === 'alert' || this.les_waterlevelsensorss[0].state === 'stoped';
         console.log("Opération effectuée avec succés sur la table waterlevelsensors. Réponse= ", reponse);
       } else {
         console.log("L'opération sur la table waterlevelsensors a échoué. Réponse= ", reponse);
@@ -62,7 +63,7 @@ export class ListWaterlevelsensorsComponent {
   }
   after_edit(params: any) {
     this.closeEditWaterLevelModal.nativeElement.click();
-    this.les_waterlevelsensorss[this.les_waterlevelsensorss.indexOf(this.waterlevelsensors_to_edit)]=params.new_data
+    this.les_waterlevelsensorss[this.les_waterlevelsensorss.indexOf(this.waterlevelsensors_to_edit)] = params.new_data
     this.get_waterlevelsensors()
   }
   voir_plus(one_waterlevelsensors: any) {
@@ -71,28 +72,28 @@ export class ListWaterlevelsensorsComponent {
   on_click_edit(one_waterlevelsensors: any) {
     this.waterlevelsensors_to_edit = one_waterlevelsensors
   }
-  on_close_modal_edit(){
-    this.waterlevelsensors_to_edit=undefined
+  on_close_modal_edit() {
+    this.waterlevelsensors_to_edit = undefined
   }
-  delete_waterlevelsensors (waterlevelsensors : any){
+  delete_waterlevelsensors(waterlevelsensors: any) {
     this.loading_delete_waterlevelsensors = true;
-    this.api.taf_post("waterlevelsensors/delete", waterlevelsensors,(reponse: any)=>{
+    this.api.taf_post("waterlevelsensors/delete", waterlevelsensors, (reponse: any) => {
       //when success
-      if(reponse.status){
-        console.log("Opération effectuée avec succés sur la table waterlevelsensors . Réponse = ",reponse)
+      if (reponse.status) {
+        console.log("Opération effectuée avec succés sur la table waterlevelsensors . Réponse = ", reponse)
         this.get_waterlevelsensors()
         alert("Opération effectuée avec succés")
-      }else{
-        console.log("L'opération sur la table waterlevelsensors  a échoué. Réponse = ",reponse)
+      } else {
+        console.log("L'opération sur la table waterlevelsensors  a échoué. Réponse = ", reponse)
         alert("L'opération a échouée")
       }
       this.loading_delete_waterlevelsensors = false;
     },
-    (error: any)=>{
-      //when error
-      console.log("Erreur inconnue! ",error)
-      this.loading_delete_waterlevelsensors = false;
-    })
+      (error: any) => {
+        //when error
+        console.log("Erreur inconnue! ", error)
+        this.loading_delete_waterlevelsensors = false;
+      })
   }
 
   private offsetX: number = 0;
@@ -131,8 +132,8 @@ export class ListWaterlevelsensorsComponent {
     this.filteredData = this.les_waterlevelsensorss.filter(waterlevel => {
       const matchesState = this.filterCriteria.states ? waterlevel.state === this.filterCriteria.states : true;
       const matchesDate = this.filterCriteria.dateFrom && this.filterCriteria.dateTo ?
-      this.isWithinDateRange(waterlevel.dateTime, this.filterCriteria.dateFrom, this.filterCriteria.dateTo) : true;
-      return matchesState && matchesDate ;
+        this.isWithinDateRange(waterlevel.dateTime, this.filterCriteria.dateFrom, this.filterCriteria.dateTo) : true;
+      return matchesState && matchesDate;
     });
   }
 
@@ -143,23 +144,23 @@ export class ListWaterlevelsensorsComponent {
     return date >= fromDate && date <= toDate;
   }
 
-      //download historique in pdf
-      downloadPDF() {
-        if (this.les_waterlevelsensorss.length === 0) {
-          alert('No data available to download.');
-          return;
-        }
-    
-        const doc = new jsPDF();
-        const col = Object.keys(this.les_waterlevelsensorss[0]);
-        const rows = this.les_waterlevelsensorss.map(item => col.map(key => item[key]));
-    
-        doc.text("Historique des Données des Detecteurs de Niveau d'Eau", 14, 16);
-        autoTable(doc, {
-          head: [col],
-          body: rows,
-          startY: 20,
-        });
-        doc.save('historique_des_detecteurs_de_niveau_d_eau.pdf');
-      }
+  //download historique in pdf
+  downloadPDF() {
+    if (this.les_waterlevelsensorss.length === 0) {
+      alert('No data available to download.');
+      return;
+    }
+
+    const doc = new jsPDF();
+    const col = Object.keys(this.les_waterlevelsensorss[0]);
+    const rows = this.les_waterlevelsensorss.map(item => col.map(key => item[key]));
+
+    doc.text("Historique des Données des Detecteurs de Niveau d'Eau", 14, 16);
+    autoTable(doc, {
+      head: [col],
+      body: rows,
+      startY: 20,
+    });
+    doc.save('historique_des_detecteurs_de_niveau_d_eau.pdf');
+  }
 }

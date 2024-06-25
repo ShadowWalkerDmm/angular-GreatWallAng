@@ -27,25 +27,21 @@ export class AppComponent implements OnInit {
     wsSubject.subscribe(
       (msg: MessageEvent) => {
         let data = JSON.parse(msg.data);
-        if(this.api.sensorData.length < 1){
-        this.api.sensorData.push(data);
-        }
-        this.prepareData(data) //filter data so that we will always get all the elements
+        // if (this.api.sensorData.length < 1) {
+        //   this.api.sensorData.push(data);
+        // }
+        // this.prepareData(data) filter data so that we will always get all the elements
         // console.log("data : ", this.newData);
-        // this.api.sensorData.push(this.newData);
-        console.log("table length: ",this.api.sensorData.length)
-        if(this.api.sensorData.length > 1){
-          this.api.latestSensorData = this.newData; // Mettre à jour les dernières données reçues
-          this.api.motionDetected = this.newData.motion === 'motion detected' || this.newData.motion === 'motion stoped';
-          this.api.alertSmoke = this.newData.smoke === 'alert' || this.newData.smoke === 'stoped';
-          this.api.alertWater = this.newData.water === 'alert' || this.newData.water === 'stoped';
-        }else{
-          this.api.latestSensorData = data; // Mettre à jour les dernières données reçues
-          this.api.motionDetected = data.motion === 'motion detected' || data.motion === 'motion stoped';
-          this.api.alertSmoke = data.smoke === 'alert' || data.smoke === 'stoped';
-          this.api.alertWater = data.water === 'alert' || data.water === 'stoped';
-        }
-
+        this.api.sensorData.push(data);
+        // if (this.api.sensorData.length > 1) {
+        this.api.latestSensorData = data; 
+        // if (this.api.les_doorstatuss) {
+        //   this.api.filterdbNr(this.api.les_doorstatuss)
+        // }
+        this.api.motionDetected = data.motion === 'motion detected' || data.motion === 'motion stoped';
+        this.api.alertSmoke = data.smoke === 'alert' || data.smoke === 'stoped';
+        this.api.alertWater = data.water === 'alert' || data.water === 'stoped';
+         console.log("from node-red: ", data)
       },
       (err) => console.error(err),
       () => console.log('complete')
@@ -64,14 +60,48 @@ export class AppComponent implements OnInit {
       let lastElement = this.api.sensorData[this.api.sensorData.length - 1];
       let newSensorDataKeyValue = Object.entries(data);
       let lastestSensorDataKeyValue = Object.entries(lastElement);
-    
+
       let difference: any[] = [];
-    
+
       // Compare les deux objets
+      // for (let [key, value] of lastestSensorDataKeyValue) {
+      //   let found = false;
+      //   for (let [lastKey, lastValue] of newSensorDataKeyValue) {
+      //     if (key === lastKey) {
+      //       if (lastKey == "doors") {
+      //         console.log("doors : ", value[value.length - 1]);
+      //       }
+      //       found = true;
+      //       break;
+      //     }
+      //   }
+      //   if (!found) {
+      //     difference.push([key, value]);
+      //   }
+      // }
       for (let [key, value] of lastestSensorDataKeyValue) {
         let found = false;
         for (let [lastKey, lastValue] of newSensorDataKeyValue) {
           if (key === lastKey) {
+            // if (lastKey === "doors") {
+            //   if (Array.isArray(value) && Array.isArray(lastValue)) {
+            //     // Compare the idDoor[] of value and lastValue[]
+            //     for (let i = 0; i < value.length; i++) {
+            //       let valueIdDoor = value[i];
+            //       let lastValueIdDoor = lastValue[i];
+            //       // If the idDoor elements don't match, insert the lastValue element into value
+            //       console.log("received door: ", lastValueIdDoor)
+            //       if (valueIdDoor !== lastValueIdDoor) {
+            //         lastValueIdDoor[i] = valueIdDoor[i]
+            //         console.log("lastValueIdDoor: ", lastValueIdDoor[i])
+            //         console.log("valueIdDoor: ", valueIdDoor[i])
+            //       }
+            //     }
+            //     // console.log("Updated doors: ", value);
+            //   } else {
+            //     console.log("Error: value is not an array for key 'doors'");
+            //   }
+            // }
             found = true;
             break;
           }
@@ -80,7 +110,10 @@ export class AppComponent implements OnInit {
           difference.push([key, value]);
         }
       }
-    
+
+
+
+
       console.log("difference : ", difference);
       // Mettre à jour newSensorDataKeyValue avec les clés et valeurs de difference
       newSensorDataKeyValue = difference.reduce((acc, [key, value]) => {
@@ -93,13 +126,12 @@ export class AppComponent implements OnInit {
         ...data
       }
 
-      this.api.sensorData.push(this.newData);
+      // this.api.sensorData.push(this.newData);
       console.log("api.sensorData : ", this.api.sensorData);
-      
+
       console.log("newData : ", this.newData);
     }
 
   }
-
 
 }

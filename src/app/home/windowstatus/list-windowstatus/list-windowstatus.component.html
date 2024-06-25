@@ -6,7 +6,7 @@
         <h1 class="mt-5"><strong>GESTION DES FENÊTRES</strong></h1>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
           @if (authority_id == 1) {
-            <button class="btn btn-outline-primary" data-bs-toggle="modal"
+          <button class="btn btn-outline-primary" data-bs-toggle="modal"
             data-bs-target="#modal_add_windowstatus">Ajout</button>
           }
           <button class="btn btn-outline-info" data-bs-toggle="modal"
@@ -18,83 +18,91 @@
           <th scope="col">FENÊTRES</th>
           <th scope="col">État</th>
           @if (authority_id == 1) {
-            <th scope="col">Actions</th>
+          <th scope="col">Actions</th>
           }
         </tr>
       </thead>
       <tbody>
-        @for (item of api.latestSensorData.windows; track $index) {
-          <tr>
-            <td>
-              <div class="container">
-                <!-- backside -->
-                <div class="back">
-                  <img src="../../../../assets/window.avif"/>
-                </div>
-  
-                <!-- window -->
-                <div class="windows">
-                  <div class="leftSide"></div>
-                  <div class="rightSide " [ngClass]="{'hover-effect': item.stateWindow === 'opened'}"></div>
-                </div>
+        @if (!api.latestSensorData || !api.latestSensorData.windows){
+        @for (window of les_windowstatuss; track $index){
+        <tr>
+          <td>
+            <div class="container">
+              <!-- backside -->
+              <div class="back">
+                <img src="../../../../assets/window.avif" />
               </div>
-              <div class="text-center">{{item.name}}</div>
-            </td>
-            <td>{{item.stateWindow}}</td>
-            @if (authority_id == 1) {
-            <td>
-              <button class="btn btn-outline-danger" href="javascript:void(0);"
-                (click)=delete_windowstatus({id:item.idWindow})><i class="bi bi-trash"></i></button>
-            </td>
-            }
-            }
-        <!-- <tr *ngFor="let one_windowstatus of les_windowstatuss">
-          @if (api.latestSensorData.idWindow1 == one_windowstatus.id || api.latestSensorData.idWindow2 == one_windowstatus.id) {
-            @if (one_windowstatus.id == api.latestSensorData.idWindow1) {
-              <td>
-                <div class="container">
-                  
-                  <div class="back">
-                    <img [src]="one_windowstatus.pic" />
-                  </div>
-    
-                  
-                  <div class="windows">
-                    <div class="leftSide"></div>
-                    <div class="rightSide " [ngClass]="{'hover-effect': api.latestSensorData.window1 === 'opened'}"></div>
-                  </div>
-                </div>
-                <div class="text-center">{{one_windowstatus.name}}</div>
-              </td>
-              <td>{{api.latestSensorData.window1}}</td>
-            }@else if (one_windowstatus.id == api.latestSensorData.idWindow2) {
-              <td>
-                <div class="container">
-                  
-                  <div class="back">
-                    <img [src]="one_windowstatus.pic" />
-                  </div>
-    
-                  
-                  <div class="windows">
-                    <div class="leftSide"></div>
-                    <div class="rightSide " [ngClass]="{'hover-effect': api.latestSensorData.window2 === 'opened'}"></div>
-                  </div>
-                </div>
-                <div class="text-center">{{one_windowstatus.name}}</div>
-              </td>
-              <td>{{api.latestSensorData.window2}}</td>
-            }
-            @if (authority_id == 1) {
-              <td>
-                <button class="btn btn-outline-danger" href="javascript:void(0);"
-                  (click)="delete_windowstatus(one_windowstatus.id)">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </td>
-            }
-          } -->
-        <!-- </tr> -->
+
+              <!-- window -->
+              <div class="windows">
+                <div class="leftSide"></div>
+                <div class="rightSide " [ngClass]="{'hover-effect': window.status === 'opened'}"></div>
+              </div>
+            </div>
+            <div class="text-center">{{window.name}}</div>
+          </td>
+          <td>{{window.status}}</td>
+          @if (authority_id == 1) {
+          <td>
+            <button class="btn btn-outline-danger" href="javascript:void(0);"
+              (click)=delete_windowstatus({id:window.id})><i class="bi bi-trash"></i></button>
+          </td>
+          }
+          }
+          }@else if(api.latestSensorData ){
+          @for (item of api.latestSensorData.windows; track $index) {
+          @for (window of les_windowstatuss; track $index){
+        <tr>
+          @if (item.idWindow == window.id){
+          <td>
+            <div class="container">
+              <!-- backside -->
+              <div class="back">
+                <img src="../../../../assets/window.avif" />
+              </div>
+
+              <!-- window -->
+              <div class="windows">
+                <div class="leftSide"></div>
+                <div class="rightSide " [ngClass]="{'hover-effect': item.stateWindow === 'opened'}"></div>
+              </div>
+            </div>
+            <div class="text-center">{{item.name}}</div>
+          </td>
+          <td>{{item.stateWindow}}</td>
+          @if (authority_id == 1) {
+          <td>
+            <button class="btn btn-outline-danger" href="javascript:void(0);"
+              (click)=delete_windowstatus({id:item.idWindow})><i class="bi bi-trash"></i></button>
+          </td>
+          }
+          }@else {
+          <td>
+            <div class="container">
+              <!-- backside -->
+              <div class="back">
+                <img src="../../../../assets/window.avif" />
+              </div>
+
+              <!-- window -->
+              <div class="windows">
+                <div class="leftSide"></div>
+                <div class="rightSide " [ngClass]="{'hover-effect': window.status === 'opened'}"></div>
+              </div>
+            </div>
+            <div class="text-center">{{window.name}}</div>
+          </td>
+          <td>{{window.status}}</td>
+          @if (authority_id == 1) {
+          <td>
+            <button class="btn btn-outline-danger" href="javascript:void(0);"
+              (click)=delete_windowstatus({id:window.id})><i class="bi bi-trash"></i></button>
+          </td>
+          }
+          }
+          }
+          }
+          }
       </tbody>
     </table>
   </div>

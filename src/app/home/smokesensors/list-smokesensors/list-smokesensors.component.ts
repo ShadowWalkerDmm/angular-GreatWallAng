@@ -34,11 +34,12 @@ export class ListSmokesensorsComponent {
     this.api.taf_post("smokesensors/get", {}, (reponse: any) => {
       if (reponse.status) {
         this.les_smokesensorss = reponse.data
-        if (this.les_smokesensorss[this.les_smokesensorss.length - 1].state == "alert") {
-          setInterval(() => {
-            this.alert = true;
-          }, 2000);// update every 2 seconds
-        }
+        this.api.alertSmoke = this.les_smokesensorss[0].state === 'alert' || this.les_smokesensorss[0].state === 'stoped';
+        // if (this.les_smokesensorss[this.les_smokesensorss.length - 1].state == "alert") {
+        //   setInterval(() => {
+        //     this.alert = true;
+        //   }, 2000);// update every 2 seconds
+        // }
         console.log("Opération effectuée avec succés sur la table smokesensors.");
       } else {
         console.log("L'opération sur la table smokesensors a échoué.");

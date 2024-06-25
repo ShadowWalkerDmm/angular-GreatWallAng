@@ -1,28 +1,39 @@
-<!-- <div class="container mb-5 mt-5">
-  <div class="row">
-    <div class="col-12">
-      <h1 class="text-center">Motion Detection</h1>
-      <div [ngClass]="{'show': api.motionDetected, 'd-none': !api.motionDetected}"
-        class="alert alert-danger alert-dismissible fade draggable-alert" role="alert" draggable="true"
-        (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
-        Motion detected!
-        <button type="button" class="btn-close" aria-label="Close" (click)="api.motionDetected = false"></button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
+@if (!api.latestSensorData || !api.latestSensorData.motion) {
 <div class="container mb-5 mt-5">
   <div class="row">
     <div class="col-12">
       <h1 class="text-center">Motion Detection</h1>
       <div [ngClass]="{
-            'show': api.motionDetected,
-            'd-none': !api.motionDetected,
-            'bg-motion-detected': api.latestSensorData?.motion === 'motion detected',
-            'bg-motion-stopped': api.latestSensorData?.motion === 'motion stoped'
-          }"
-        class="alert alert-dismissible fade draggable-alert alert-motion" role="alert" draggable="true"
+              'show': api.motionDetected,
+              'd-none': !api.motionDetected,
+              'bg-motion-detected': this.les_motionsensorss[0]?.state === 'motion detected',
+              'bg-motion-stoped': this.les_motionsensorss[0]?.state === 'motion stoped'
+            }" class="alert alert-dismissible fade draggable-alert alert-motion" role="alert" draggable="true"
+        (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
+        <div>
+          <p *ngIf="this.les_motionsensorss[0].state === 'motion detected'">
+            Motion detected!
+          </p>
+          <p *ngIf="this.les_motionsensorss[0].state === 'motion stoped'">
+            No motion detected!
+          </p>
+        </div>
+        <button type="button" class="btn-close" aria-label="Close" (click)="api.motionDetected = false"></button>
+      </div>
+    </div>
+  </div>
+</div>
+}@else{
+<div class="container mb-5 mt-5">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="text-center">Motion Detection</h1>
+      <div [ngClass]="{
+              'show': api.motionDetected,
+              'd-none': !api.motionDetected,
+              'bg-motion-detected': api.latestSensorData?.motion === 'motion detected',
+              'bg-motion-stoped': api.latestSensorData?.motion === 'motion stoped'
+            }" class="alert alert-dismissible fade draggable-alert alert-motion" role="alert" draggable="true"
         (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
         <div *ngIf="api.latestSensorData">
           <p *ngIf="api.latestSensorData.motion === 'motion detected'">
@@ -31,14 +42,13 @@
           <p *ngIf="api.latestSensorData.motion === 'motion stoped'">
             No motion detected!
           </p>
-          <!-- <p><strong>Timestamp:</strong> {{ api.latestSensorData.timestamp }}</p>
-          <p><strong>Motion:</strong> {{ api.latestSensorData.motion }}</p> -->
         </div>
         <button type="button" class="btn-close" aria-label="Close" (click)="api.motionDetected = false"></button>
       </div>
     </div>
   </div>
 </div>
+}
 
 
 

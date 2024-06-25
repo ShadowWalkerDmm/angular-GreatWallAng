@@ -15,8 +15,9 @@ export class ListDoorstatusComponent {
   authority_id: number = this.api.token.user_connected.authority_id
   loading_get_doorstatus = false
   loading_get_doorhistorique = false
-  les_doorstatuss: any[] = []
+  // les_doorstatuss: any[] = []
   les_doorhistoriques: any[] = []
+  porte: any[] = []
   id_door: any
   selected_doorstatus: any = undefined
   doorstatus_to_edit: any = undefined
@@ -30,7 +31,7 @@ export class ListDoorstatusComponent {
   // closed = true
   private wsURL = 'ws://localhost:1880/ws/sensor';
 
-  constructor(public api: ApiService,private wsService: SocketService) {
+  constructor(public api: ApiService, private wsService: SocketService) {
 
   }
   ngOnInit(): void {
@@ -43,7 +44,9 @@ export class ListDoorstatusComponent {
     this.loading_get_doorstatus = true;
     this.api.taf_post("doorstatus/get", {}, (reponse: any) => {
       if (reponse.status) {
-        this.les_doorstatuss = reponse.data
+        this.api.les_doorstatuss = reponse.data
+        // this.api.filterdbNr(this.api.les_doorstatuss)
+        console.log("les_doorstatuss : ", this.api.les_doorstatuss)
       } else {
         console.log("L'opération sur la table doorstatus a échoué. Réponse= ", reponse);
         alert("L'opération a echoué")
@@ -57,7 +60,7 @@ export class ListDoorstatusComponent {
   after_add(event: any) {
     if (event.status) {
       this.closeDoorModal.nativeElement.click();
-      this.les_doorstatuss.unshift(event.doorstatus)
+      this.api.les_doorstatuss.unshift(event.doorstatus)
       this.get_doorstatus()
     } else {
 
@@ -71,25 +74,27 @@ export class ListDoorstatusComponent {
     this.selected_doorstatus = one_doorstatus
   }
   on_click_edit(one_doorstatus: any) {
-    let status:string = "" ;
-    if(one_doorstatus.id == this.api.latestSensorData.idDoor1){
-      if(this.api.latestSensorData.door1 == "opened"){
+    let status: string = "";
+      if (one_doorstatus.state == "opened" || one_doorstatus.stateDoor == "opened") {
         status = "closed"
-      } else{
+      } else {
         status = "opened"
       }
-    }else if (this.api.latestSensorData.idDoor2 == one_doorstatus.id){
-      if(this.api.latestSensorData.door2 == "opened"){
-        status = "closed"
-      } else{
-        status = "opened"
+      let doorState: any 
+    if (one_doorstatus.id) {
+      doorState = {
+        idUser: this.api.token.user_connected.id,
+        idDoor: one_doorstatus.id,
+        nameDoor: one_doorstatus.name,
+        stateDoor: status
       }
-    }
-    let doorState = {
-      idUser: this.api.token.user_connected.id,
-      idDoor: one_doorstatus.idDoor,
-      nameDoor: one_doorstatus.name,
-      stateDoor: status
+    }else if(one_doorstatus.idDoor){
+      doorState = {
+        idUser: this.api.token.user_connected.id,
+        idDoor: one_doorstatus.idDoor,
+        nameDoor: one_doorstatus.nameDoor,
+        stateDoor: status
+      }
     }
     this.sendMessage(doorState);
     // this.doorstatus_to_edit = one_doorstatus
@@ -142,7 +147,7 @@ export class ListDoorstatusComponent {
       this.loading_get_doorhistorique = false;
     })
   }
-  
+
 
   //download historique in pdf
   downloadPDF() {
@@ -181,7 +186,7 @@ export class ListDoorstatusComponent {
       const matchesState = this.filterCriteria.state ? doorhistorique.state === this.filterCriteria.state : true;
       const matchesDate = this.filterCriteria.dateFrom && this.filterCriteria.dateTo ?
         this.isWithinDateRange(doorhistorique.updated_at, this.filterCriteria.dateFrom, this.filterCriteria.dateTo) : true;
-      return matchesIdDoor && matchesState && matchesDate ;
+      return matchesIdDoor && matchesState && matchesDate;
     });
   }
 
@@ -192,8 +197,10 @@ export class ListDoorstatusComponent {
     return date >= fromDate && date <= toDate;
   }
 
-  sendMessage(doorState : {idUser : number,idDoor:number,nameDoor:string,stateDoor:string}): void {
+  sendMessage(doorState: { idUser: number, idDoor: number, nameDoor: string, stateDoor: string }): void {
     this.wsService.sendMessage(doorState);
-    console.log("doorstate: ",doorState)
+    console.log("doorstate: ", doorState)
   }
+
+
 }

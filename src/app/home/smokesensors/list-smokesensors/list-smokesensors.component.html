@@ -1,46 +1,32 @@
-<!-- ajout -->
-<!-- <div class="modal fade" id="modal_add_smokesensors" data-bs-backdrop="static">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-          <div class="modal-header " data-bs-theme="dark">
-              <h1 class="modal-title fs-5">Ajouter Smokesensors</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <app-add-smokesensors (cb_add_smokesensors)="after_add($event)"></app-add-smokesensors>
-          </div>
-      </div>
-  </div>
-</div> -->
-<!-- modification -->
-<!-- <div class="modal fade" id="modal_edit_smokesensors" data-bs-backdrop="static">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header" data-bs-theme="dark">
-        <h1 class="modal-title fs-5">Modifier Smokesensors</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="on_close_modal_edit()"></button>
-      </div>
-      <div class="modal-body">
-        <app-edit-smokesensors *ngIf="smokesensors_to_edit" (cb_edit_smokesensors)="after_edit($event)" [smokesensors_to_edit]="smokesensors_to_edit"></app-edit-smokesensors>
-      </div>
-    </div>
-  </div>
-</div> -->
 <div class="container">
-  <!-- <div class="mt-5 mb-3">
+
+@if (!api.latestSensorData || !api.latestSensorData.smoke) {
+  <div class="container mb-5 mt-5">
     <div class="row">
       <div class="col-12">
-        <h1 class="text-center">Smoke detector</h1>
-        <div [ngClass]="{'show': alert, 'd-none': !alert}"
-          class="alert alert-danger alert-dismissible fade draggable-alert" role="alert" draggable="true"
+        <h1 class="text-center">Smoke Detection</h1>
+        <div [ngClass]="{
+              'show': api.alertSmoke,
+              'd-none': !api.alertSmoke,
+              'bg-smoke-detected': this.les_smokesensorss[0].state === 'alert',
+              'bg-smoke-stopped': this.les_smokesensorss[0].state === 'stoped'
+            }"
+          class="alert alert-dismissible fade draggable-alert alert-smoke" role="alert" draggable="true"
           (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
-          Alert Smoke detected!
+          <div >
+            <p *ngIf="this.les_smokesensorss[0].state === 'alert'">
+              Attention fumée détecté!
+            </p>
+            <p *ngIf="this.les_smokesensorss[0].state === 'stoped'">
+              Pas de fumée detectée!
+            </p>
+          </div>
           <button type="button" class="btn-close" aria-label="Close" (click)="alert = false"></button>
         </div>
       </div>
     </div>
-  </div> -->
-
+  </div>
+}@else {
   <div class="container mb-5 mt-5">
     <div class="row">
       <div class="col-12">
@@ -60,14 +46,14 @@
             <p *ngIf="api.latestSensorData.smoke === 'stoped'">
               Pas de fumée detectée!
             </p>
-            <!-- <p><strong>Timestamp:</strong> {{ api.latestSensorData.timestamp }}</p>
-            <p><strong>Motion:</strong> {{ api.latestSensorData.smoke }}</p> -->
           </div>
           <button type="button" class="btn-close" aria-label="Close" (click)="alert = false"></button>
         </div>
       </div>
     </div>
   </div>
+}
+  
   
   
 

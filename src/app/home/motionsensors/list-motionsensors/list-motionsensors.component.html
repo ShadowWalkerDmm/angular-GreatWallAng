@@ -1,109 +1,142 @@
-@if (!api.latestSensorData || !api.latestSensorData.motion) {
-<div class="container mb-5 mt-5">
+<div *ngIf="api.latestSensorData && api.latestSensorData?.motion" class="container mb-5 mt-5">
   <div class="row">
     <div class="col-12">
-      <h1 class="text-center">Motion Detection</h1>
-      <div [ngClass]="{
-              'show': api.motionDetected,
-              'd-none': !api.motionDetected,
-              'bg-motion-detected': this.les_motionsensorss[0]?.state === 'motion detected',
-              'bg-motion-stoped': this.les_motionsensorss[0]?.state === 'motion stoped'
-            }" class="alert alert-dismissible fade draggable-alert alert-motion" role="alert" draggable="true"
-        (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
-        <div>
-          <p *ngIf="this.les_motionsensorss[0].state === 'motion detected'">
-            Motion detected!
-          </p>
-          <p *ngIf="this.les_motionsensorss[0].state === 'motion stoped'">
-            No motion detected!
-          </p>
-        </div>
-        <button type="button" class="btn-close" aria-label="Close" (click)="api.motionDetected = false"></button>
-      </div>
-    </div>
-  </div>
-</div>
-}@else{
-<div class="container mb-5 mt-5">
-  <div class="row">
-    <div class="col-12">
-      <h1 class="text-center">Motion Detection</h1>
-      <div [ngClass]="{
-              'show': api.motionDetected,
-              'd-none': !api.motionDetected,
+      <h1 class="text-center mt-3">Motion Detection</h1>
+      <div class="alert-motion" [ngClass]="{'show': alert,
               'bg-motion-detected': api.latestSensorData?.motion === 'motion detected',
-              'bg-motion-stoped': api.latestSensorData?.motion === 'motion stoped'
-            }" class="alert alert-dismissible fade draggable-alert alert-motion" role="alert" draggable="true"
-        (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
+              'bg-motion-stoped': api.latestSensorData?.motion === 'motion stoped'}">
         <div *ngIf="api.latestSensorData">
-          <p *ngIf="api.latestSensorData.motion === 'motion detected'">
-            Motion detected!
-          </p>
-          <p *ngIf="api.latestSensorData.motion === 'motion stoped'">
-            No motion detected!
-          </p>
+          <p *ngIf="api.latestSensorData?.motion === 'motion detected'">Mouvement detecté!</p>
+          <p *ngIf="api.latestSensorData?.motion === 'motion stoped'">Pas de ouvement detecté!</p>
         </div>
-        <button type="button" class="btn-close" aria-label="Close" (click)="api.motionDetected = false"></button>
+        <!-- <button type="button" class="btn-close" aria-label="Close" (click)="api.motionDetected = false"></button> -->
       </div>
     </div>
   </div>
 </div>
-}
-
-
-
+<div *ngIf="!api.latestSensorData || !api.latestSensorData?.motion" class="container mb-5 mt-5">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="text-center mt-3">Motion Detection</h1>
+      <div class="alert-motion" [ngClass]="{'show': alert,
+              'bg-motion-detected': les_motionsensorss[0]?.state === 'motion detected',
+              'bg-motion-stoped': les_motionsensorss[0]?.state === 'motion stoped'}">
+        <div>
+          <p *ngIf="les_motionsensorss[0]?.state === 'motion detected'">Mouvement detecté!</p>
+          <p *ngIf="les_motionsensorss[0]?.state === 'motion stoped'">Pas de ouvement detecté!</p>
+        </div>
+        <!-- <button type="button" class="btn-close" aria-label="Close" (click)="api.motionDetected = false"></button> -->
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container mb-3">
-  <div class="row g-2">
-    <!-- states -->
-    <!-- <div class="col-md">
-      <div class="form-floating">
-        <select class="form-select" id="floatingSelectGrid" [(ngModel)]="filterCriteria.states">
-          <option value="">All</option>
-          <option value='Motion detected!'>Motion detected</option>
-          <option value='Motion stopped!'>Motion stopped</option>
-        </select>
-        <label for="floatingSelectGrid">States</label>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="btn btn-outline-primary mb-3" data-bs-toggle="modal"
+      data-bs-target="#modal_historique_motion">Historique</button>
+  </div>
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">State</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if (api.latestSensorData && api.latestSensorData?.system){
+        <tr>
+          <td class="text-center">{{api.latestSensorData?.system}}</td>
+          <td>
+            <button class="btn btn-outline-info" (click)="on_click_edit_sys(api.latestSensorData)">
+              {{api.latestSensorData?.system == "arme"? "desarme" : "arme"}}
+            </button>
+          </td>
+        </tr>
+      }@else {
+        <tr *ngFor="let one_stateMotionSystem of les_stateMotionSystems">
+          <td class="text-center">{{one_stateMotionSystem.state}}</td>
+          <td>
+            <button class="btn btn-outline-info" (click)="on_click_edit_sys(one_stateMotionSystem)">
+              {{one_stateMotionSystem.state == "arme"? "desarme" : "arme"}}
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- historique -->
+<div class="modal fade" id="modal_historique_motion" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header ">
+        <h1 class="modal-title fs-5">Historique Mouvement</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #closeDoorModal></button>
       </div>
-    </div> -->
-    <!-- Date/Time from -->
-    <div class="col-md">
-      <div class="form-floating">
-        <input [(ngModel)]="filterCriteria.dateFrom" type="datetime-local" class="form-control" id="floatingInputGrid">
-        <label for="floatingInputGrid">Date/Time De</label>
+      <div class="modal-body">
+        <div class="row g-2">
+          <!-- Date/Time from -->
+          <div class="col-md">
+            <div class="form-floating">
+              <input [(ngModel)]="filterCriteria.dateFrom" type="datetime-local" class="form-control"
+                id="floatingInputGrid">
+              <label for="floatingInputGrid">Date/Time De</label>
+            </div>
+          </div>
+          <!-- Date/time to -->
+          <div class="col-md">
+            <div class="form-floating">
+              <input [(ngModel)]="filterCriteria.dateTo" type="datetime-local" class="form-control"
+                id="floatingInputGrid">
+              <label for="floatingInputGrid">Date/Time A</label>
+            </div>
+          </div>
+          <!-- button -->
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <button class="btn btn-outline-success mb-2" (click)="filterData()">Filter</button>
+            <button class="btn btn-outline-info mb-2" (click)="downloadPDF()">Télécharger l'historique</button>
+          </div>
+        </div>
       </div>
-    </div>
-    <!-- Date/time to -->
-    <div class="col-md">
-      <div class="form-floating">
-        <input [(ngModel)]="filterCriteria.dateTo" type="datetime-local" class="form-control" id="floatingInputGrid">
-        <label for="floatingInputGrid">Date/Time A</label>
+      <!-- display of historique -->
+      <div style="max-height: 400px; overflow-y: auto;">
+        <table class="table table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Num</th>
+              <th scope="col">State</th>
+              <th scope="col">Date/time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sensor of filteredData">
+              <td>{{sensor.id}}</td>
+              <td>{{sensor.state}}</td>
+              <td>{{api.format_date(sensor.dateTime).full_datetime}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </div>
-    <!-- button -->
-    <div class="d-grid gap-2 col-6 mx-auto">
-      <button class="btn btn-outline-success mb-2" (click)="filterData()">Filter</button>
-      <button class="btn btn-outline-info mb-2" (click)="downloadPDF()">Télécharger l'historique</button>
     </div>
   </div>
+</div>
 
-  <!-- display of historique -->
-  <div style="max-height: 400px; overflow-y: auto;">
-    <table class="table table-bordered">
-      <thead class="table-dark">
-        <tr>
-          <th scope="col">Num</th>
-          <th scope="col">State</th>
-          <th scope="col">Date/time</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let sensor of filteredData">
-          <td>{{sensor.id}}</td>
-          <td>{{sensor.state}}</td>
-          <td>{{api.format_date(sensor.dateTime).full_datetime}}</td>
-        </tr>
-      </tbody>
-    </table>
+<!-- Arm and disarm the system -->
+<div class="modal fade" id="modal_edit_stateMotionSystem" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Système de detection de mouvement</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="on_close_modal_edit_sys()"></button>
+      </div>
+      <div class="modal-body">
+        <app-edit-state-motion-system *ngIf="stateMotionSystem_to_edit"
+          (cb_edit_stateMotionSystem)="after_edit_sys($event)"
+          [stateMotionSystem_to_edit]="stateMotionSystem_to_edit"></app-edit-state-motion-system>
+      </div>
+    </div>
   </div>
 </div>

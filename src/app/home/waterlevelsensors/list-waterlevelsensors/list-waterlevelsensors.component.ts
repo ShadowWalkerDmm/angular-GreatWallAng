@@ -35,11 +35,6 @@ export class ListWaterlevelsensorsComponent {
     this.api.taf_post("waterlevelsensors/get", {}, (reponse: any) => {
       if (reponse.status) {
         this.les_waterlevelsensorss = reponse.data
-        // if (this.les_waterlevelsensorss[0].state == "alert"){
-        //   setInterval(() => {
-        //     this.alert = true;
-        //   }, 2000); // Update every 2 seconds
-        // }
         this.api.alertWater = this.les_waterlevelsensorss[0].state === 'alert' || this.les_waterlevelsensorss[0].state === 'stoped';
         console.log("Opération effectuée avec succés sur la table waterlevelsensors. Réponse= ", reponse);
       } else {

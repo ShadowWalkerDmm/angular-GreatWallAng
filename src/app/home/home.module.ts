@@ -35,6 +35,9 @@ import { ListCameraComponent } from './camera/list-camera/list-camera.component'
 import { AddWindowhistoriqueComponent } from './windowhistorique/add-windowhistorique/add-windowhistorique.component';
 import { EditWindowhistoriqueComponent } from './windowhistorique/edit-windowhistorique/edit-windowhistorique.component';
 import { ListWindowhistoriqueComponent } from './windowhistorique/list-windowhistorique/list-windowhistorique.component';
+import { AddStateMotionSystemComponent } from './state-motion-system/add-state-motion-system/add-state-motion-system.component';
+import { EditStateMotionSystemComponent } from './state-motion-system/edit-state-motion-system/edit-state-motion-system.component';
+import { ListStateMotionSystemComponent } from './state-motion-system/list-state-motion-system/list-state-motion-system.component';
   
   
   @NgModule({
@@ -70,7 +73,10 @@ import { ListWindowhistoriqueComponent } from './windowhistorique/list-windowhis
     ListCameraComponent,
     AddWindowhistoriqueComponent,
     EditWindowhistoriqueComponent,
-    ListWindowhistoriqueComponent
+    ListWindowhistoriqueComponent,
+    AddStateMotionSystemComponent,
+    EditStateMotionSystemComponent,
+    ListStateMotionSystemComponent
   ],
     imports: [
       CommonModule,

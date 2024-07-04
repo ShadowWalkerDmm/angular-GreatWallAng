@@ -395,6 +395,15 @@
                                             "Default": "current_timestamp()",
                                             "Extra": "",
                                             "explications": ""
+                                        },
+                                        {
+                                            "Field": "pic",
+                                            "Type": "text",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": "'https:\/\/sharecg.com\/images\/medium\/11603.jpg'",
+                                            "Extra": "",
+                                            "explications": ""
                                         }
                                     ]
                                 }
@@ -432,7 +441,8 @@
                         "id",
                         "name",
                         "state",
-                        "dateTime"
+                        "dateTime",
+                        "pic"
                     ],
                     "table_descriptions": {
                         "table_name": "doorstatus",
@@ -483,6 +493,15 @@
                                 "Null": "NO",
                                 "Key": "",
                                 "Default": "current_timestamp()",
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "pic",
+                                "Type": "text",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": "'https:\/\/sharecg.com\/images\/medium\/11603.jpg'",
                                 "Extra": "",
                                 "explications": ""
                             }
@@ -601,6 +620,55 @@
                                 "Null": "NO",
                                 "Key": "",
                                 "Default": "current_timestamp()",
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "stateMotionSystem",
+                    "description": [
+                        "id_stateMotionSystem",
+                        "state"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "stateMotionSystem",
+                        "cle_primaire": {
+                            "Field": "id_stateMotionSystem",
+                            "Type": "int(11)",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": "cl\u00e9 primaire"
+                        },
+                        "les_based_table_name": [
+                            "stateMotionSystem"
+                        ],
+                        "les_referenced_table": [],
+                        "les_colonnes": [
+                            {
+                                "Field": "id_stateMotionSystem",
+                                "Type": "int(11)",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": "cl\u00e9 primaire"
+                            },
+                            {
+                                "Field": "state",
+                                "Type": "varchar(50)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
                                 "Extra": "",
                                 "explications": ""
                             }
@@ -941,6 +1009,15 @@
                                             "Default": "current_timestamp()",
                                             "Extra": "",
                                             "explications": ""
+                                        },
+                                        {
+                                            "Field": "pic",
+                                            "Type": "text",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": "'https:\/\/images.unsplash.com\/photo-1608507974332-21bcd8f2faa2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80'",
+                                            "Extra": "",
+                                            "explications": ""
                                         }
                                     ]
                                 }
@@ -978,7 +1055,8 @@
                         "id",
                         "name",
                         "status",
-                        "dateTime"
+                        "dateTime",
+                        "pic"
                     ],
                     "table_descriptions": {
                         "table_name": "windowstatus",
@@ -1029,6 +1107,15 @@
                                 "Null": "NO",
                                 "Key": "",
                                 "Default": "current_timestamp()",
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "pic",
+                                "Type": "text",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": "'https:\/\/images.unsplash.com\/photo-1608507974332-21bcd8f2faa2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80'",
                                 "Extra": "",
                                 "explications": ""
                             }

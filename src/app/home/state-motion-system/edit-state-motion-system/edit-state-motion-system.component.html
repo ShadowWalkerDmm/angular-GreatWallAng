@@ -1,0 +1,21 @@
+<form [formGroup]="reactiveForm_edit_stateMotionSystem " (ngSubmit)="onSubmit_edit_stateMotionSystem ()"
+    #form_edit_stateMotionSystem="ngForm" class="row">
+
+    <!-- state field avec un control de validite -->
+    <div class="form-group col-sm-6">
+        <label>state</label>
+        <select class="form-control category-select" id="exampleFormControlSelect1" formControlName="state"
+            [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
+            <option value="armed">Armé</option>
+            <option value="unarmed">Désarmé</option>
+        </select>
+    </div>
+</form>
+<!-- vous pouvez valider votre formulaire n'importe ou -->
+
+<div class="text-center m-2">
+    <button type="button" class="btn btn-primary m-2" [disabled]="loading_edit_stateMotionSystem "
+        (click)="form_edit_stateMotionSystem .ngSubmit.emit()">{{loading_edit_stateMotionSystem ?"En cours
+        ...":"Valider"}}
+    </button>
+</div>

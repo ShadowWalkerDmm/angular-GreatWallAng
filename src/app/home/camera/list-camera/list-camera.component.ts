@@ -12,6 +12,9 @@ export class ListCameraComponent {
   selected_camera: any = undefined
   camera_to_edit: any = undefined
   loading_delete_camera = false
+  currentStreamLink: any = "";
+  currentStreamName: any = "";
+  
   constructor(public api: ApiService,) {
 
   }
@@ -41,18 +44,23 @@ export class ListCameraComponent {
 
     }
   }
+
   after_edit(params: any) {
     this.les_cameras[this.les_cameras.indexOf(this.camera_to_edit)] = params.new_data
   }
+
   voir_plus(one_camera: any) {
     this.selected_camera = one_camera
   }
+
   on_click_edit(one_camera: any) {
     this.camera_to_edit = one_camera
   }
+
   on_close_modal_edit() {
     this.camera_to_edit = undefined
   }
+
   delete_camera(camera: any) {
     this.loading_delete_camera = true;
     this.api.taf_post("camera/delete", camera, (reponse: any) => {
@@ -72,5 +80,16 @@ export class ListCameraComponent {
         console.log("Erreur inconnue! ", error)
         this.loading_delete_camera = false;
       })
+  }
+
+  trackByFn(index: number, item: any): number {
+    return item.id_camera;
+  }
+
+  openStreamModal(link: string, name: string): void {
+    this.currentStreamLink = link;
+    this.currentStreamName = name;
+    // console.log("currentStreamlink: ", this.currentStreamLink)
+    // console.log("currentStreamlink: ", this.currentStreamName)
   }
 }

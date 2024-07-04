@@ -14,7 +14,7 @@
       <div class="row row-cols-2">
         @for (cctv of les_cameras; track $index) {
         <div class="card m-2" style="width: 40%">
-          <video [src]="cctv.link" controls autoplay muted class="card-img-top"></video>
+          <img class="card-img-top" id="stream" [src]="cctv.link" crossorigin="" (click)="openStreamModal(cctv.link,cctv.name)" data-bs-toggle="modal" data-bs-target="#modal_specifique_stream">
           <div class="card-body">
             <p class="card-text">{{cctv.name}}</p>
           </div>
@@ -37,15 +37,6 @@
   </div>
 
 
-
-
-
-
-
-
-
-
-
   <!-- ajout -->
   <div class="modal fade" id="modal_add_camera" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -60,6 +51,7 @@
       </div>
     </div>
   </div>
+
   <!-- modification -->
   <div class="modal fade" id="modal_edit_camera" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -73,6 +65,21 @@
           <app-edit-camera *ngIf="camera_to_edit" (cb_edit_camera)="after_edit($event)"
             [camera_to_edit]="camera_to_edit"></app-edit-camera>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- display specifique stream -->
+<div class="modal fade" id="modal_specifique_stream" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fs-5">{{currentStreamName}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img [src]="currentStreamLink" alt="Stream" class="img-fluid" id="imagetodisplay" crossorigin="">
       </div>
     </div>
   </div>

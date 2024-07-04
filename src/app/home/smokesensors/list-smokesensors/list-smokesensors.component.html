@@ -1,61 +1,35 @@
-<div class="container">
-
-@if (!api.latestSensorData || !api.latestSensorData.smoke) {
-  <div class="container mb-5 mt-5">
+<div *ngIf="api.latestSensorData && api.latestSensorData?.smoke" class="container mb-5 mt-5">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="text-center mt-3">Smoke Detection</h1>
+      <div class="alert-smoke"
+      [ngClass]="{'show': alert,
+            'bg-smoke-detected': api.latestSensorData?.smoke === 'alert',
+            'bg-smoke-stopped': api.latestSensorData?.smoke === 'stoped'}">
+        <div *ngIf="api.latestSensorData">
+          <p *ngIf="api.latestSensorData?.smoke === 'alert'">Attention fumée détecté!</p>
+          <p *ngIf="api.latestSensorData?.smoke === 'stoped'">Pas de fumée detectée!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!api.latestSensorData || !api.latestSensorData?.smoke" class="container mb-5 mt-5">
     <div class="row">
       <div class="col-12">
-        <h1 class="text-center">Smoke Detection</h1>
-        <div [ngClass]="{
-              'show': api.alertSmoke,
-              'd-none': !api.alertSmoke,
-              'bg-smoke-detected': this.les_smokesensorss[0].state === 'alert',
-              'bg-smoke-stopped': this.les_smokesensorss[0].state === 'stoped'
-            }"
-          class="alert alert-dismissible fade draggable-alert alert-smoke" role="alert" draggable="true"
-          (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
+        <h1 class="text-center mt-3">Smoke Detection</h1>
+        <div class="alert-smoke"
+        [ngClass]="{'show': alert,
+              'bg-smoke-detected': this.les_smokesensorss[0]?.state === 'alert',
+              'bg-smoke-stopped': this.les_smokesensorss[0]?.state === 'stoped'}">
           <div >
-            <p *ngIf="this.les_smokesensorss[0].state === 'alert'">
-              Attention fumée détecté!
-            </p>
-            <p *ngIf="this.les_smokesensorss[0].state === 'stoped'">
-              Pas de fumée detectée!
-            </p>
+            <p *ngIf="les_smokesensorss[0]?.state === 'alert'">Attention fumée détecté!</p>
+            <p *ngIf="les_smokesensorss[0]?.state === 'stoped'">Pas de fumée detectée!</p>
           </div>
-          <button type="button" class="btn-close" aria-label="Close" (click)="alert = false"></button>
         </div>
       </div>
     </div>
-  </div>
-}@else {
-  <div class="container mb-5 mt-5">
-    <div class="row">
-      <div class="col-12">
-        <h1 class="text-center">Smoke Detection</h1>
-        <div [ngClass]="{
-              'show': api.alertSmoke,
-              'd-none': !api.alertSmoke,
-              'bg-smoke-detected': api.latestSensorData?.smoke === 'alert',
-              'bg-smoke-stopped': api.latestSensorData?.smoke === 'stoped'
-            }"
-          class="alert alert-dismissible fade draggable-alert alert-smoke" role="alert" draggable="true"
-          (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)">
-          <div *ngIf="api.latestSensorData">
-            <p *ngIf="api.latestSensorData.smoke === 'alert'">
-              Attention fumée détecté!
-            </p>
-            <p *ngIf="api.latestSensorData.smoke === 'stoped'">
-              Pas de fumée detectée!
-            </p>
-          </div>
-          <button type="button" class="btn-close" aria-label="Close" (click)="alert = false"></button>
-        </div>
-      </div>
-    </div>
-  </div>
-}
-  
-  
-  
+  </div>  
 
   <!-- Date/time filter -->
   <!-- Date/time from -->
@@ -103,5 +77,3 @@
       </table>
     </div>
   </div>
-
-</div>

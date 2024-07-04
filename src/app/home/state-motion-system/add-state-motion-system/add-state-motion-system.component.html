@@ -1,0 +1,19 @@
+
+<form  [formGroup]="reactiveForm_add_stateMotionSystem " (ngSubmit)="onSubmit_add_stateMotionSystem ()" #form_add_stateMotionSystem ="ngForm" class="row">
+  
+<!-- state field avec un control de validite -->
+          <div class="form-group col-sm-6">
+          <label >state</label>
+          <input class="form-control" type="text"  formControlName="state"  placeholder="state"  [ngClass]="{ 'is-invalid': submitted && f.state.errors }"/>
+          <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+          <div *ngIf="f.state.errors.required"> state est obligatoire </div>
+          </div>
+          </div>  
+</form>
+<!-- vous pouvez valider votre formulaire n'importe ou -->
+
+<div class="text-center m-2">
+    <button type="button" class="btn btn-primary m-2" [disabled]="loading_add_stateMotionSystem "
+        (click)="form_add_stateMotionSystem .ngSubmit.emit()">{{loading_add_stateMotionSystem ?"En cours ...":"Valider"}}</button>
+    <button class="btn btn-secondary m-2" type="reset" (click)="onReset_add_stateMotionSystem ()">Vider</button>
+</div>

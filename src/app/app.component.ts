@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
         this.api.motionDetected = data.motion === 'motion detected' || data.motion === 'motion stoped';
         this.api.alertSmoke = data.smoke === 'alert' || data.smoke === 'stoped';
         this.api.alertWater = data.water === 'alert' || data.water === 'stoped';
-         console.log("from node-red: ", data)
+         console.log("from node-red: ", this.api.latestSensorData)
       },
       (err) => console.error(err),
       () => console.log('complete')

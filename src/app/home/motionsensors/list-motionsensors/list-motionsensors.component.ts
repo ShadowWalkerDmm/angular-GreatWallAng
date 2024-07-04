@@ -14,24 +14,31 @@ import autoTable from 'jspdf-autotable';
 
 })
 export class ListMotionsensorsComponent {
+  alert = false;
   show_historique = false;
-  loading_get_motionsensors = false
+  loading_get_motionsensors = false;
+  loading_get_stateMotionSystem = false;
   les_motionsensorss: any[] = []
   // filterData: any[] = [];
   selected_motionsensors: any = undefined
   motionsensors_to_edit: any = undefined
+  stateMotionSystem_to_edit: any = undefined;
   loading_delete_motionsensors = false
   // motionDetected = false;
   private wsURL = 'ws://localhost:1880/ws/sensor';
   sensorData: any[] = [];
   latestSensorData: any = null; // Propriété pour stocker les dernières données reçues
+  les_stateMotionSystems: any;
+  one_stateMotionSystem: any;
+loading_delete_stateMotionSystem: any;
 
   constructor(public api: ApiService, private wsService: SocketService) {
 
   }
 
   ngOnInit(): void {
-    this.get_motionsensors()
+    this.get_motionsensors(),
+    this.get_stateMotionSystem()
   }
 
   get_motionsensors() {
@@ -40,11 +47,6 @@ export class ListMotionsensorsComponent {
       if (reponse.status) {
         this.les_motionsensorss = reponse.data
         this.api.motionDetected = this.les_motionsensorss[0].state === 'motion detected' || this.les_motionsensorss[0].state === 'motion stoped';
-        // if (this.les_motionsensorss[0].state == "Motion detected!") {
-        //   setInterval(() => {
-        //     this.api.motionDetected = true;
-        //   }, 2000); 
-        // }
         console.log("Opération effectuée avec succés sur la table motionsensors.");
       } else {
         console.log("L'opération sur la table motionsensors a échoué. Réponse= ", reponse);
@@ -167,5 +169,46 @@ export class ListMotionsensorsComponent {
         startY: 20,
       });
       doc.save('historique_des_detecteurs_de_mouvement.pdf');
+    }
+    
+    after_edit_sys(params: any) {
+      this.les_stateMotionSystems[this.les_stateMotionSystems.indexOf(this.stateMotionSystem_to_edit)]=params.new_data
+    }
+    on_click_edit_sys(one_stateMotionSystem: any) {
+      console.log("StateMotionSystem:", one_stateMotionSystem)
+      this.stateMotionSystem_to_edit = one_stateMotionSystem
+      let stateSys: string = "";
+      if (one_stateMotionSystem.state === "arme" || one_stateMotionSystem.system === "arme") {
+        stateSys = "desarme"
+      }else if (one_stateMotionSystem.state === "desarme" || one_stateMotionSystem.system === "desarme"){
+        stateSys = "arme"
+      }
+      this.sendMessage(stateSys);
+    }
+
+    on_close_modal_edit_sys(){
+      this.stateMotionSystem_to_edit=undefined
+    }
+    get_stateMotionSystem() {
+      this.loading_get_stateMotionSystem = true;
+      this.api.taf_post("stateMotionSystem/get", {}, (reponse: any) => {
+        if (reponse.status) {
+          this.les_stateMotionSystems = reponse.data
+          console.log("Opération effectuée avec succés sur la table stateMotionSystem. Réponse= ", reponse);
+        } else {
+          console.log("L'opération sur la table stateMotionSystem a échoué. Réponse= ", reponse);
+          alert("L'opération a echoué")
+        }
+        this.loading_get_stateMotionSystem = false;
+      }, (error: any) => {
+        this.loading_get_stateMotionSystem = false;
+      })
+    }
+
+    // code: number = 1234;
+
+    sendMessage(one_stateMotionSystem: any){
+      this.wsService.sendMessage(one_stateMotionSystem);
+      console.log("code: ",one_stateMotionSystem);
     }
 }

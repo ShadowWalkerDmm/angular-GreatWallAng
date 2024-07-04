@@ -1,89 +1,114 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-<div class="wrapper">
-    <div class="logo">
-        <img src="https://www.freepnglogos.com/uploads/dragon-ball-png/goku-dragon-ball-character-with-blue-electricity-around-png-7.png"
-            alt="">
-    </div>
-    <div class="text-center mt-4 name">
-        GreatWall
-    </div>
 
-    <div class="container">
-        <form [formGroup]="reactiveForm_add_user " (ngSubmit)="onSubmit_add_user ()" #form_add_user="ngForm"
-            class="mt-3">
+    <body>
+        <section>
+            <div class="login-box">
+                <form [formGroup]="reactiveForm_add_user " (ngSubmit)="onSubmit_add_user ()" #form_add_user="ngForm">
+                    <h2>Register</h2>
+                    <div class="input-box">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
+                            </svg>
+                        </span>
+                        <input type="text" formControlName="firstName" required />
+                        <!-- <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                            <div *ngIf="f.firstName.errors.required"> firstName est obligatoire </div>
+                        </div> -->
+                        <label>Nom</label>
+                    </div>
 
-            <!-- firstName field avec un control de validite -->
-            <div class="form-field d-flex align-items-center">
-                <!-- <label>firstName</label> -->
-                <span class="far fa-user"></span>
-                <input name="firstName" id="firtsName" placeholder="Input your first name" type="text" formControlName="firstName"
-                    [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
-                <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-                    <div *ngIf="f.firstName.errors.required"> firstName est obligatoire </div>
-                </div>
-            </div>
-            <!-- lastName field avec un control de validite -->
-            <div class="form-field d-flex align-items-center">
-                <!-- <label>lastName</label> -->
-                <span class="far fa-user"></span>
-                <input name="lastName" id="lastName" placeholder="Input your last name" type="text"
-                    formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
-                <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-                    <div *ngIf="f.lastName.errors.required"> lastName est obligatoire </div>
-                </div>
-            </div>
-            <!-- email field avec un control de validite -->
-            <div class="form-field d-flex align-items-center">
-                <!-- <label>email</label> -->
-                <span class="far fa-user"></span>
-                <input name="email" id="email" placeholder="Input your email" type="email" formControlName="email"
-                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                    <div *ngIf="f.email.errors.required"> email est obligatoire </div>
-                </div>
-            </div>
-            <!-- password field avec un control de validite -->
-            <div class="form-field d-flex align-items-center">
-                <!-- <label>password</label> -->
-                <span class="far fa-user"></span>
-                <input name="pwd" id="pwd" placeholder="Input your password" type="password" formControlName="password"
-                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                    <div *ngIf="f.password.errors.required"> password est obligatoire </div>
-                </div>
-            </div>
-            <!-- phone field avec un control de validite -->
-            <div class="form-field d-flex align-items-center">
-                <!-- <label>phone</label> -->
-                <span class="far fa-user"></span>
-                <input name="phone" id="phone" placeholder="Input your phone number" type="tel" formControlName="phone"
-                    [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
-                <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-                    <div *ngIf="f.phone.errors.required"> phone est obligatoire </div>
-                </div>
-            </div>
-            <!-- relationship field avec un control de validite -->
-            <div class="form-field d-flex align-items-center">
-                <!-- <label>relationship</label> -->
-                <span class="far fa-user"></span>
-                <input name="relationship" id="relationship" placeholder="Input your relationship with admin"
-                    type="text" formControlName="relationship"
-                    [ngClass]="{ 'is-invalid': submitted && f.relationship.errors }" />
-                <div *ngIf="submitted && f.relationship.errors" class="invalid-feedback">
-                    <div *ngIf="f.relationship.errors.required"> relationship est obligatoire </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <!-- vous pouvez valider votre formulaire n'importe ou -->
+                    <div class="input-box">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
+                            </svg>
+                        </span>
+                        <input type="text" formControlName="lastName" required />
+                        <!-- <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                            <div *ngIf="f.lastName.errors.required"> lastName est obligatoire </div>
+                        </div> -->
+                        <label>Prenom</label>
+                    </div>
 
-    <div class="text-center m-2">
-        <button type="button" class="btn mt-3" [disabled]="loading_add_user "
-            (click)="form_add_user .ngSubmit.emit()">{{loading_add_user ?"En cours ...":"Valider"}}</button>
-        <button class="btn warning mt-3" type="reset" (click)="onReset_add_user ()">Vider</button>
-    </div>
-    <!-- <div class="text-center fs-6">
-        <a routerLink="login">Already have an account</a>
-    </div> -->
+                    <div class="input-box">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-envelope" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                            </svg>
+                        </span>
+                        <input type="email" formControlName="email" required/>
+                        <!-- <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required"> email est obligatoire </div>
+                        </div> -->
+                        <label>Email</label>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-lock" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1" />
+                            </svg>
+                        </span>
+                        <input type="password" formControlName="password" required/>
+                        <!-- <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required"> password est obligatoire </div>
+                        </div> -->
+                        <label>Mot de passe</label>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-phone" viewBox="0 0 16 16">
+                                <path
+                                    d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                                <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+                            </svg>
+                        </span>
+                        <input type="tel" formControlName="phone" required/>
+                        <!-- <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                            <div *ngIf="f.phone.errors.required"> phone est obligatoire </div>
+                        </div> -->
+                        <label>Tel</label>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-people" viewBox="0 0 16 16">
+                                <path
+                                    d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
+                            </svg>
+                        </span>
+                        <input type="text" formControlName="relationship" required/>
+                        <!-- <div *ngIf="submitted && f.relationship.errors" class="invalid-feedback">
+                            <div *ngIf="f.relationship.errors.required"> relationship est obligatoire </div>
+                        </div> -->
+                        <label>Relation</label>
+                    </div>
+
+                    <!-- <div class="remember-forgot">
+                        <label><input type="checkbox"> Remember me</label>
+                        <a href="#">Forgot Password</a>
+                    </div> -->
+
+                    <button type="submit">Register</button>
+
+
+                </form>
+            </div>
+        </section>
+
+
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    </body>

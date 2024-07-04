@@ -5,7 +5,7 @@
   <div class="table-responsive">
     <table class="table table-bordered caption-top">
       <caption>
-        <h1 class="mt-5"><strong>GESTION DES PROTES</strong></h1>
+        <h1 class="mt-5"><strong>GESTION DES PORTES</strong></h1>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
           @if (authority_id == 1) {
           <button class="btn btn-outline-primary" data-bs-toggle="modal"
@@ -26,7 +26,6 @@
         </tr>
       </thead>
       <tbody>
-        <!-- <tr *ngFor="let one_doorstatus of les_doorstatuss"> -->
         @if(!api.latestSensorData || !api.latestSensorData.doors){
         <tr *ngFor="let one_doorstatus of api.les_doorstatuss">
           <td>
@@ -53,7 +52,7 @@
           </td>
           }
         </tr>
-        }@else if (api.latestSensorData && api.latestSensorData.doors.length > 0) {
+        }@if (api.latestSensorData && api.latestSensorData.doors.length > 0) {
         <tr *ngFor="let one_doorstatus of api.les_doorstatuss">
           @for (item of api.latestSensorData.doors; track $index){
           @if (item.idDoor == one_doorstatus.id){
@@ -114,7 +113,6 @@
 
 
   </div>
-
 
   <!-- ajout -->
   <div class="modal fade" id="modal_add_doorstatus" data-bs-backdrop="static">

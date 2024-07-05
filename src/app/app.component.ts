@@ -13,7 +13,7 @@ import { ApiService } from './service/api/api.service';
 })
 export class AppComponent implements OnInit {
 
-  private wsURL = 'ws://localhost:1880/ws/sensor';
+  private wsURL = 'ws://192.168.1.8:1880/ws/sensor';
   // sensorData: any[] = [];
   // latestSensorData: any = null; // Propriété pour stocker les dernières données reçues
   newData: any

@@ -97,6 +97,7 @@ export class ListDoorstatusComponent {
       }
     }
     this.sendMessage(doorState);
+    this.get_doorstatus();
     // this.doorstatus_to_edit = one_doorstatus
   }
   on_close_modal_edit() {

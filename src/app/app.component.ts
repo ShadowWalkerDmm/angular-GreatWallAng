@@ -13,41 +13,37 @@ import { ApiService } from './service/api/api.service';
 })
 export class AppComponent implements OnInit {
 
-  private wsURL = 'ws://192.168.1.8:1880/ws/sensor';
-  // sensorData: any[] = [];
-  // latestSensorData: any = null; // Propriété pour stocker les dernières données reçues
+  loading_get_node_red = false
+  // private wsURL = 'ws://192.168.1.8:1880/ws/sensor';
+  // private wsURL = 'ws://' + this.api.node_red_base_url + ':1880/ws/sensor';
   newData: any
   lastestSensorDataKey: any
   constructor(public api: ApiService, private wsService: SocketService) {
 
   }
+  title = 'GreatWallAng';
 
   ngOnInit(): void {
-    let wsSubject = this.wsService.connect(this.wsURL);
+    this.get_node_red();
+  }
+
+  wsocket(wsURL: string){
+    // console.log("wsUrl:", wsURL)
+    let wsSubject = this.wsService.connect(wsURL);
     wsSubject.subscribe(
       (msg: MessageEvent) => {
         let data = JSON.parse(msg.data);
-        // if (this.api.sensorData.length < 1) {
-        //   this.api.sensorData.push(data);
-        // }
-        // this.prepareData(data) filter data so that we will always get all the elements
-        // console.log("data : ", this.newData);
         this.api.sensorData.push(data);
-        // if (this.api.sensorData.length > 1) {
-        this.api.latestSensorData = data; 
-        // if (this.api.les_doorstatuss) {
-        //   this.api.filterdbNr(this.api.les_doorstatuss)
-        // }
+        this.api.latestSensorData = data;
         this.api.motionDetected = data.motion === 'motion detected' || data.motion === 'motion stoped';
         this.api.alertSmoke = data.smoke === 'alert' || data.smoke === 'stoped';
         this.api.alertWater = data.water === 'alert' || data.water === 'stoped';
-         console.log("from node-red: ", this.api.latestSensorData)
+        console.log("from node-red: ", this.api.latestSensorData)
       },
       (err) => console.error(err),
       () => console.log('complete')
     );
   }
-  title = 'angular-GreatWallAng';
 
   //creer une fonction pour les claculs sur le dernier element et le nouvel objet
 
@@ -63,45 +59,10 @@ export class AppComponent implements OnInit {
 
       let difference: any[] = [];
 
-      // Compare les deux objets
-      // for (let [key, value] of lastestSensorDataKeyValue) {
-      //   let found = false;
-      //   for (let [lastKey, lastValue] of newSensorDataKeyValue) {
-      //     if (key === lastKey) {
-      //       if (lastKey == "doors") {
-      //         console.log("doors : ", value[value.length - 1]);
-      //       }
-      //       found = true;
-      //       break;
-      //     }
-      //   }
-      //   if (!found) {
-      //     difference.push([key, value]);
-      //   }
-      // }
       for (let [key, value] of lastestSensorDataKeyValue) {
         let found = false;
         for (let [lastKey, lastValue] of newSensorDataKeyValue) {
           if (key === lastKey) {
-            // if (lastKey === "doors") {
-            //   if (Array.isArray(value) && Array.isArray(lastValue)) {
-            //     // Compare the idDoor[] of value and lastValue[]
-            //     for (let i = 0; i < value.length; i++) {
-            //       let valueIdDoor = value[i];
-            //       let lastValueIdDoor = lastValue[i];
-            //       // If the idDoor elements don't match, insert the lastValue element into value
-            //       console.log("received door: ", lastValueIdDoor)
-            //       if (valueIdDoor !== lastValueIdDoor) {
-            //         lastValueIdDoor[i] = valueIdDoor[i]
-            //         console.log("lastValueIdDoor: ", lastValueIdDoor[i])
-            //         console.log("valueIdDoor: ", valueIdDoor[i])
-            //       }
-            //     }
-            //     // console.log("Updated doors: ", value);
-            //   } else {
-            //     console.log("Error: value is not an array for key 'doors'");
-            //   }
-            // }
             found = true;
             break;
           }
@@ -132,6 +93,27 @@ export class AppComponent implements OnInit {
       console.log("newData : ", this.newData);
     }
 
+  }
+
+  get_node_red() {
+    this.loading_get_node_red = true;
+    this.api.taf_post("node_red/get", {}, (reponse: any) => {
+      if (reponse.status) {
+        // this.les_node_reds = reponse.data
+        this.api.node_red_base_url = reponse.data[0]
+        console.log("node_base_url : ", this.api.node_red_base_url)
+        const wsURL = 'ws://' + this.api.node_red_base_url.link + ':1880/ws/sensor'
+        console.log("wsUrl:", wsURL)
+        this.wsocket(wsURL)
+        console.log("Opération effectuée avec succés sur la table node_red. Réponse= ", reponse);
+      } else {
+        console.log("L'opération sur la table node_red a échoué. Réponse= ", reponse);
+        alert("L'opération a echoué")
+      }
+      this.loading_get_node_red = false;
+    }, (error: any) => {
+      this.loading_get_node_red = false;
+    })
   }
 
 }

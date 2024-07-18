@@ -38,6 +38,9 @@ import { ListWindowhistoriqueComponent } from './windowhistorique/list-windowhis
 import { AddStateMotionSystemComponent } from './state-motion-system/add-state-motion-system/add-state-motion-system.component';
 import { EditStateMotionSystemComponent } from './state-motion-system/edit-state-motion-system/edit-state-motion-system.component';
 import { ListStateMotionSystemComponent } from './state-motion-system/list-state-motion-system/list-state-motion-system.component';
+import { AddNodeRedComponent } from './node-red/add-node-red/add-node-red.component';
+import { EditNodeRedComponent } from './node-red/edit-node-red/edit-node-red.component';
+import { ListNodeRedComponent } from './node-red/list-node-red/list-node-red.component';
   
   
   @NgModule({
@@ -76,7 +79,10 @@ import { ListStateMotionSystemComponent } from './state-motion-system/list-state
     ListWindowhistoriqueComponent,
     AddStateMotionSystemComponent,
     EditStateMotionSystemComponent,
-    ListStateMotionSystemComponent
+    ListStateMotionSystemComponent,
+    AddNodeRedComponent,
+    EditNodeRedComponent,
+    ListNodeRedComponent
   ],
     imports: [
       CommonModule,

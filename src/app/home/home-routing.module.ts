@@ -11,6 +11,7 @@ import { ProfileComponent } from './user/profile/profile.component';
 import { ListCameraComponent } from './camera/list-camera/list-camera.component';
 import { ListWindowhistoriqueComponent } from './windowhistorique/list-windowhistorique/list-windowhistorique.component';
 import { ListStateMotionSystemComponent } from './state-motion-system/list-state-motion-system/list-state-motion-system.component';
+import { ListNodeRedComponent } from './node-red/list-node-red/list-node-red.component';
 
 const routes: Routes = [
   { path: "doorstatus", component: ListDoorstatusComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: "profile", component: ProfileComponent},
   { path: "camera", component: ListCameraComponent},
   { path: "windowhistorique", component: ListWindowhistoriqueComponent},
-  { path: "stateMotionSystem", component: ListStateMotionSystemComponent}
+  { path: "stateMotionSystem", component: ListStateMotionSystemComponent},
+  { path: "node_red", component: ListNodeRedComponent}
 ];
 
 @NgModule({

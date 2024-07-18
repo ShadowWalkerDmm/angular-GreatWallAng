@@ -12,6 +12,7 @@ export class ApiService {
   local_storage_prefixe = "angular-GreatWallAng";
   // taf_base_url = "http://localhost/memoireiot.taf/";
   taf_base_url = "https://shadonet.alwaysdata.net/memoireiot.taf/";
+  node_red_base_url = "";
 
   network: any = {
     token: undefined,
@@ -165,23 +166,4 @@ export class ApiService {
     this.delete_from_local_storage('token')
     this.route.navigate(['/public/login'])
   }
-
-  // filterdbNr(les_doorstatuss:any[]){
-  //   if (!this.latestSensorData){
-  //     this.porte = les_doorstatuss
-  //     console.log ("latestsensordata null")
-  //   }else{
-  //     if(this.latestSensorData.doors.length == les_doorstatuss.length){
-  //       console.log("les deux tableaux ont la meme taille")
-  //       this.porte = this.latestSensorData.doors
-  //     }else{
-  //         this.porte = this.latestSensorData.doors.filter((doorstatus : any) =>{
-  //           return les_doorstatuss.find((item : any) => item.id == doorstatus.idDoor)
-  //           })
-  //         console.log("les deux tableaux n'ont pas la meme taille")
-  //     }
-  //   }
-
-  //   console.log("les portes a afficher : ", this.porte)
-  // }
 }

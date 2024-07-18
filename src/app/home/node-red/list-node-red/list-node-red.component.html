@@ -1,0 +1,73 @@
+<!-- entete -->
+<div class="d-flex align-items-center justify-content-between mt-5">
+  <div class="fs-1">Les NodeReds - {{les_node_reds.length}}</div>
+  <div class="d-flex">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_add_node_red">Ajouter NodeRed</button>
+  </div>
+</div>
+<!-- list -->
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">id_node_red</th>
+        <th scope="col">link</th>
+        <th scope="col">uploaded_at</th>
+        <th scope="col">actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let one_node_red of les_node_reds">
+        <td>{{one_node_red.id_node_red}}</td>
+        <td>{{one_node_red.link}}</td>
+        <td>{{api.format_date(one_node_red.uploaded_at).full_datetime}}</td>
+        <td>
+          <div class="dropdown">
+            <button [disabled]="loading_delete_node_red" type="button" class="btn p-0 dropdown-toggle hide-arrow"
+              data-bs-toggle="dropdown">{{loading_delete_node_red?"en cours ...":"actions"}}</button>
+            <div class="dropdown-menu">
+              <a (click)="on_click_edit(one_node_red)" class="dropdown-item" data-bs-toggle="modal"
+                data-bs-target="#modal_edit_node_red">
+                <i class="bx bx-edit-alt me-1"></i>
+                Modifier
+              </a>
+              <a class="dropdown-item" href="javascript:void(0);"
+                (click)=delete_node_red({id_node_red:one_node_red.id_node_red})><i
+                  class="bx bx-trash me-1"></i>Supprimer</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- ajout -->
+<div class="modal fade" id="modal_add_node_red" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header ">
+        <h1 class="modal-title fs-5">Ajouter NodeRed</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-add-node-red (cb_add_node_red)="after_add($event)"></app-add-node-red>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modification -->
+<div class="modal fade" id="modal_edit_node_red" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Modifier NodeRed</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="on_close_modal_edit()"></button>
+      </div>
+      <div class="modal-body">
+        <app-edit-node-red *ngIf="node_red_to_edit" (cb_edit_node_red)="after_edit($event)"
+          [node_red_to_edit]="node_red_to_edit"></app-edit-node-red>
+      </div>
+    </div>
+  </div>
+</div>

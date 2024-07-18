@@ -1,5 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { faFontAwesome } from '@fortawesome/free-solid-svg-icons';
 import { ApiService } from '../../service/api/api.service';
 import { Offcanvas } from 'bootstrap';
@@ -9,7 +9,7 @@ import { Offcanvas } from 'bootstrap';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
   menu: any = {
     titre: "Menu",
     items: [
@@ -29,11 +29,17 @@ export class HomeComponent {
 
   constructor(public api: ApiService, public route: Router) {
   }
+  ngOnInit(): void {
+    // this.get_node_red()
+  }
 
   onIconClick() {
     this.route.navigate(['/home'])
+
   }
 
+  node_red_to_edit: any = undefined
+  loading_get_node_red = false
   loading_get_user = false
   les_users: any[] = []
   selected_user: any = undefined
@@ -77,6 +83,10 @@ export class HomeComponent {
   on_click_edit(one_user: any) {
     this.user_to_edit = one_user
   }
+  on_click_edit_url(one_node_red: any) {
+
+    this.node_red_to_edit = one_node_red
+  }
   on_close_modal_edit() {
     this.user_to_edit = undefined
   }
@@ -100,4 +110,22 @@ export class HomeComponent {
         this.loading_delete_user = false;
       })
   }
+
+  // get_node_red() {
+  //   this.loading_get_node_red = true;
+  //   this.api.taf_post("node_red/get", {}, (reponse: any) => {
+  //     if (reponse.status) {
+  //       // this.les_node_reds = reponse.data
+  //       this.api.node_red_base_url = reponse.data
+  //       console.log("node_red_url_bd: ",reponse.data)
+  //       console.log("Opération effectuée avec succés sur la table node_red. Réponse= ", reponse);
+  //     } else {
+  //       console.log("L'opération sur la table node_red a échoué. Réponse= ", reponse);
+  //       alert("L'opération a echoué")
+  //     }
+  //     this.loading_get_node_red = false;
+  //   }, (error: any) => {
+  //     this.loading_get_node_red = false;
+  //   })
+  // }
 }

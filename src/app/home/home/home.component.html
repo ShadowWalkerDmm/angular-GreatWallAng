@@ -88,6 +88,25 @@
                                                 Camera
                                           </button>
                                     </li>
+                                    <li class="nav-item">
+                                          <div class="d-flex">
+                                                <div class="input-group m-1">
+                                                      <span class="input-group-text" id="basic-addon1">Node-RED URL</span>
+                                                      <input type="text" class="form-control" [value]="api.node_red_base_url.link" disabled>
+                                                    </div>
+                                                <button class="btn btn-outline-info m-1" (click)="on_click_edit_url(api.node_red_base_url)" data-bs-toggle="modal"
+                                                data-bs-target="#modal_edit_node_red">
+                                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-pencil-square"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                            <path fill-rule="evenodd"
+                                                                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                                      </svg>
+                                                </button>
+                                          </div>
+                                    </li>
                                     } @else {
                                     <li class="nav-item">
                                           <button class="btn btn-outline-primary m-1" type="button"
@@ -184,3 +203,20 @@
             <router-outlet></router-outlet>
       </div>
 </div>
+
+<!-- modification -->
+<div class="modal fade" id="modal_edit_node_red" data-bs-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">Modifier NodeRed</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+              (click)="on_close_modal_edit()"></button>
+          </div>
+          <div class="modal-body">
+            <app-edit-node-red *ngIf="node_red_to_edit" (cb_edit_node_red)="after_edit($event)"
+              [node_red_to_edit]="node_red_to_edit"></app-edit-node-red>
+          </div>
+        </div>
+      </div>
+    </div>
